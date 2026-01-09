@@ -1,6 +1,7 @@
 package gestion_compagnie_aerienne.code_generator;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +10,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class TemplateGenerator {
+import legacy.annotations.Column;
+import legacy.annotations.Id;
+
+public final class TemplateGenerator {
 
     public static void main(String[] args) throws Exception {
         if (args.length == 0 || args[0].isBlank()) {
@@ -32,6 +36,11 @@ public class TemplateGenerator {
         return name.substring(0, 1).toLowerCase(Locale.ROOT) + name.substring(1);
     }
 
+    private static String capitalize(String name) {
+        if (name == null || name.isEmpty()) return name;
+        return name.substring(0, 1).toUpperCase(Locale.ROOT) + name.substring(1);
+    }
+
     private static void generateServlet(String entityName, String lowerName) throws IOException {
         String template = loadTemplate("servlet-template.txt");
         String content = replace(template, placeholderMap(entityName, lowerName));
@@ -41,9 +50,15 @@ public class TemplateGenerator {
         Files.writeString(servletPath, content, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    private static void generateJsp(String entityName, String lowerName) throws IOException {
+    private static void generateJsp(String entityName, String lowerName) throws Exception {
+        Class<?> entityClass = Class.forName("gestion_compagnie_aerienne.entities." + entityName);
+        ColumnBlocks cols = JspCrudGenerator.buildColumns(entityClass);
+
         String template = loadTemplate("jsp-template.txt");
-        String content = replace(template, placeholderMap(entityName, lowerName));
+        Map<String, String> map = placeholderMap(entityName, lowerName);
+        map.put("__COL_HEADERS__", cols.headers);
+        map.put("__COL_ROWS__", cols.rows);
+        String content = replace(template, map);
 
         Path jspPath = Path.of("src/main/webapp/" + lowerName + ".jsp");
         Files.createDirectories(jspPath.getParent());
@@ -91,5 +106,43 @@ public class TemplateGenerator {
             result = result.replace(entry.getKey(), entry.getValue());
         }
         return result;
+    }
+
+    private static final class ColumnBlocks {
+        final String headers;
+        final String rows;
+
+        ColumnBlocks(String headers, String rows) {
+            this.headers = headers;
+            this.rows = rows;
+        }
+    }
+
+    private static final class JspCrudGenerator {
+
+        static ColumnBlocks buildColumns(Class<?> entityClass) {
+            StringBuilder headers = new StringBuilder();
+            StringBuilder rows = new StringBuilder();
+
+            Field[] fields = entityClass.getDeclaredFields();
+            for (Field field : fields) {
+                if (field.isAnnotationPresent(Id.class)) {
+                    continue;
+                }
+
+                String label = field.getName();
+                Column col = field.getAnnotation(Column.class);
+                if (col != null && !col.name().isEmpty()) {
+                    label = col.name();
+                }
+
+                headers.append("                        <th>").append(label).append("</th>\n");
+
+                String getter = "get" + capitalize(field.getName());
+                rows.append("                        <td><%= entity.").append(getter).append("() %></td>\n");
+            }
+
+            return new ColumnBlocks(headers.toString(), rows.toString());
+        }
     }
 }

@@ -42,8 +42,13 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>TODO_COL_1</th>
-                        <th>TODO_COL_2</th>
+                        <th>id_reservation_passager</th>
+                        <th>numero_bagage</th>
+                        <th>poids</th>
+                        <th>longueur</th>
+                        <th>largeur</th>
+                        <th>created_on</th>
+
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -52,16 +57,21 @@
                         @SuppressWarnings("unchecked")
                         List<BagagePassager> items = (List<BagagePassager>) request.getAttribute("bagagePassagers");
                         if (items == null || items.isEmpty()) {
-                    %>
                         <tr>
-                            <td colspan="4" style="text-align: center; padding: 20px; color: #9ca3af;">
-                                Aucun bagagePassager trouvé
+                            <td><%= entity.getId() %></td>
+                        <td><%= entity.getIdReservationPassager() %></td>
+                        <td><%= entity.getNumeroBagage() %></td>
+                        <td><%= entity.getPoids() %></td>
+                        <td><%= entity.getLongueur() %></td>
+                        <td><%= entity.getLargeur() %></td>
+                        <td><%= entity.getCreatedOn() %></td>
+
+                            <td class="actions">
+                                <button class="action-btn"><i class="fi fi-ss-eye"></i> Voir</button>
+                                <button class="action-btn"><i class="fi fi-ss-pen"></i> Modifier</button>
+                                <button class="action-btn"><i class="fi fi-ss-trash"></i> Supprimer</button>
                             </td>
                         </tr>
-                    <%
-                        } else {
-                            for (BagagePassager entity : items) {
-                    %>
                         <tr>
                             <td><%= entity.getId() %></td>
                             <td><!-- TODO: replace with getter for COL_1 --></td>

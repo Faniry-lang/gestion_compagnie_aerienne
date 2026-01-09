@@ -67,7 +67,6 @@ CREATE TABLE statut_vol (
 CREATE TABLE vol (
     id SERIAL PRIMARY KEY,
     numero_vol VARCHAR(10),
-    id_avion INT NOT NULL REFERENCES avion(id),
     date_depart TIMESTAMP NOT NULL, 
     date_arrivee TIMESTAMP NOT NULL, 
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -78,6 +77,13 @@ CREATE TABLE escale (
     id_vol INT NOT NULL REFERENCES vol(id),
     ordre INT NOT NULL,
     id_itineraire INT NOT NULL REFERENCES itineraire(id)
+);
+
+CREATE TABLE vol_avion (
+    id SERIAL PRIMARY KEY,
+    id_vol INT NOT NULL REFERENCES vol(id),
+    id_avion INT NOT NULL REFERENCES avion(id),
+    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE historique_statut_vol (
