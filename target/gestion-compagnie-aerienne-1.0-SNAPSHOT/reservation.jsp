@@ -1,6 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.List,gestion_compagnie_aerienne.entities.Reservation" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,29 +53,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:if test="${empty reservations}">
+                    <%
+                        @SuppressWarnings("unchecked")
+                        List<Reservation> reservations = (List<Reservation>) request.getAttribute("reservations");
+                        if (reservations == null || reservations.isEmpty()) {
+                    %>
                         <tr>
                             <td colspan="4" style="text-align: center; padding: 20px; color: #9ca3af;">
                                 Aucune réservation trouvée
                             </td>
                         </tr>
-                    </c:if>
-                    <c:forEach var="res" items="${reservations}">
-                        <c:set var="reservation" value="${res}" scope="page" />
+                    <%
+                        } else {
+                            for (Reservation reservation : reservations) {
+                    %>
                         <tr>
-                            <td>${reservation.id}</td>
-                            <td>${reservation.reference}</td>
-                            <td>
-                                <fmt:formatDate value="${reservation.createdon}" 
-                                    pattern="yyyy-MM-dd HH:mm:ss" />
-                            </td>
+                            <td><%= reservation.getId() %></td>
+                            <td><%= reservation.getReference() %></td>
+                            <td><%= reservation.getCreatedon() %></td>
                             <td class="actions">
                                 <button class="action-btn"><i class="fi fi-ss-eye"></i> Voir</button>
                                 <button class="action-btn"><i class="fi fi-ss-pen"></i> Modifier</button>
                                 <button class="action-btn"><i class="fi fi-ss-trash"></i> Supprimer</button>
                             </td>
                         </tr>
-                    </c:forEach>
+                    <%
+                            }
+                        }
+                    %>
                 </tbody>
             </table>
         </div>
