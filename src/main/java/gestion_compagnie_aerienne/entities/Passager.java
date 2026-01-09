@@ -63,11 +63,11 @@ public class Passager extends BaseEntity {
         this.prenom = prenom;
     }
 
-    public LocalDate getDatenaissance() {
+    public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDatenaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
@@ -79,11 +79,11 @@ public class Passager extends BaseEntity {
         this.nationalite = nationalite;
     }
 
-    public String getNumeropasseport() {
+    public String getNumeroPasseport() {
         return numeroPasseport;
     }
 
-    public void setNumeropasseport(String numeroPasseport) {
+    public void setNumeroPasseport(String numeroPasseport) {
         this.numeroPasseport = numeroPasseport;
     }
 

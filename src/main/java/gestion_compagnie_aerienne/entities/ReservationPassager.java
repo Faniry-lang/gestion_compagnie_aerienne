@@ -27,6 +27,9 @@ public class ReservationPassager extends BaseEntity {
     @Column(name = "id_vol")
     private Integer idVol;
 
+    @Column(name = "id_vol_avion")
+    private Integer idVolAvion;
+
     @Column(name = "id_siege")
     private Integer idSiege;
 
@@ -44,35 +47,43 @@ public class ReservationPassager extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdreservation() {
+    public Integer getIdReservation() {
         return idReservation;
     }
 
-    public void setIdreservation(Integer idReservation) {
+    public void setIdReservation(Integer idReservation) {
         this.idReservation = idReservation;
     }
 
-    public Integer getIdpassager() {
+    public Integer getIdPassager() {
         return idPassager;
     }
 
-    public void setIdpassager(Integer idPassager) {
+    public void setIdPassager(Integer idPassager) {
         this.idPassager = idPassager;
     }
 
-    public Integer getIdvol() {
+    public Integer getIdVol() {
         return idVol;
     }
 
-    public void setIdvol(Integer idVol) {
+    public void setIdVol(Integer idVol) {
         this.idVol = idVol;
     }
 
-    public Integer getIdsiege() {
+    public Integer getIdVolAvion() {
+        return idVolAvion;
+    }
+
+    public void setIdVolAvion(Integer idVolAvion) {
+        this.idVolAvion = idVolAvion;
+    }
+
+    public Integer getIdSiege() {
         return idSiege;
     }
 
-    public void setIdsiege(Integer idSiege) {
+    public void setIdSiege(Integer idSiege) {
         this.idSiege = idSiege;
     }
 
@@ -84,11 +95,11 @@ public class ReservationPassager extends BaseEntity {
         this.prix = prix;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

@@ -34,27 +34,27 @@ public class Siege extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdavion() {
+    public Integer getIdAvion() {
         return idAvion;
     }
 
-    public void setIdavion(Integer idAvion) {
+    public void setIdAvion(Integer idAvion) {
         this.idAvion = idAvion;
     }
 
-    public String getNumerosiege() {
+    public String getNumeroSiege() {
         return numeroSiege;
     }
 
-    public void setNumerosiege(String numeroSiege) {
+    public void setNumeroSiege(String numeroSiege) {
         this.numeroSiege = numeroSiege;
     }
 
-    public Integer getIdclassesiege() {
+    public Integer getIdClasseSiege() {
         return idClasseSiege;
     }
 
-    public void setIdclassesiege(Integer idClasseSiege) {
+    public void setIdClasseSiege(Integer idClasseSiege) {
         this.idClasseSiege = idClasseSiege;
     }
 

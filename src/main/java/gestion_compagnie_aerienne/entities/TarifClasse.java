@@ -44,35 +44,35 @@ public class TarifClasse extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdtypeavion() {
+    public Integer getIdTypeAvion() {
         return idTypeAvion;
     }
 
-    public void setIdtypeavion(Integer idTypeAvion) {
+    public void setIdTypeAvion(Integer idTypeAvion) {
         this.idTypeAvion = idTypeAvion;
     }
 
-    public Integer getIditineraire() {
+    public Integer getIdItineraire() {
         return idItineraire;
     }
 
-    public void setIditineraire(Integer idItineraire) {
+    public void setIdItineraire(Integer idItineraire) {
         this.idItineraire = idItineraire;
     }
 
-    public Integer getIdclassesiege() {
+    public Integer getIdClasseSiege() {
         return idClasseSiege;
     }
 
-    public void setIdclassesiege(Integer idClasseSiege) {
+    public void setIdClasseSiege(Integer idClasseSiege) {
         this.idClasseSiege = idClasseSiege;
     }
 
-    public Integer getIdforfaitbagage() {
+    public Integer getIdForfaitBagage() {
         return idForfaitBagage;
     }
 
-    public void setIdforfaitbagage(Integer idForfaitBagage) {
+    public void setIdForfaitBagage(Integer idForfaitBagage) {
         this.idForfaitBagage = idForfaitBagage;
     }
 
@@ -84,11 +84,11 @@ public class TarifClasse extends BaseEntity {
         this.montant = montant;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

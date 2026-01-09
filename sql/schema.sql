@@ -67,23 +67,25 @@ CREATE TABLE statut_vol (
 CREATE TABLE vol (
     id SERIAL PRIMARY KEY,
     numero_vol VARCHAR(10),
-    date_depart TIMESTAMP NOT NULL, 
-    date_arrivee TIMESTAMP NOT NULL, 
+    id_aeroport_depart INT NOT NULL REFERENCES aeroport(id),
+    id_aeroport_arrivee INT NOT NULL REFERENCES  aeroport(id),
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE escale (
-    id SERIAL PRIMARY KEY,
-    id_vol INT NOT NULL REFERENCES vol(id),
-    ordre INT NOT NULL,
-    id_itineraire INT NOT NULL REFERENCES itineraire(id)
 );
 
 CREATE TABLE vol_avion (
     id SERIAL PRIMARY KEY,
     id_vol INT NOT NULL REFERENCES vol(id),
     id_avion INT NOT NULL REFERENCES avion(id),
+    date_depart TIMESTAMP NOT NULL,
+    date_arrivee TIMESTAMP NOT NULL,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE escale (
+    id SERIAL PRIMARY KEY,
+    id_vol_avion INT NOT NULL REFERENCES vol_avion(id),
+    ordre INT NOT NULL,
+    id_itineraire INT NOT NULL REFERENCES itineraire(id)
 );
 
 CREATE TABLE historique_statut_vol (
@@ -167,7 +169,8 @@ CREATE TABLE reservation_passager (
     id SERIAL PRIMARY KEY,
     id_reservation INT NOT NULL REFERENCES reservation(id),
     id_passager INT NOT NULL REFERENCES passager(id),
-    id_vol INT NOT NULL REFERENCES vol(id),
+    id_vol INT REFERENCES vol(id),
+    id_vol_avion INT NOT NULL REFERENCES  vol_avion(id),
     id_siege INT NOT NULL REFERENCES siege(id),
     prix DOUBLE PRECISION,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -198,7 +201,8 @@ CREATE TABLE statut_billet (
 CREATE TABLE billet (
     id SERIAL PRIMARY KEY,
     id_passager INT NOT NULL REFERENCES passager(id),
-    id_vol INT NOT NULL REFERENCES vol(id),
+    id_vol INT REFERENCES vol(id),
+    id_vol_avion INT NOT NULL REFERENCES vol_avion(id),
     id_siege INT NOT NULL REFERENCES siege(id),
     prix DOUBLE PRECISION NOT NULL,
     id_classe_siege INT NOT NULL REFERENCES classe_siege(id),

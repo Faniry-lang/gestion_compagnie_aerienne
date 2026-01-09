@@ -35,11 +35,11 @@ public class MontantTarifClasse extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdtarifclasse() {
+    public Integer getIdTarifClasse() {
         return idTarifClasse;
     }
 
-    public void setIdtarifclasse(Integer idTarifClasse) {
+    public void setIdTarifClasse(Integer idTarifClasse) {
         this.idTarifClasse = idTarifClasse;
     }
 
@@ -51,11 +51,11 @@ public class MontantTarifClasse extends BaseEntity {
         this.montant = montant;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

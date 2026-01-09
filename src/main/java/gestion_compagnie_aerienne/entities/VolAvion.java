@@ -8,9 +8,9 @@ import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
 
-@Entity(tableName = "historique_statut_avion")
-public class HistoriqueStatutAvion extends BaseEntity {
-    public HistoriqueStatutAvion() {
+@Entity(tableName = "vol_avion")
+public class VolAvion extends BaseEntity {
+    public VolAvion() {
         super(QueryManager.get_instance());
     }
 
@@ -18,11 +18,17 @@ public class HistoriqueStatutAvion extends BaseEntity {
     @Column
     private Long id;
 
+    @Column(name = "id_vol")
+    private Integer idVol;
+
     @Column(name = "id_avion")
     private Integer idAvion;
 
-    @Column(name = "id_statut_avion")
-    private Integer idStatutAvion;
+    @Column(name = "date_depart")
+    private LocalDateTime dateDepart;
+
+    @Column(name = "date_arrivee")
+    private LocalDateTime dateArrivee;
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
@@ -35,6 +41,14 @@ public class HistoriqueStatutAvion extends BaseEntity {
         this.id = id;
     }
 
+    public Integer getIdVol() {
+        return idVol;
+    }
+
+    public void setIdVol(Integer idVol) {
+        this.idVol = idVol;
+    }
+
     public Integer getIdAvion() {
         return idAvion;
     }
@@ -43,12 +57,20 @@ public class HistoriqueStatutAvion extends BaseEntity {
         this.idAvion = idAvion;
     }
 
-    public Integer getIdStatutAvion() {
-        return idStatutAvion;
+    public LocalDateTime getDateDepart() {
+        return dateDepart;
     }
 
-    public void setIdStatutAvion(Integer idStatutAvion) {
-        this.idStatutAvion = idStatutAvion;
+    public void setDateDepart(LocalDateTime dateDepart) {
+        this.dateDepart = dateDepart;
+    }
+
+    public LocalDateTime getDateArrivee() {
+        return dateArrivee;
+    }
+
+    public void setDateArrivee(LocalDateTime dateArrivee) {
+        this.dateArrivee = dateArrivee;
     }
 
     public LocalDateTime getCreatedOn() {

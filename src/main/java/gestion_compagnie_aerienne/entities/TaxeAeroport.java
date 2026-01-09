@@ -31,11 +31,11 @@ public class TaxeAeroport extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdaeroport() {
+    public Integer getIdAeroport() {
         return idAeroport;
     }
 
-    public void setIdaeroport(Integer idAeroport) {
+    public void setIdAeroport(Integer idAeroport) {
         this.idAeroport = idAeroport;
     }
 

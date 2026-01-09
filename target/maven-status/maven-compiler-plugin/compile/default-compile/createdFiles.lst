@@ -23,8 +23,10 @@ gestion_compagnie_aerienne\entities\StatutBillet.class
 gestion_compagnie_aerienne\entities\TypeAvion.class
 gestion_compagnie_aerienne\entities\StatutReservation.class
 gestion_compagnie_aerienne\entities\StatutVol.class
+gestion_compagnie_aerienne\entities\VolAvion.class
 gestion_compagnie_aerienne\entities\Escale.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator$JspCrudGenerator.class
+gestion_compagnie_aerienne\dtos\VolDto.class
 gestion_compagnie_aerienne\entities\Billet.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator$ColumnBlocks.class
 gestion_compagnie_aerienne\entities\Siege.class

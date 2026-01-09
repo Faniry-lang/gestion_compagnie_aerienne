@@ -34,27 +34,27 @@ public class LimiteBagage extends BaseEntity {
         this.id = id;
     }
 
-    public Float getVolumemax() {
+    public Float getVolumeMax() {
         return volumeMax;
     }
 
-    public void setVolumemax(Float volumeMax) {
+    public void setVolumeMax(Float volumeMax) {
         this.volumeMax = volumeMax;
     }
 
-    public Float getPoidsmax() {
+    public Float getPoidsMax() {
         return poidsMax;
     }
 
-    public void setPoidsmax(Float poidsMax) {
+    public void setPoidsMax(Float poidsMax) {
         this.poidsMax = poidsMax;
     }
 
-    public Integer getPiecesmax() {
+    public Integer getPiecesMax() {
         return piecesMax;
     }
 
-    public void setPiecesmax(Integer piecesMax) {
+    public void setPiecesMax(Integer piecesMax) {
         this.piecesMax = piecesMax;
     }
 

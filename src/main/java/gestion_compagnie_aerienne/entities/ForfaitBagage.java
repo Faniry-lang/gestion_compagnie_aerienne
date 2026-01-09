@@ -44,51 +44,51 @@ public class ForfaitBagage extends BaseEntity {
         this.id = id;
     }
 
-    public String getNomforfait() {
+    public String getNomForfait() {
         return nomForfait;
     }
 
-    public void setNomforfait(String nomForfait) {
+    public void setNomForfait(String nomForfait) {
         this.nomForfait = nomForfait;
     }
 
-    public Float getPoidsmin() {
+    public Float getPoidsMin() {
         return poidsMin;
     }
 
-    public void setPoidsmin(Float poidsMin) {
+    public void setPoidsMin(Float poidsMin) {
         this.poidsMin = poidsMin;
     }
 
-    public Float getPoidsmax() {
+    public Float getPoidsMax() {
         return poidsMax;
     }
 
-    public void setPoidsmax(Float poidsMax) {
+    public void setPoidsMax(Float poidsMax) {
         this.poidsMax = poidsMax;
     }
 
-    public Float getVolumetotal() {
+    public Float getVolumeTotal() {
         return volumeTotal;
     }
 
-    public void setVolumetotal(Float volumeTotal) {
+    public void setVolumeTotal(Float volumeTotal) {
         this.volumeTotal = volumeTotal;
     }
 
-    public Integer getNbrpiece() {
+    public Integer getNbrPiece() {
         return nbrPiece;
     }
 
-    public void setNbrpiece(Integer nbrPiece) {
+    public void setNbrPiece(Integer nbrPiece) {
         this.nbrPiece = nbrPiece;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

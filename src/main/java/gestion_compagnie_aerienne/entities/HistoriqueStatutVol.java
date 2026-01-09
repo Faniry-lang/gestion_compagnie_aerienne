@@ -35,27 +35,27 @@ public class HistoriqueStatutVol extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdvol() {
+    public Integer getIdVol() {
         return idVol;
     }
 
-    public void setIdvol(Integer idVol) {
+    public void setIdVol(Integer idVol) {
         this.idVol = idVol;
     }
 
-    public Integer getIdstatutvol() {
+    public Integer getIdStatutVol() {
         return idStatutVol;
     }
 
-    public void setIdstatutvol(Integer idStatutVol) {
+    public void setIdStatutVol(Integer idStatutVol) {
         this.idStatutVol = idStatutVol;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

@@ -38,35 +38,35 @@ public class HistoriqueStatutReservation extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdreservation() {
+    public Integer getIdReservation() {
         return idReservation;
     }
 
-    public void setIdreservation(Integer idReservation) {
+    public void setIdReservation(Integer idReservation) {
         this.idReservation = idReservation;
     }
 
-    public Integer getIdstatutreservation() {
+    public Integer getIdStatutReservation() {
         return idStatutReservation;
     }
 
-    public void setIdstatutreservation(Integer idStatutReservation) {
+    public void setIdStatutReservation(Integer idStatutReservation) {
         this.idStatutReservation = idStatutReservation;
     }
 
-    public Float getPrixtotal() {
+    public Float getPrixTotal() {
         return prixTotal;
     }
 
-    public void setPrixtotal(Float prixTotal) {
+    public void setPrixTotal(Float prixTotal) {
         this.prixTotal = prixTotal;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

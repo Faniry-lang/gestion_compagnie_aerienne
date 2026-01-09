@@ -44,19 +44,19 @@ public class BagagePassager extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdreservationpassager() {
+    public Integer getIdReservationPassager() {
         return idReservationPassager;
     }
 
-    public void setIdreservationpassager(Integer idReservationPassager) {
+    public void setIdReservationPassager(Integer idReservationPassager) {
         this.idReservationPassager = idReservationPassager;
     }
 
-    public String getNumerobagage() {
+    public String getNumeroBagage() {
         return numeroBagage;
     }
 
-    public void setNumerobagage(String numeroBagage) {
+    public void setNumeroBagage(String numeroBagage) {
         this.numeroBagage = numeroBagage;
     }
 
@@ -84,11 +84,11 @@ public class BagagePassager extends BaseEntity {
         this.largeur = largeur;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

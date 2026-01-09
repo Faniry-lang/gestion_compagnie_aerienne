@@ -37,11 +37,11 @@ public class Aeroport extends BaseEntity {
         this.id = id;
     }
 
-    public String getCodeiata() {
+    public String getCodeIata() {
         return codeIata;
     }
 
-    public void setCodeiata(String codeIata) {
+    public void setCodeIata(String codeIata) {
         this.codeIata = codeIata;
     }
 

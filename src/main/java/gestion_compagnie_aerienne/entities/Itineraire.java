@@ -37,35 +37,35 @@ public class Itineraire extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdaeroportdepart() {
+    public Integer getIdAeroportDepart() {
         return idAeroportDepart;
     }
 
-    public void setIdaeroportdepart(Integer idAeroportDepart) {
+    public void setIdAeroportDepart(Integer idAeroportDepart) {
         this.idAeroportDepart = idAeroportDepart;
     }
 
-    public Integer getIdaeroportarrivee() {
+    public Integer getIdAeroportArrivee() {
         return idAeroportArrivee;
     }
 
-    public void setIdaeroportarrivee(Integer idAeroportArrivee) {
+    public void setIdAeroportArrivee(Integer idAeroportArrivee) {
         this.idAeroportArrivee = idAeroportArrivee;
     }
 
-    public Float getDistancekm() {
+    public Float getDistanceKm() {
         return distanceKm;
     }
 
-    public void setDistancekm(Float distanceKm) {
+    public void setDistanceKm(Float distanceKm) {
         this.distanceKm = distanceKm;
     }
 
-    public Integer getDureemoyenneestimee() {
+    public Integer getDureeMoyenneEstimee() {
         return dureeMoyenneEstimee;
     }
 
-    public void setDureemoyenneestimee(Integer dureeMoyenneEstimee) {
+    public void setDureeMoyenneEstimee(Integer dureeMoyenneEstimee) {
         this.dureeMoyenneEstimee = dureeMoyenneEstimee;
     }
 

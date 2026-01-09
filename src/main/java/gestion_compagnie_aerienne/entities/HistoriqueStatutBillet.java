@@ -35,27 +35,27 @@ public class HistoriqueStatutBillet extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdbillet() {
+    public Integer getIdBillet() {
         return idBillet;
     }
 
-    public void setIdbillet(Integer idBillet) {
+    public void setIdBillet(Integer idBillet) {
         this.idBillet = idBillet;
     }
 
-    public Integer getIdstatutbillet() {
+    public Integer getIdStatutBillet() {
         return idStatutBillet;
     }
 
-    public void setIdstatutbillet(Integer idStatutBillet) {
+    public void setIdStatutBillet(Integer idStatutBillet) {
         this.idStatutBillet = idStatutBillet;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

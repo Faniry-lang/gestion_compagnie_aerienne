@@ -17,8 +17,8 @@ public class Escale extends BaseEntity {
     @Column
     private Long id;
 
-    @Column(name = "id_vol")
-    private Integer idVol;
+    @Column(name = "id_vol_avion")
+    private Integer idVolAvion;
 
     @Column
     private Integer ordre;
@@ -34,12 +34,12 @@ public class Escale extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdvol() {
-        return idVol;
+    public Integer getIdVolAvion() {
+        return idVolAvion;
     }
 
-    public void setIdvol(Integer idVol) {
-        this.idVol = idVol;
+    public void setIdVolAvion(Integer idVolAvion) {
+        this.idVolAvion = idVolAvion;
     }
 
     public Integer getOrdre() {
@@ -50,11 +50,11 @@ public class Escale extends BaseEntity {
         this.ordre = ordre;
     }
 
-    public Integer getIditineraire() {
+    public Integer getIdItineraire() {
         return idItineraire;
     }
 
-    public void setIditineraire(Integer idItineraire) {
+    public void setIdItineraire(Integer idItineraire) {
         this.idItineraire = idItineraire;
     }
 

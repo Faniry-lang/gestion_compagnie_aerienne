@@ -35,27 +35,27 @@ public class HistoriqueStatutReservationPassager extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdreservationpassager() {
+    public Integer getIdReservationPassager() {
         return idReservationPassager;
     }
 
-    public void setIdreservationpassager(Integer idReservationPassager) {
+    public void setIdReservationPassager(Integer idReservationPassager) {
         this.idReservationPassager = idReservationPassager;
     }
 
-    public Integer getIdstatutreservation() {
+    public Integer getIdStatutReservation() {
         return idStatutReservation;
     }
 
-    public void setIdstatutreservation(Integer idStatutReservation) {
+    public void setIdStatutReservation(Integer idStatutReservation) {
         this.idStatutReservation = idStatutReservation;
     }
 
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

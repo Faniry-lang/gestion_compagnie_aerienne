@@ -23,6 +23,9 @@ public class Billet extends BaseEntity {
     @Column(name = "id_vol")
     private Integer idVol;
 
+    @Column(name = "id_vol_avion")
+    private Integer idVolAvion;
+
     @Column(name = "id_siege")
     private Integer idSiege;
 
@@ -43,27 +46,35 @@ public class Billet extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdpassager() {
+    public Integer getIdPassager() {
         return idPassager;
     }
 
-    public void setIdpassager(Integer idPassager) {
+    public void setIdPassager(Integer idPassager) {
         this.idPassager = idPassager;
     }
 
-    public Integer getIdvol() {
+    public Integer getIdVol() {
         return idVol;
     }
 
-    public void setIdvol(Integer idVol) {
+    public void setIdVol(Integer idVol) {
         this.idVol = idVol;
     }
 
-    public Integer getIdsiege() {
+    public Integer getIdVolAvion() {
+        return idVolAvion;
+    }
+
+    public void setIdVolAvion(Integer idVolAvion) {
+        this.idVolAvion = idVolAvion;
+    }
+
+    public Integer getIdSiege() {
         return idSiege;
     }
 
-    public void setIdsiege(Integer idSiege) {
+    public void setIdSiege(Integer idSiege) {
         this.idSiege = idSiege;
     }
 
@@ -75,19 +86,19 @@ public class Billet extends BaseEntity {
         this.prix = prix;
     }
 
-    public Integer getIdclassesiege() {
+    public Integer getIdClasseSiege() {
         return idClasseSiege;
     }
 
-    public void setIdclassesiege(Integer idClasseSiege) {
+    public void setIdClasseSiege(Integer idClasseSiege) {
         this.idClasseSiege = idClasseSiege;
     }
 
-    public Integer getIdreservationpassager() {
+    public Integer getIdReservationPassager() {
         return idReservationPassager;
     }
 
-    public void setIdreservationpassager(Integer idReservationPassager) {
+    public void setIdReservationPassager(Integer idReservationPassager) {
         this.idReservationPassager = idReservationPassager;
     }
 

@@ -21,14 +21,11 @@ public class Vol extends BaseEntity {
     @Column(name = "numero_vol")
     private String numeroVol;
 
-    @Column(name = "id_avion")
-    private Integer idAvion;
+    @Column(name = "id_aeroport_depart")
+    private Integer idAeroportDepart;
 
-    @Column(name = "date_depart")
-    private LocalDateTime dateDepart;
-
-    @Column(name = "date_arrivee")
-    private LocalDateTime dateArrivee;
+    @Column(name = "id_aeroport_arrivee")
+    private Integer idAeroportArrivee;
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
@@ -41,43 +38,35 @@ public class Vol extends BaseEntity {
         this.id = id;
     }
 
-    public String getNumerovol() {
+    public String getNumeroVol() {
         return numeroVol;
     }
 
-    public void setNumerovol(String numeroVol) {
+    public void setNumeroVol(String numeroVol) {
         this.numeroVol = numeroVol;
     }
 
-    public Integer getIdavion() {
-        return idAvion;
+    public Integer getIdAeroportDepart() {
+        return idAeroportDepart;
     }
 
-    public void setIdavion(Integer idAvion) {
-        this.idAvion = idAvion;
+    public void setIdAeroportDepart(Integer idAeroportDepart) {
+        this.idAeroportDepart = idAeroportDepart;
     }
 
-    public LocalDateTime getDatedepart() {
-        return dateDepart;
+    public Integer getIdAeroportArrivee() {
+        return idAeroportArrivee;
     }
 
-    public void setDatedepart(LocalDateTime dateDepart) {
-        this.dateDepart = dateDepart;
+    public void setIdAeroportArrivee(Integer idAeroportArrivee) {
+        this.idAeroportArrivee = idAeroportArrivee;
     }
 
-    public LocalDateTime getDatearrivee() {
-        return dateArrivee;
-    }
-
-    public void setDatearrivee(LocalDateTime dateArrivee) {
-        this.dateArrivee = dateArrivee;
-    }
-
-    public LocalDateTime getCreatedon() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 

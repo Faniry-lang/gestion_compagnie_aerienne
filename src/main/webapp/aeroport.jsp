@@ -54,24 +54,15 @@
                     <%
                         @SuppressWarnings("unchecked")
                         List<Aeroport> items = (List<Aeroport>) request.getAttribute("aeroports");
-                        if (items == null || items.isEmpty()) {
+                        if (items != null && !items.isEmpty()) {
+                            for(int i = 0; i < items.size(); i++) {
+                    %>
                         <tr>
-                            <td><%= entity.getId() %></td>
-                        <td><%= entity.getCodeIata() %></td>
-                        <td><%= entity.getNom() %></td>
-                        <td><%= entity.getVille() %></td>
-                        <td><%= entity.getPays() %></td>
-
-                            <td class="actions">
-                                <button class="action-btn"><i class="fi fi-ss-eye"></i> Voir</button>
-                                <button class="action-btn"><i class="fi fi-ss-pen"></i> Modifier</button>
-                                <button class="action-btn"><i class="fi fi-ss-trash"></i> Supprimer</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><%= entity.getId() %></td>
-                            <td><!-- TODO: replace with getter for COL_1 --></td>
-                            <td><!-- TODO: replace with getter for COL_2 --></td>
+                            <td><%= items.get(i).getId() %></td>
+                        <td><%= items.get(i).getCodeiata() %></td>
+                        <td><%= items.get(i).getNom() %></td>
+                        <td><%= items.get(i).getVille() %></td>
+                        <td><%= items.get(i).getPays() %></td>
                             <td class="actions">
                                 <button class="action-btn"><i class="fi fi-ss-eye"></i> Voir</button>
                                 <button class="action-btn"><i class="fi fi-ss-pen"></i> Modifier</button>

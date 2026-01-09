@@ -41,11 +41,11 @@ public class Avion extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdtypeavion() {
+    public Integer getIdTypeAvion() {
         return idTypeAvion;
     }
 
-    public void setIdtypeavion(Integer idTypeAvion) {
+    public void setIdTypeAvion(Integer idTypeAvion) {
         this.idTypeAvion = idTypeAvion;
     }
 
@@ -57,11 +57,11 @@ public class Avion extends BaseEntity {
         this.modele = modele;
     }
 
-    public Integer getNbrsiege() {
+    public Integer getNbrSiege() {
         return nbrSiege;
     }
 
-    public void setNbrsiege(Integer nbrSiege) {
+    public void setNbrSiege(Integer nbrSiege) {
         this.nbrSiege = nbrSiege;
     }
 
@@ -73,11 +73,11 @@ public class Avion extends BaseEntity {
         this.constructeur = constructeur;
     }
 
-    public LocalDate getDatemiseservice() {
+    public LocalDate getDateMiseService() {
         return dateMiseService;
     }
 
-    public void setDatemiseservice(LocalDate dateMiseService) {
+    public void setDateMiseService(LocalDate dateMiseService) {
         this.dateMiseService = dateMiseService;
     }
 
