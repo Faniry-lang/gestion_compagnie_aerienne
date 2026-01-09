@@ -9,9 +9,9 @@ import legacy.schema.BaseEntity;
 import java.time.LocalDateTime;
 
 @Entity(tableName = "vol")
-public class VolEntity extends BaseEntity {
-    public VolEntity(QueryManager queryManager) {
-        super(queryManager);
+public class Vol extends BaseEntity {
+    public Vol() {
+        super(QueryManager.get_instance());
     }
 
     @Id

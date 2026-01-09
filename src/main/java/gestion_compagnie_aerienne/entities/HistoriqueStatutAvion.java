@@ -8,21 +8,21 @@ import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
 
-@Entity(tableName = "historique_statut_vol")
-public class HistoriqueStatutVolEntity extends BaseEntity {
-    public HistoriqueStatutVolEntity(QueryManager queryManager) {
-        super(queryManager);
+@Entity(tableName = "historique_statut_avion")
+public class HistoriqueStatutAvion extends BaseEntity {
+    public HistoriqueStatutAvion() {
+        super(QueryManager.get_instance());
     }
 
     @Id
     @Column
     private Long id;
 
-    @Column(name = "id_vol")
-    private Integer idVol;
+    @Column(name = "id_avion")
+    private Integer idAvion;
 
-    @Column(name = "id_statut_vol")
-    private Integer idStatutVol;
+    @Column(name = "id_statut_avion")
+    private Integer idStatutAvion;
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
@@ -35,20 +35,20 @@ public class HistoriqueStatutVolEntity extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdvol() {
-        return idVol;
+    public Integer getIdavion() {
+        return idAvion;
     }
 
-    public void setIdvol(Integer idVol) {
-        this.idVol = idVol;
+    public void setIdavion(Integer idAvion) {
+        this.idAvion = idAvion;
     }
 
-    public Integer getIdstatutvol() {
-        return idStatutVol;
+    public Integer getIdstatutavion() {
+        return idStatutAvion;
     }
 
-    public void setIdstatutvol(Integer idStatutVol) {
-        this.idStatutVol = idStatutVol;
+    public void setIdstatutavion(Integer idStatutAvion) {
+        this.idStatutAvion = idStatutAvion;
     }
 
     public LocalDateTime getCreatedon() {

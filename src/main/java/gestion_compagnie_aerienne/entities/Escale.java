@@ -8,9 +8,9 @@ import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "escale")
-public class EscaleEntity extends BaseEntity {
-    public EscaleEntity(QueryManager queryManager) {
-        super(queryManager);
+public class Escale extends BaseEntity {
+    public Escale() {
+        super(QueryManager.get_instance());
     }
 
     @Id

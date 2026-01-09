@@ -6,16 +6,20 @@ import legacy.annotations.Id;
 import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
+import java.time.LocalDateTime;
 
-@Entity(tableName = "billet")
-public class BilletEntity extends BaseEntity {
-    public BilletEntity(QueryManager queryManager) {
-        super(queryManager);
+@Entity(tableName = "reservation_passager")
+public class ReservationPassager extends BaseEntity {
+    public ReservationPassager() {
+        super(QueryManager.get_instance());
     }
 
     @Id
     @Column
     private Long id;
+
+    @Column(name = "id_reservation")
+    private Integer idReservation;
 
     @Column(name = "id_passager")
     private Integer idPassager;
@@ -29,11 +33,8 @@ public class BilletEntity extends BaseEntity {
     @Column
     private Float prix;
 
-    @Column(name = "id_classe_siege")
-    private Integer idClasseSiege;
-
-    @Column(name = "id_reservation_passager")
-    private Integer idReservationPassager;
+    @Column(name = "created_on")
+    private LocalDateTime createdOn;
 
     public Long getId() {
         return id;
@@ -41,6 +42,14 @@ public class BilletEntity extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getIdreservation() {
+        return idReservation;
+    }
+
+    public void setIdreservation(Integer idReservation) {
+        this.idReservation = idReservation;
     }
 
     public Integer getIdpassager() {
@@ -75,20 +84,12 @@ public class BilletEntity extends BaseEntity {
         this.prix = prix;
     }
 
-    public Integer getIdclassesiege() {
-        return idClasseSiege;
+    public LocalDateTime getCreatedon() {
+        return createdOn;
     }
 
-    public void setIdclassesiege(Integer idClasseSiege) {
-        this.idClasseSiege = idClasseSiege;
-    }
-
-    public Integer getIdreservationpassager() {
-        return idReservationPassager;
-    }
-
-    public void setIdreservationpassager(Integer idReservationPassager) {
-        this.idReservationPassager = idReservationPassager;
+    public void setCreatedon(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
     }
 
 }

@@ -8,9 +8,9 @@ import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "statut_avion")
-public class StatutAvionEntity extends BaseEntity {
-    public StatutAvionEntity(QueryManager queryManager) {
-        super(queryManager);
+public class StatutAvion extends BaseEntity {
+    public StatutAvion() {
+        super(QueryManager.get_instance());
     }
 
     @Id

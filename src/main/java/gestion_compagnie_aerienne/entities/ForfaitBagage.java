@@ -9,9 +9,9 @@ import legacy.schema.BaseEntity;
 import java.time.LocalDateTime;
 
 @Entity(tableName = "forfait_bagage")
-public class ForfaitBagageEntity extends BaseEntity {
-    public ForfaitBagageEntity(QueryManager queryManager) {
-        super(queryManager);
+public class ForfaitBagage extends BaseEntity {
+    public ForfaitBagage() {
+        super(QueryManager.get_instance());
     }
 
     @Id

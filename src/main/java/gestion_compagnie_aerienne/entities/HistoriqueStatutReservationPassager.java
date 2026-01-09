@@ -8,10 +8,10 @@ import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
 
-@Entity(tableName = "bagage_passager")
-public class BagagePassagerEntity extends BaseEntity {
-    public BagagePassagerEntity(QueryManager queryManager) {
-        super(queryManager);
+@Entity(tableName = "historique_statut_reservation_passager")
+public class HistoriqueStatutReservationPassager extends BaseEntity {
+    public HistoriqueStatutReservationPassager() {
+        super(QueryManager.get_instance());
     }
 
     @Id
@@ -21,17 +21,8 @@ public class BagagePassagerEntity extends BaseEntity {
     @Column(name = "id_reservation_passager")
     private Integer idReservationPassager;
 
-    @Column(name = "numero_bagage")
-    private String numeroBagage;
-
-    @Column
-    private Float poids;
-
-    @Column
-    private Float longueur;
-
-    @Column
-    private Float largeur;
+    @Column(name = "id_statut_reservation")
+    private Integer idStatutReservation;
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
@@ -52,36 +43,12 @@ public class BagagePassagerEntity extends BaseEntity {
         this.idReservationPassager = idReservationPassager;
     }
 
-    public String getNumerobagage() {
-        return numeroBagage;
+    public Integer getIdstatutreservation() {
+        return idStatutReservation;
     }
 
-    public void setNumerobagage(String numeroBagage) {
-        this.numeroBagage = numeroBagage;
-    }
-
-    public Float getPoids() {
-        return poids;
-    }
-
-    public void setPoids(Float poids) {
-        this.poids = poids;
-    }
-
-    public Float getLongueur() {
-        return longueur;
-    }
-
-    public void setLongueur(Float longueur) {
-        this.longueur = longueur;
-    }
-
-    public Float getLargeur() {
-        return largeur;
-    }
-
-    public void setLargeur(Float largeur) {
-        this.largeur = largeur;
+    public void setIdstatutreservation(Integer idStatutReservation) {
+        this.idStatutReservation = idStatutReservation;
     }
 
     public LocalDateTime getCreatedon() {

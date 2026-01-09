@@ -8,21 +8,21 @@ import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
 
-@Entity(tableName = "historique_statut_billet")
-public class HistoriqueStatutBilletEntity extends BaseEntity {
-    public HistoriqueStatutBilletEntity(QueryManager queryManager) {
-        super(queryManager);
+@Entity(tableName = "montant_tarif_classe")
+public class MontantTarifClasse extends BaseEntity {
+    public MontantTarifClasse() {
+        super(QueryManager.get_instance());
     }
 
     @Id
     @Column
     private Long id;
 
-    @Column(name = "id_billet")
-    private Integer idBillet;
+    @Column(name = "id_tarif_classe")
+    private Integer idTarifClasse;
 
-    @Column(name = "id_statut_billet")
-    private Integer idStatutBillet;
+    @Column
+    private Float montant;
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
@@ -35,20 +35,20 @@ public class HistoriqueStatutBilletEntity extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getIdbillet() {
-        return idBillet;
+    public Integer getIdtarifclasse() {
+        return idTarifClasse;
     }
 
-    public void setIdbillet(Integer idBillet) {
-        this.idBillet = idBillet;
+    public void setIdtarifclasse(Integer idTarifClasse) {
+        this.idTarifClasse = idTarifClasse;
     }
 
-    public Integer getIdstatutbillet() {
-        return idStatutBillet;
+    public Float getMontant() {
+        return montant;
     }
 
-    public void setIdstatutbillet(Integer idStatutBillet) {
-        this.idStatutBillet = idStatutBillet;
+    public void setMontant(Float montant) {
+        this.montant = montant;
     }
 
     public LocalDateTime getCreatedon() {

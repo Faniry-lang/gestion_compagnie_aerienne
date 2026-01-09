@@ -9,9 +9,9 @@ import legacy.schema.BaseEntity;
 import java.time.LocalDate;
 
 @Entity(tableName = "avion")
-public class AvionEntity extends BaseEntity {
-    public AvionEntity(QueryManager queryManager) {
-        super(queryManager);
+public class Avion extends BaseEntity {
+    public Avion() {
+        super(QueryManager.get_instance());
     }
 
     @Id

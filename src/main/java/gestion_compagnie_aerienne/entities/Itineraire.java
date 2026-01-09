@@ -8,9 +8,9 @@ import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "itineraire")
-public class ItineraireEntity extends BaseEntity {
-    public ItineraireEntity(QueryManager queryManager) {
-        super(queryManager);
+public class Itineraire extends BaseEntity {
+    public Itineraire() {
+        super(QueryManager.get_instance());
     }
 
     @Id

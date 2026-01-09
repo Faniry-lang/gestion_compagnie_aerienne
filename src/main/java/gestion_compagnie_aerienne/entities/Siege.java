@@ -8,9 +8,9 @@ import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "siege")
-public class SiegeEntity extends BaseEntity {
-    public SiegeEntity(QueryManager queryManager) {
-        super(queryManager);
+public class Siege extends BaseEntity {
+    public Siege() {
+        super(QueryManager.get_instance());
     }
 
     @Id

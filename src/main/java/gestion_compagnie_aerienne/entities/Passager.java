@@ -9,9 +9,9 @@ import legacy.schema.BaseEntity;
 import java.time.LocalDate;
 
 @Entity(tableName = "passager")
-public class PassagerEntity extends BaseEntity {
-    public PassagerEntity(QueryManager queryManager) {
-        super(queryManager);
+public class Passager extends BaseEntity {
+    public Passager() {
+        super(QueryManager.get_instance());
     }
 
     @Id

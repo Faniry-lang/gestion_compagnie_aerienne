@@ -6,20 +6,16 @@ import legacy.annotations.Id;
 import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
-import java.time.LocalDateTime;
 
-@Entity(tableName = "reservation_passager")
-public class ReservationPassagerEntity extends BaseEntity {
-    public ReservationPassagerEntity(QueryManager queryManager) {
-        super(queryManager);
+@Entity(tableName = "billet")
+public class Billet extends BaseEntity {
+    public Billet() {
+        super(QueryManager.get_instance());
     }
 
     @Id
     @Column
     private Long id;
-
-    @Column(name = "id_reservation")
-    private Integer idReservation;
 
     @Column(name = "id_passager")
     private Integer idPassager;
@@ -33,8 +29,11 @@ public class ReservationPassagerEntity extends BaseEntity {
     @Column
     private Float prix;
 
-    @Column(name = "created_on")
-    private LocalDateTime createdOn;
+    @Column(name = "id_classe_siege")
+    private Integer idClasseSiege;
+
+    @Column(name = "id_reservation_passager")
+    private Integer idReservationPassager;
 
     public Long getId() {
         return id;
@@ -42,14 +41,6 @@ public class ReservationPassagerEntity extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdreservation() {
-        return idReservation;
-    }
-
-    public void setIdreservation(Integer idReservation) {
-        this.idReservation = idReservation;
     }
 
     public Integer getIdpassager() {
@@ -84,12 +75,20 @@ public class ReservationPassagerEntity extends BaseEntity {
         this.prix = prix;
     }
 
-    public LocalDateTime getCreatedon() {
-        return createdOn;
+    public Integer getIdclassesiege() {
+        return idClasseSiege;
     }
 
-    public void setCreatedon(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
+    public void setIdclassesiege(Integer idClasseSiege) {
+        this.idClasseSiege = idClasseSiege;
+    }
+
+    public Integer getIdreservationpassager() {
+        return idReservationPassager;
+    }
+
+    public void setIdreservationpassager(Integer idReservationPassager) {
+        this.idReservationPassager = idReservationPassager;
     }
 
 }

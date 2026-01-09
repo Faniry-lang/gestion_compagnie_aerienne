@@ -8,9 +8,9 @@ import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "taxe_aeroport")
-public class TaxeAeroportEntity extends BaseEntity {
-    public TaxeAeroportEntity(QueryManager queryManager) {
-        super(queryManager);
+public class TaxeAeroport extends BaseEntity {
+    public TaxeAeroport() {
+        super(QueryManager.get_instance());
     }
 
     @Id

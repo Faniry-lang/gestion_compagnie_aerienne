@@ -8,9 +8,9 @@ import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "limite_bagage")
-public class LimiteBagageEntity extends BaseEntity {
-    public LimiteBagageEntity(QueryManager queryManager) {
-        super(queryManager);
+public class LimiteBagage extends BaseEntity {
+    public LimiteBagage() {
+        super(QueryManager.get_instance());
     }
 
     @Id

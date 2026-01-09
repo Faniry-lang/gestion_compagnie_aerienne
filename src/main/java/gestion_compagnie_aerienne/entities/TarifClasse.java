@@ -9,9 +9,9 @@ import legacy.schema.BaseEntity;
 import java.time.LocalDateTime;
 
 @Entity(tableName = "tarif_classe")
-public class TarifClasseEntity extends BaseEntity {
-    public TarifClasseEntity(QueryManager queryManager) {
-        super(queryManager);
+public class TarifClasse extends BaseEntity {
+    public TarifClasse() {
+        super(QueryManager.get_instance());
     }
 
     @Id

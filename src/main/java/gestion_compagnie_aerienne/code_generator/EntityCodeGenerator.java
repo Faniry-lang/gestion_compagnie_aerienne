@@ -2,14 +2,6 @@ package gestion_compagnie_aerienne.code_generator;
 
 import legacy.utils.EntityGenerator;
 
-/**
- * Code Generator for Entity classes from database schema.
- * Usage:
- *   java EntityCodeGenerator [tableName]
- * 
- * If tableName is provided, generates entity for that specific table.
- * If no argument provided, generates entities for all tables in the database.
- */
 public class EntityCodeGenerator {
 
     public static void main(String[] args) throws Exception {

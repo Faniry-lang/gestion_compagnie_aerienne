@@ -7,10 +7,10 @@ import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
 
-@Entity(tableName = "statut_reservation")
-public class StatutReservationEntity extends BaseEntity {
-    public StatutReservationEntity(QueryManager queryManager) {
-        super(queryManager);
+@Entity(tableName = "statut_vol")
+public class StatutVol extends BaseEntity {
+    public StatutVol() {
+        super(QueryManager.get_instance());
     }
 
     @Id
