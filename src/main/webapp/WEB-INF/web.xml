@@ -1,0 +1,30 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Application de gestion de compagnie aérienne</display-name>
+  <context-param>
+    <param-name>resultsNb</param-name>
+    <param-value>2</param-value>
+  </context-param>
+
+<servlet>
+    <servlet-name>AccueilServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.AccueilServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccueilServlet</servlet-name>
+    <url-pattern>/accueil</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ReservationServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.ReservationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationServlet</servlet-name>
+    <url-pattern>/reservation</url-pattern>
+  </servlet-mapping>
+
+</web-app>
