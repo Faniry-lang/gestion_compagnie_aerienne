@@ -1,0 +1,61 @@
+package gestion_compagnie_aerienne.entities;
+
+import legacy.annotations.Column;
+import legacy.annotations.Entity;
+import legacy.annotations.Id;
+import legacy.query.QueryManager;
+import legacy.schema.BaseEntity;
+
+
+@Entity(tableName = "limite_bagage")
+public class LimiteBagageEntity extends BaseEntity {
+    public LimiteBagageEntity(QueryManager queryManager) {
+        super(queryManager);
+    }
+
+    @Id
+    @Column
+    private Long id;
+
+    @Column(name = "volume_max")
+    private Float volumeMax;
+
+    @Column(name = "poids_max")
+    private Float poidsMax;
+
+    @Column(name = "pieces_max")
+    private Integer piecesMax;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Float getVolumemax() {
+        return volumeMax;
+    }
+
+    public void setVolumemax(Float volumeMax) {
+        this.volumeMax = volumeMax;
+    }
+
+    public Float getPoidsmax() {
+        return poidsMax;
+    }
+
+    public void setPoidsmax(Float poidsMax) {
+        this.poidsMax = poidsMax;
+    }
+
+    public Integer getPiecesmax() {
+        return piecesMax;
+    }
+
+    public void setPiecesmax(Integer piecesMax) {
+        this.piecesMax = piecesMax;
+    }
+
+}
