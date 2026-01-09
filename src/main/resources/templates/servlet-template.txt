@@ -1,0 +1,33 @@
+package gestion_compagnie_aerienne.servlet;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import legacy.schema.BaseEntity;
+import legacy.query.QueryManager;
+import gestion_compagnie_aerienne.entities.__ENTITY__;
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet("/__ENTITY_LOWER__")
+public class __ENTITY__Servlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            List<__ENTITY__> items = BaseEntity.findAll(__ENTITY__.class, QueryManager.get_instance());
+            req.setAttribute("__ENTITY_LOWER_PLURAL__", items);
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("error", "Erreur lors du chargement de __ENTITY__ : " + e.getMessage());
+        }
+        req.getRequestDispatcher("__ENTITY_LOWER__.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
+}

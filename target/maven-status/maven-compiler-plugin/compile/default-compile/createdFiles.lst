@@ -12,6 +12,7 @@ gestion_compagnie_aerienne\entities\Aeroport.class
 gestion_compagnie_aerienne\entities\LimiteBagage.class
 gestion_compagnie_aerienne\servlet\AccueilServlet.class
 gestion_compagnie_aerienne\entities\StatutAvion.class
+gestion_compagnie_aerienne\code_generator\TemplateGenerator.class
 gestion_compagnie_aerienne\entities\Avion.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutVol.class
 gestion_compagnie_aerienne\entities\BagagePassager.class

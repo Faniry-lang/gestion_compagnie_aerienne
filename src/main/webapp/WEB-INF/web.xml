@@ -27,4 +27,13 @@
     <url-pattern>/reservation</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>BagagePassagerServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.BagagePassagerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BagagePassagerServlet</servlet-name>
+    <url-pattern>/bagagePassager</url-pattern>
+  </servlet-mapping>
+
 </web-app>

@@ -1,0 +1,9 @@
+  <servlet>
+    <servlet-name>__ENTITY__Servlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.__ENTITY__Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>__ENTITY__Servlet</servlet-name>
+    <url-pattern>/__ENTITY_LOWER__</url-pattern>
+  </servlet-mapping>
+
