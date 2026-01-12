@@ -3,9 +3,11 @@ package gestion_compagnie_aerienne.entities;
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
 import legacy.annotations.ForeignKey;
+import legacy.query.QueryManager;
 import legacy.schema.BaseView;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(tableName = "vol_details")
 public class VolDetails extends BaseView {
@@ -14,6 +16,7 @@ public class VolDetails extends BaseView {
     }
 
     @Column(name = "id_vol")
+    @ForeignKey(mappedBy = "vol", entity = Vol.class)
     private Integer idVol;
 
     @Column(name = "numero_vol")
@@ -43,6 +46,7 @@ public class VolDetails extends BaseView {
     private LocalDateTime dateVolAvion;
 
     @Column(name = "id_avion")
+    @ForeignKey(mappedBy = "avion", entity = Avion.class)
     private Integer idAvion;
 
     @Column(name = "capacite_totale")
@@ -156,6 +160,11 @@ public class VolDetails extends BaseView {
 
     public void setPlacesRestantes(Integer placesRestantes) {
         this.placesRestantes = placesRestantes;
+    }
+
+    public static List<VolDetails> findByIdVol(Integer idVol) throws Exception {
+        String sql = "SELECT * FROM vol_details WHERE id_vol = ?";
+        return fetch(VolDetails.class, QueryManager.get_instance(), sql, idVol);
     }
 
 }

@@ -12,7 +12,7 @@ public class Test {
         for(VolDetails vol : volsDetails) {
             vol.mount();
         }
-        Aeroport depTest = (Aeroport) volsDetails.getFirst().getMountedForeignKeys().get("id_aeroport_depart");
+        Aeroport depTest = (Aeroport) volsDetails.getFirst().getForeignKeysCollection().get("id_aeroport_depart");
         System.out.println(depTest.getNom());
     }
 }

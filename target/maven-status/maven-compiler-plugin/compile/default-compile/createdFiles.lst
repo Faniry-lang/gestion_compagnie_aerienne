@@ -11,6 +11,7 @@ gestion_compagnie_aerienne\entities\TaxeAeroport.class
 gestion_compagnie_aerienne\entities\Aeroport.class
 gestion_compagnie_aerienne\entities\LimiteBagage.class
 gestion_compagnie_aerienne\servlet\AccueilServlet.class
+gestion_compagnie_aerienne\servlet\VolDetailsServlet.class
 gestion_compagnie_aerienne\entities\StatutAvion.class
 gestion_compagnie_aerienne\entities\VolDetails.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator.class
@@ -23,8 +24,10 @@ gestion_compagnie_aerienne\entities\StatutBillet.class
 gestion_compagnie_aerienne\entities\TypeAvion.class
 gestion_compagnie_aerienne\entities\StatutReservation.class
 gestion_compagnie_aerienne\entities\StatutVol.class
+gestion_compagnie_aerienne\servlet\VolServlet.class
 gestion_compagnie_aerienne\entities\VolAvion.class
 gestion_compagnie_aerienne\entities\Escale.class
+gestion_compagnie_aerienne\code_generator\Test.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator$JspCrudGenerator.class
 gestion_compagnie_aerienne\entities\Billet.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator$ColumnBlocks.class

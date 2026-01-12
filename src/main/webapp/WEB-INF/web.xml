@@ -19,6 +19,11 @@
     <servlet-class>gestion_compagnie_aerienne.servlet.VolDetailsServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>VolServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.VolServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>AccueilServlet</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -27,6 +32,11 @@
   <servlet-mapping>
     <servlet-name>VolDetailsServlet</servlet-name>
     <url-pattern>/vol-details</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>VolServlet</servlet-name>
+    <url-pattern>/vol</url-pattern>
   </servlet-mapping>
 
 </web-app>

@@ -1,6 +1,7 @@
 package gestion_compagnie_aerienne.servlet;
 
 import gestion_compagnie_aerienne.entities.Aeroport;
+import gestion_compagnie_aerienne.entities.Vol;
 import gestion_compagnie_aerienne.entities.VolDetails;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,13 +16,20 @@ public class VolDetailsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer idVol = null;
         try {
-            List<VolDetails> volsDetails = VolDetails.findAll(VolDetails.class, QueryManager.get_instance());
-            for(VolDetails vol : volsDetails) {
-                vol.mount();
+            idVol = Integer.parseInt(req.getParameter("idVol"));
+            Vol vol = Vol.findById(idVol, Vol.class, QueryManager.get_instance());
+            if(vol == null) {
+                throw new Exception("Aucun vol trouvé pour l'ID "+idVol);
             }
-            req.setAttribute("vol-details", volsDetails);
-            req.getRequestDispatcher("vol-details.jsp").forward(req, resp);
+            List<VolDetails> volsDetails = VolDetails.findByIdVol(idVol);
+            for(VolDetails volDetails : volsDetails) {
+                volDetails.mount();
+            }
+            req.setAttribute("vol", vol);
+            req.setAttribute("volDetails", volsDetails);
+            req.getRequestDispatcher("pages/vol/vol-details.jsp").forward(req, resp);
         } catch(Exception e) {
             req.setAttribute("error-message", e.getMessage());
             req.getRequestDispatcher("error.jsp").forward(req, resp);

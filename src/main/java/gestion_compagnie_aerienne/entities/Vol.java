@@ -2,6 +2,7 @@ package gestion_compagnie_aerienne.entities;
 
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
+import legacy.annotations.ForeignKey;
 import legacy.annotations.Id;
 import legacy.schema.BaseEntity;
 
@@ -21,9 +22,11 @@ public class Vol extends BaseEntity {
     private String numeroVol;
 
     @Column(name = "id_aeroport_depart")
+    @ForeignKey(mappedBy = "aeroport", entity = Aeroport.class)
     private Integer idAeroportDepart;
 
     @Column(name = "id_aeroport_arrivee")
+    @ForeignKey(mappedBy = "aeroport", entity = Aeroport.class)
     private Integer idAeroportArrivee;
 
     @Column(name = "created_on")
