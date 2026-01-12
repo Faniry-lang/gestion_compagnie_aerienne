@@ -2,6 +2,7 @@ package gestion_compagnie_aerienne.entities;
 
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
+import legacy.annotations.ForeignKey;
 import legacy.annotations.Id;
 import legacy.schema.BaseEntity;
 
@@ -17,12 +18,14 @@ public class Siege extends BaseEntity {
     private Long id;
 
     @Column(name = "id_avion")
+    @ForeignKey(mappedBy = "avion", entity = Avion.class)
     private Integer idAvion;
 
     @Column(name = "numero_siege")
     private String numeroSiege;
 
     @Column(name = "id_classe_siege")
+    @ForeignKey(mappedBy = "classe_siege", entity = ClasseSiege.class)
     private Integer idClasseSiege;
 
     public Long getId() {

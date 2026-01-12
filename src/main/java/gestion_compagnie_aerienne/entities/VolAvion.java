@@ -2,10 +2,14 @@ package gestion_compagnie_aerienne.entities;
 
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
+import legacy.annotations.ForeignKey;
 import legacy.annotations.Id;
+import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(tableName = "vol_avion")
 public class VolAvion extends BaseEntity {
@@ -18,9 +22,11 @@ public class VolAvion extends BaseEntity {
     private Long id;
 
     @Column(name = "id_vol")
+    @ForeignKey(mappedBy = "vol", entity = Vol.class)
     private Integer idVol;
 
     @Column(name = "id_avion")
+    @ForeignKey(mappedBy = "avion", entity = Avion.class)
     private Integer idAvion;
 
     @Column(name = "date_depart")
@@ -78,6 +84,20 @@ public class VolAvion extends BaseEntity {
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public List<Siege> getSiegesDisponibles() {
+
+        String sql = "SELECT * FROM siege WHERE id_avion = ? AND id NOT IN (\n" +
+                "    SELECT id_siege FROM reservation_passager WHERE id_vol_avion = ?\n" +
+                "    )";
+        try {
+            List<Siege> siegeDisponibles = fetch(Siege.class, QueryManager.get_instance(), sql, this.getIdAvion(), this.getId());
+            return siegeDisponibles;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

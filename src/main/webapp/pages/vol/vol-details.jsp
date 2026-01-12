@@ -15,8 +15,17 @@
 <html>
 <head>
     <title>Détails des croisières du vol <%= vol.getNumeroVol() %> </title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <%@ include file="/sidebar.jsp" %>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Détails des croisières du vol <%= vol.getNumeroVol() %></h1>
+        </div>
+
+        <div class="table-container">
     <table>
         <thead>
             <tr>
@@ -68,5 +77,7 @@
             %>
         </tbody>
     </table>
+        </div>
+    </div>
 </body>
 </html>

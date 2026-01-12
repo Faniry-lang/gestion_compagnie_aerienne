@@ -11,8 +11,17 @@
 <html>
 <head>
     <title>Liste des vols</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <%@ include file="/sidebar.jsp" %>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Liste des vols</h1>
+        </div>
+
+        <div class="table-container">
     <table>
         <thead>
             <tr>
@@ -53,5 +62,7 @@
             %>
         </tbody>
     </table>
+        </div>
+    </div>
 </body>
 </html>

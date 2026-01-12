@@ -25,3 +25,7 @@ CREATE OR REPLACE VIEW vol_details AS
            GROUP BY id_vol_avion
            ) as vr ON vr.id_vol_avion = va.id
    ORDER BY va.created_on DESC;
+
+SELECT * FROM siege WHERE id_avion = 1 AND id NOT IN (
+    SELECT id_siege FROM reservation_passager WHERE id_vol_avion = 1
+    );

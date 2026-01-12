@@ -24,6 +24,16 @@
     <servlet-class>gestion_compagnie_aerienne.servlet.VolServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>ReservationServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.ReservationServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>BilletServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.BilletServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>AccueilServlet</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -37,6 +47,16 @@
   <servlet-mapping>
     <servlet-name>VolServlet</servlet-name>
     <url-pattern>/vol</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ReservationServlet</servlet-name>
+    <url-pattern>/reservation</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>BilletServlet</servlet-name>
+    <url-pattern>/billet</url-pattern>
   </servlet-mapping>
 
 </web-app>
