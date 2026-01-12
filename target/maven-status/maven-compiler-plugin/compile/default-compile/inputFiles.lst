@@ -1,6 +1,5 @@
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\code_generator\EntityCodeGenerator.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\code_generator\TemplateGenerator.java
-D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\dtos\VolDto.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Aeroport.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Avion.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\BagagePassager.java
@@ -29,5 +28,5 @@ D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compag
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\TypeAvion.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Vol.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\VolAvion.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\VolDetails.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\AccueilServlet.java
-D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\AeroportServlet.java

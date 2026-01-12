@@ -3,14 +3,13 @@ package gestion_compagnie_aerienne.entities;
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
 import legacy.annotations.Id;
-import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "siege")
 public class Siege extends BaseEntity {
     public Siege() {
-        super(QueryManager.get_instance());
+        super();
     }
 
     @Id

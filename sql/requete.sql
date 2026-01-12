@@ -10,6 +10,7 @@ CREATE OR REPLACE VIEW vol_details AS
     va.date_arrivee,
     va.created_on as date_vol_avion,
     a.id as id_avion,
+    a.modele as modele_avion,
     a.nbr_siege as capacite_totale,
     COALESCE(vr.places_reservees, 0) as places_reservees,
     a.nbr_siege - COALESCE(vr.places_reservees, 0) as places_restantes

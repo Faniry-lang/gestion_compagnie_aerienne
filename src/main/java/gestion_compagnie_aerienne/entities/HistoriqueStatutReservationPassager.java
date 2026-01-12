@@ -3,7 +3,6 @@ package gestion_compagnie_aerienne.entities;
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
 import legacy.annotations.Id;
-import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity(tableName = "historique_statut_reservation_passager")
 public class HistoriqueStatutReservationPassager extends BaseEntity {
     public HistoriqueStatutReservationPassager() {
-        super(QueryManager.get_instance());
+        super();
     }
 
     @Id

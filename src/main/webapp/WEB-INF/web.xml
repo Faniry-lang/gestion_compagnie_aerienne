@@ -13,19 +13,20 @@
     <servlet-name>AccueilServlet</servlet-name>
     <servlet-class>gestion_compagnie_aerienne.servlet.AccueilServlet</servlet-class>
   </servlet>
+
   <servlet>
-    <servlet-name>AeroportServlet</servlet-name>
-    <servlet-class>gestion_compagnie_aerienne.servlet.AeroportServlet</servlet-class>
+    <servlet-name>VolDetailsServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.VolDetailsServlet</servlet-class>
   </servlet>
-  
+
   <servlet-mapping>
     <servlet-name>AccueilServlet</servlet-name>
     <url-pattern>/accueil</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>AeroportServlet</servlet-name>
-    <url-pattern>/aeroport</url-pattern>
+    <servlet-name>VolDetailsServlet</servlet-name>
+    <url-pattern>/vol-details</url-pattern>
   </servlet-mapping>
 
 </web-app>

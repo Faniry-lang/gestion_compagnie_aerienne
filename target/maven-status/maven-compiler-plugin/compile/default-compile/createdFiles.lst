@@ -1,6 +1,5 @@
 gestion_compagnie_aerienne\entities\HistoriqueStatutReservation.class
 gestion_compagnie_aerienne\code_generator\EntityCodeGenerator.class
-gestion_compagnie_aerienne\servlet\AeroportServlet.class
 gestion_compagnie_aerienne\entities\ForfaitBagage.class
 gestion_compagnie_aerienne\entities\Itineraire.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutAvion.class
@@ -13,6 +12,7 @@ gestion_compagnie_aerienne\entities\Aeroport.class
 gestion_compagnie_aerienne\entities\LimiteBagage.class
 gestion_compagnie_aerienne\servlet\AccueilServlet.class
 gestion_compagnie_aerienne\entities\StatutAvion.class
+gestion_compagnie_aerienne\entities\VolDetails.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator.class
 gestion_compagnie_aerienne\entities\Avion.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutVol.class
@@ -26,7 +26,6 @@ gestion_compagnie_aerienne\entities\StatutVol.class
 gestion_compagnie_aerienne\entities\VolAvion.class
 gestion_compagnie_aerienne\entities\Escale.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator$JspCrudGenerator.class
-gestion_compagnie_aerienne\dtos\VolDto.class
 gestion_compagnie_aerienne\entities\Billet.class
 gestion_compagnie_aerienne\code_generator\TemplateGenerator$ColumnBlocks.class
 gestion_compagnie_aerienne\entities\Siege.class

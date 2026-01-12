@@ -3,7 +3,6 @@ package gestion_compagnie_aerienne.entities;
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
 import legacy.annotations.Id;
-import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
 import java.time.LocalDate;
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 @Entity(tableName = "avion")
 public class Avion extends BaseEntity {
     public Avion() {
-        super(QueryManager.get_instance());
+        super();
     }
 
     @Id

@@ -3,14 +3,13 @@ package gestion_compagnie_aerienne.entities;
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
 import legacy.annotations.Id;
-import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
 
 @Entity(tableName = "limite_bagage")
 public class LimiteBagage extends BaseEntity {
     public LimiteBagage() {
-        super(QueryManager.get_instance());
+        super();
     }
 
     @Id
