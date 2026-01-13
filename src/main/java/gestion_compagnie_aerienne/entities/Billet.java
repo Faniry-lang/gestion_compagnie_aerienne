@@ -2,6 +2,7 @@ package gestion_compagnie_aerienne.entities;
 
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
+import legacy.annotations.ForeignKey;
 import legacy.annotations.Id;
 import legacy.schema.BaseEntity;
 
@@ -17,24 +18,30 @@ public class Billet extends BaseEntity {
     private Long id;
 
     @Column(name = "id_passager")
+    @ForeignKey(mappedBy = "passager", entity = Passager.class)
     private Integer idPassager;
 
     @Column(name = "id_vol")
+    @ForeignKey(mappedBy = "vol", entity = Vol.class)
     private Integer idVol;
 
     @Column(name = "id_vol_avion")
+    @ForeignKey(mappedBy = "vol_avion", entity = VolAvion.class)
     private Integer idVolAvion;
 
     @Column(name = "id_siege")
+    @ForeignKey(mappedBy = "siege", entity = Siege.class)
     private Integer idSiege;
 
     @Column
     private Float prix;
 
     @Column(name = "id_classe_siege")
+    @ForeignKey(mappedBy = "classe_siege", entity = ClasseSiege.class)
     private Integer idClasseSiege;
 
     @Column(name = "id_reservation_passager")
+    @ForeignKey(mappedBy = "reservation_passager", entity = ReservationPassager.class)
     private Integer idReservationPassager;
 
     public Long getId() {

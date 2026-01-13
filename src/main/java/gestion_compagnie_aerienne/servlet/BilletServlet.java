@@ -26,6 +26,9 @@ public class BilletServlet extends HttpServlet {
                     } else {
                         billets = Billet.findAll(Billet.class, QueryManager.get_instance());
                     }
+                    for(Billet billet: billets) {
+                        billet.mount();
+                    }
                     req.setAttribute("billets", billets);
                     req.getRequestDispatcher("pages/billet/billet-list.jsp").forward(req, resp);
                     break;

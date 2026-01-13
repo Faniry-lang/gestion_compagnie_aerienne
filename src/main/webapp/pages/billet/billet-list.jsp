@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="gestion_compagnie_aerienne.entities.Billet" %>
+<%@ page import="gestion_compagnie_aerienne.entities.*" %>
 <%--
   Created by IntelliJ IDEA.
   User: ME-PC
@@ -16,6 +16,7 @@
     <meta charset="UTF-8">
     <title>Liste des billets</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/icons/css/all/all.css">
 </head>
 <body>
     <%@ include file="/sidebar.jsp" %>
@@ -40,14 +41,22 @@
                 </thead>
                 <tbody>
                     <% if (billets != null) {
-                        for (Billet b : billets) { %>
+                        for (Billet b : billets) {
+                            Passager passager = ((Passager) b.getForeignKeysCollection().get("id_passager"));
+                            Vol vol = ((Vol) b.getForeignKeysCollection().get("id_vol"));
+                            VolAvion volAvion = ((VolAvion) b.getForeignKeysCollection().get("id_vol_avion"));
+                            volAvion.mount();
+                            Avion avion = (Avion) volAvion.getForeignKeysCollection().get("id_avion");
+                            Siege siege = (Siege) b.getForeignKeysCollection().get("id_siege");
+                            ClasseSiege classeSiege = (ClasseSiege) b.getForeignKeysCollection().get("id_classe_siege");
+                    %>
                             <tr>
                                 <td><%= b.getId() %></td>
-                                <td><%= b.getIdPassager() %></td>
-                                <td><%= b.getIdVol() %></td>
-                                <td><%= b.getIdVolAvion() %></td>
-                                <td><%= b.getIdSiege() %></td>
-                                <td><%= b.getIdClasseSiege() %></td>
+                                <td><%= passager.getNom() %></td>
+                                <td><%= vol.getNumeroVol() %></td>
+                                <td><%= avion.getModele() %></td>
+                                <td><%= siege.getNumeroSiege() %></td>
+                                <td><%= classeSiege.getLibelle() %></td>
                                 <td><%= b.getPrix() %></td>
                             </tr>
                     <%   }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Accueil - Gestion Compagnie Aerienne</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/icons/css/all/all.css">
 </head>
 <body>
     <%@ include file="sidebar.jsp" %>

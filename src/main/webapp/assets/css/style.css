@@ -1,13 +1,3 @@
-/* Icon font face (flaticons) */
-@font-face {
-    font-family: 'Flaticons';
-    src: url('../icons/css/all/uicons-regular-straight-AFQI6GFM.woff2') format('woff2'),
-         url('../icons/css/all/uicons-regular-straight-AFQI6GFM.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
 /* Général - thème clair */
 * {
     margin: 0;

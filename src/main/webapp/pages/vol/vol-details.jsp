@@ -16,6 +16,7 @@
 <head>
     <title>Détails des croisières du vol <%= vol.getNumeroVol() %> </title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/icons/css/all/all.css">
 </head>
 <body>
     <%@ include file="/sidebar.jsp" %>

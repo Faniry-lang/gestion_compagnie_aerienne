@@ -19,14 +19,7 @@
 <head>
     <title>Création d'une réservation</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .passager-row { margin-bottom: 8px; }
-        .remove-btn { margin-left: 8px; }
-        .flight-details { margin-bottom: 16px; padding: 8px; border: 1px solid #ccc; background: linear-gradient(135deg, #1e293b 0%, #1a1f2e 100%); border-radius:8px; }
-        .flight-details p { margin: 4px 0; }
-        .reservation-form-box { background: linear-gradient(135deg, #1e293b 0%, #1a1f2e 100%); padding:20px; border-radius:12px; border:1px solid rgba(96,165,250,0.08); }
-        .form-actions { margin-top: 12px; }
-    </style>
+    <link rel="stylesheet" href="assets/icons/css/all/all.css">
 </head>
 <body>
     <%@ include file="/sidebar.jsp" %>

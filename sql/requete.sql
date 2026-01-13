@@ -26,6 +26,12 @@ CREATE OR REPLACE VIEW vol_details AS
            ) as vr ON vr.id_vol_avion = va.id
    ORDER BY va.created_on DESC;
 
+CREATE OR REPLACE VIEW reservation_details AS
+   SELECT r.id, r.reference, r.created_on, COUNT(rp.id) AS nbr_passagers, SUM(rp.prix) AS montant_total
+   FROM reservation r
+   JOIN reservation_passager rp ON rp.id_reservation = r.id
+   GROUP BY r.id, r.reference, r.created_on;
+
 SELECT * FROM siege WHERE id_avion = 1 AND id NOT IN (
     SELECT id_siege FROM reservation_passager WHERE id_vol_avion = 1
     );

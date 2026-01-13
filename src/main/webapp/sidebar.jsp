@@ -1,10 +1,11 @@
 <nav>
+    <h1 style="margin-bottom: 10px;" >Flights</h1>
     <ul>
-        <li><a href="aeroport"><span class="icon icon-map"></span> Aeroports</a></li>
-        <li><a href="reservation"><span class="icon icon-ticket"></span> Reservations</a></li>
-        <li><a href="billet"><span class="icon icon-receipt"></span> Billets</a></li>
-        <li><a href="vol"><span class="icon icon-plane"></span> Vols</a></li>
-        <li><a href="itineraire"><span class="icon icon-route"></span> Itineraires</a></li>
-        <li><a href="avion"><span class="icon icon-aircraft"></span> Avions</a></li>
+        <li><a href="aeroport"><i style="margin-right: 10px;" class="fi fi-rr-flag"></i> <span> Aeroports </span></a></li>
+        <li><a href="reservation"><i style="margin-right: 10px;" class="fi fi-rr-wallet"></i> <span> Reservations </span></a></li>
+        <li><a href="billet?action=list"><i style="margin-right: 10px;" class="fi fi-rr-money"></i> <span> Billets </span></a></li>
+        <li><a href="vol"><i style="margin-right: 10px;" class="fi fi-rr-plane"></i> <span> Vols </span></a></li>
+        <li><a href="itineraire"><i style="margin-right: 10px;" class="fi fi-rr-route"></i> <span> Itineraires </span></a></li>
+        <li><a href="avion"><i style="margin-right: 10px;" class="fi fi-rr-airplane-journey"></i> <span> Avions </span></a></li>
     </ul>
 </nav>
