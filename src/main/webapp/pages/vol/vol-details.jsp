@@ -18,6 +18,11 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/icons/css/all/all.css">
 </head>
+<style>
+    table { width:100%; border-collapse:collapse; background:#fff; }
+    th, td { padding:10px 12px; border-bottom:1px solid #eef2ff; text-align:left; }
+    th { background:#f8fafc; color:#0f172a; }
+</style>
 <body>
     <%@ include file="/sidebar.jsp" %>
 

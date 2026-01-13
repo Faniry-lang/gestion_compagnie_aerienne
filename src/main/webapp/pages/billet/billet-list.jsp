@@ -92,6 +92,9 @@
         .filter-panel button {
             padding: 8px;
         }
+        table { width:100%; border-collapse:collapse; background:#fff; }
+        th, td { padding:10px 12px; border-bottom:1px solid #eef2ff; text-align:left; }
+        th { background:#f8fafc; color:#0f172a; }
     </style>
 </head>
 <body>

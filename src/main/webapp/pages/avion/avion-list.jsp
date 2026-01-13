@@ -18,6 +18,9 @@
         .filter-panel { position: fixed; top:0; right:-380px; width:350px; height:100vh; background:#fff; transition:right .25s; padding:20px; box-shadow:-2px 0 12px rgba(0,0,0,.12); }
         .filter-panel.open { right:0; }
         .filter-panel form { margin-top:12px; display:flex; flex-direction:column; gap:10px; }
+        table { width:100%; border-collapse:collapse; background:#fff; }
+        th, td { padding:10px 12px; border-bottom:1px solid #eef2ff; text-align:left; }
+        th { background:#f8fafc; color:#0f172a; }
     </style>
 </head>
 <body>

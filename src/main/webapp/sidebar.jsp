@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 240px;
+    width: 200px;
     height: 100vh;
     background: linear-gradient(180deg, #ffffff, #f8fafc);
     color: #0f172a;
@@ -13,17 +13,14 @@
 ">
 
     <style>
-        /* Ensure page content is shifted right to avoid being hidden under the fixed sidebar */
         .main-content { margin-left: 260px; }
-        /* Small screens: sidebar becomes overlay and main-content margin removed */
+
         @media (max-width: 900px) { .main-content { margin-left: 0; } nav { position: relative; width: 100%; height: auto; box-shadow: none; } }
-        /* Menu link hover style */
         .sidebar-link { display:flex; align-items:center; padding:10px 12px; border-radius:8px; color:inherit; text-decoration:none; background: transparent; transition: background .12s ease, transform .08s ease; }
         .sidebar-link:hover { background: rgba(2,6,23,0.03); transform: translateY(-1px); }
         .sidebar-icon { margin-right:12px; }
     </style>
 
-    <!-- Title -->
     <h1 style="
         margin: 0 0 4px 0;
         font-size: 20px;
@@ -34,7 +31,6 @@
         Flight Booking
     </h1>
 
-    <!-- Subtitle -->
     <div style="
         margin-bottom: 30px;
         font-size: 12px;
@@ -45,7 +41,6 @@
         BACKOFFICE
     </div>
 
-    <!-- Menu -->
     <ul style="
         list-style: none;
         padding: 0;

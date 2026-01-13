@@ -21,6 +21,9 @@
         .filter-panel form { margin-top:20px; display:flex; flex-direction:column; gap:10px; }
         .filter-panel input, .filter-panel select, .filter-panel button { padding:8px; }
         .search-row { display:flex; gap:10px; align-items:flex-end; margin:12px 0; }
+        table { width:100%; border-collapse:collapse; background:#fff; }
+        th, td { padding:10px 12px; border-bottom:1px solid #eef2ff; text-align:left; }
+        th { background:#f8fafc; color:#0f172a; }
     </style>
 </head>
 <body>
