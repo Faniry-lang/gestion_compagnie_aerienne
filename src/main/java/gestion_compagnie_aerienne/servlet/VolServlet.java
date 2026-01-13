@@ -11,6 +11,7 @@ import legacy.query.Filter;
 import legacy.query.QueryManager;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,37 @@ public class VolServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        try {
+            String action = req.getParameter("action");
+            if(action == null) action = "create";
+            switch(action) {
+                case "create":
+                    String numeroVol = req.getParameter("numeroVol");
+                    String idAeroportDepartStr = req.getParameter("idAeroportDepart");
+                    String idAeroportArriveeStr = req.getParameter("idAeroportArrivee");
+
+                    if(numeroVol == null || numeroVol.isEmpty()) throw new Exception("Numero de vol requis");
+                    if(idAeroportDepartStr == null || idAeroportDepartStr.isEmpty()) throw new Exception("Aeroport depart requis");
+                    if(idAeroportArriveeStr == null || idAeroportArriveeStr.isEmpty()) throw new Exception("Aeroport arrivee requis");
+
+                    Integer idAeroportDepart = Integer.parseInt(idAeroportDepartStr);
+                    Integer idAeroportArrivee = Integer.parseInt(idAeroportArriveeStr);
+
+                    Vol vol = new Vol();
+                    vol.setNumeroVol(numeroVol);
+                    vol.setIdAeroportDepart(idAeroportDepart);
+                    vol.setIdAeroportArrivee(idAeroportArrivee);
+                    vol.setCreatedOn(LocalDateTime.now());
+                    vol.save();
+
+                    resp.sendRedirect("vol");
+                    break;
+                default:
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Action inconnue");
+            }
+        } catch (Exception e) {
+            req.setAttribute("error-message", e.getMessage());
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
     }
 }

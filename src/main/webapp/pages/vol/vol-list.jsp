@@ -20,9 +20,15 @@
         .close-btn { font-size: 24px; background: none; border: none; cursor: pointer; }
         .filter-panel form { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
         .filter-panel input, .filter-panel button { padding: 8px; }
-        table { width:100%; border-collapse:collapse; background:#fff; }
-        th, td { padding:10px 12px; border-bottom:1px solid #eef2ff; text-align:left; }
-        th { background:#f8fafc; color:#0f172a; }
+
+
+        .modal-overlay { position: fixed; inset:0; background: rgba(2,6,23,0.45); display:none; align-items:center; justify-content:center; z-index:1100; }
+        .modal-overlay.open { display:flex; }
+        .modal-card { background:var(--surface,#fff); border-radius:12px; padding:20px; width:520px; max-width:94%; box-shadow:0 12px 30px rgba(2,6,23,0.08); border:1px solid var(--border,#e6eef8); }
+        .modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+        .modal-row{ display:flex; gap:10px; }
+        .modal-row .col{ flex:1; display:flex; flex-direction:column; }
+        @media (max-width:560px){ .modal-row{ flex-direction:column; } }
     </style>
 </head>
 <body>
@@ -35,9 +41,12 @@
 
     <div class="page-header">
         <h1>Liste des vols</h1>
-        <button class="filter-btn" onclick="openFilters()">
-            <i class="fi fi-rr-filter"></i> Filtres
-        </button>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <button class="btn" id="openCreateVolBtn">Enregistrer un vol</button>
+            <button class="filter-btn" onclick="openFilters()">
+                <i class="fi fi-rr-filter"></i> Filtres
+            </button>
+        </div>
     </div>
 
     <div class="table-container">
@@ -78,10 +87,9 @@
 
 </div>
 
-<!-- Overlay -->
+
 <div id="filterOverlay" class="filter-overlay" onclick="closeFilters()"></div>
 
-<!-- Filter panel -->
 <div id="filterPanel" class="filter-panel">
     <div class="filter-header">
         <h2>Filtres</h2>
@@ -109,15 +117,60 @@
     </form>
 </div>
 
-<script>
-    function openFilters() {
-        document.getElementById("filterPanel").classList.add("open");
-        document.getElementById("filterOverlay").classList.add("open");
-    }
 
-    function closeFilters() {
-        document.getElementById("filterPanel").classList.remove("open");
-        document.getElementById("filterOverlay").classList.remove("open");
+<div id="createVolOverlay" class="modal-overlay" onclick="closeCreateVol(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Enregistrer un vol</h3>
+            <button class="close-btn" onclick="closeCreateVol(event)">×</button>
+        </div>
+        <form action="vol?action=create" method="post">
+            <div class="modal-row">
+                <div class="col">
+                    <label>Numero vol</label>
+                    <input type="text" name="numeroVol" required />
+                </div>
+            </div>
+            <div class="modal-row" style="margin-top:10px;">
+                <div class="col">
+                    <label>Aeroport depart</label>
+                    <select name="idAeroportDepart" required>
+                        <option value="">(Sélectionner)</option>
+                        <% if (aeroports != null) { for (Aeroport a : aeroports) { %>
+                            <option value="<%= a.getId() %>"><%= a.getNom() %></option>
+                        <% } } %>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Aeroport arrivée</label>
+                    <select name="idAeroportArrivee" required>
+                        <option value="">(Sélectionner)</option>
+                        <% if (aeroports != null) { for (Aeroport a : aeroports) { %>
+                            <option value="<%= a.getId() %>"><%= a.getNom() %></option>
+                        <% } } %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions" style="margin-top:14px;">
+                <button type="submit" class="btn">Enregistrer</button>
+                <button type="button" class="btn btn-secondary" onclick="closeCreateVol(event)">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openFilters() { document.getElementById("filterPanel").classList.add("open"); document.getElementById("filterOverlay").classList.add("open"); }
+    function closeFilters() { document.getElementById("filterPanel").classList.remove("open"); document.getElementById("filterOverlay").classList.remove("open"); }
+
+
+    document.getElementById('openCreateVolBtn').addEventListener('click', function(){
+        document.getElementById('createVolOverlay').classList.add('open');
+    });
+    function closeCreateVol(e){
+        e && e.stopPropagation();
+        document.getElementById('createVolOverlay').classList.remove('open');
     }
 </script>
 
