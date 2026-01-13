@@ -13,6 +13,8 @@ import java.util.Map;
 import legacy.annotations.Column;
 import legacy.annotations.Id;
 
+// code experimental, mbola tsy mandeh
+
 public final class TemplateGenerator {
 
     public static void main(String[] args) throws Exception {

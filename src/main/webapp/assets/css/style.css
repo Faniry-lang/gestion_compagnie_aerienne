@@ -1,203 +1,82 @@
-/* Général - thème clair */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Modernized centralized stylesheet - improved tables and buttons to match sidebar soft UI */
+:root{
+  --page-bg:#f7fafc;
+  --surface:#ffffff;
+  --muted:#64748b;
+  --primary:#2563eb;
+  --primary-600:#1e40af;
+  --accent:#06b6d4;
+  --border:#e6eef8;
+  --soft-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  --soft-shadow-sm: 0 4px 12px rgba(2,6,23,0.04);
+  --radius-sm:10px;
+  --radius-md:14px;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fb; /* clair */
-    color: #1f2937; /* texte sombre */
-    display: flex;
-    min-height: 100vh;
-}
+/* Base layout */
+html,body{ background:var(--page-bg); margin:0; font-family: Inter, 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', Arial; color:#0f172a; }
+.main-content{ padding:22px; max-width:1200px; margin:0 auto; }
+.page-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.page-header h1{ margin:0; font-size:1.25rem; font-weight:600; }
 
-/* Sidebar Navigation - style sérieux */
-nav {
-    width: 260px;
-    background: #ffffff; /* blanc */
-    padding: 20px 18px;
-    min-height: 100vh;
-    box-shadow: 2px 0 8px rgba(15, 23, 42, 0.06);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-}
+/* Buttons - soft UI */
+.btn{ display:inline-flex; align-items:center; gap:8px; background:var(--primary); color:#fff; border:none; padding:8px 12px; border-radius:12px; cursor:pointer; box-shadow:var(--soft-shadow-sm); transition:transform .12s ease, box-shadow .12s ease, background .12s ease; }
+.btn:hover{ transform:translateY(-2px); box-shadow:var(--soft-shadow); }
+.btn:active{ transform:translateY(0); }
 
-nav h2 {
-    color: #60a5fa;
-    padding: 0 25px;
-    margin-bottom: 30px;
-    font-size: 1.4em;
-    font-weight: 600;
-}
+.btn-secondary{ background:var(--surface); color:var(--primary-600); border:1px solid var(--border); padding:8px 12px; border-radius:12px; }
+.btn-secondary:hover{ background:linear-gradient(180deg,#fbfdff,#ffffff); }
 
-nav ul { list-style-type: none; }
-nav li { margin: 6px 0; }
-nav a {
-    color: #1f2937;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 12px 10px;
-    border-left: 3px solid transparent;
-    transition: all 0.15s ease;
-    font-size: 0.95em;
-    font-weight: 600;
-}
+/* Small icon buttons */
+.icon-btn{ background:transparent; border:0; padding:6px; border-radius:8px; cursor:pointer; color:var(--muted); }
+.icon-btn:hover{ background:rgba(2,6,23,0.03); color:var(--primary-600); }
 
-nav a:hover {
-    background-color: #f1f5f9;
-    color: #0f172a;
-    transform: translateX(4px);
-}
+/* Filter panel (kept for compatibility) */
+.filter-btn{ padding:8px 14px; border-radius:12px; }
+.filter-overlay{ position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(2,6,23,0.35); z-index:999; display:none; }
+.filter-overlay.open{ display:block; }
+.filter-panel{ position:fixed; top:0; right:-420px; width:380px; height:100vh; background:var(--surface); z-index:1000; box-shadow:-20px 0 40px rgba(2,6,23,0.08); transition:right .28s ease; padding:20px; border-top-left-radius:16px; border-bottom-left-radius:16px; }
+.filter-panel.open{ right:0; }
+.filter-header{ display:flex; justify-content:space-between; align-items:center; }
+.close-btn{ font-size:20px; background:none; border:none; cursor:pointer; }
+.filter-panel form{ margin-top:16px; display:flex; flex-direction:column; gap:12px; }
 
-nav a.active {
-    background-color: #eef2ff;
-    color: #0b4bff;
-    border-left-color: #0b4bff;
-}
+/* Inputs */
+input[type=text], input[type=number], select, textarea { width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border); background:linear-gradient(180deg,#fff,#fbfdff); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); transition:box-shadow .12s ease, border-color .12s ease; }
+input:focus, select:focus, textarea:focus{ outline:none; border-color:var(--primary); box-shadow:0 8px 24px rgba(37,99,235,0.08); }
+label{ display:block; font-size:.9rem; color:var(--muted); margin-bottom:6px; }
 
-/* Icon helper */
-.icon { display:inline-block; width:22px; text-align:center; margin-right:10px; font-family: 'Flaticons'; }
-.icon::before { content: "\e900"; /* fallback glyph */ }
+/* Table card wrapper - ensures lists look like the sidebar cards */
+.table-container{ margin-top:12px; }
+.table-card{ background:var(--surface); border-radius:var(--radius-md); padding:12px; box-shadow:var(--soft-shadow); border:1px solid var(--border); }
 
-/* Mappage basique pour icônes (si la font ne correspond pas, garder une puce visuelle) */
-.icon-map::before { content: "\e902"; }
-.icon-ticket::before { content: "\e903"; }
-.icon-receipt::before { content: "\e904"; }
-.icon-plane::before { content: "\e905"; }
-.icon-route::before { content: "\e906"; }
-.icon-aircraft::before { content: "\e907"; }
+/* Tables */
+table{ width:100%; border-collapse:collapse; background:transparent; }
+thead th{ text-align:left; padding:12px; font-weight:700; font-size:.95rem; color:var(--primary-600); background:transparent; }
+tbody td{ padding:12px; border-bottom:1px solid var(--border); vertical-align:middle; }
+tbody tr{ transition:background .12s ease, transform .08s ease; border-radius:8px; }
+tbody tr:hover{ background: linear-gradient(90deg, rgba(2,6,23,0.02), rgba(2,6,23,0.01)); transform:translateY(-2px); }
 
-/* Contenu Principal */
-.main-content {
-    flex: 1;
-    padding: 30px 40px;
-    background-color: transparent;
-    overflow-y: auto;
-}
+/* Rounded corners on table top and bottom rows for nicer card look */
+thead th:first-child{ border-top-left-radius:10px; }
+thead th:last-child{ border-top-right-radius:10px; }
+tbody tr:last-child td:first-child{ border-bottom-left-radius:10px; }
+tbody tr:last-child td:last-child{ border-bottom-right-radius:10px; }
 
-/* Welcome Box */
-.welcome-box {
-    background: linear-gradient(135deg, #1e293b 0%, #1a1f2e 100%);
-    padding: 60px 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    text-align: center;
-    border: 1px solid rgba(96, 165, 250, 0.1);
-}
+/* Action link styling inside tables */
+.table-actions{ display:flex; gap:8px; align-items:center; }
+.table-actions a{ color:var(--primary-600); text-decoration:none; padding:6px 8px; border-radius:8px; }
+.table-actions a:hover{ background:rgba(37,99,235,0.06); }
 
-.welcome-box h1 {
-    color: #e1e8ed;
-    margin-bottom: 15px;
-    font-size: 2.2em;
-    font-weight: 600;
-}
+/* Reservation card (kept for backward compatibility) */
+.reservation-card{ max-width:980px; margin:24px auto; background:var(--surface); border-radius:12px; padding:22px; box-shadow:var(--soft-shadow); border:1px solid var(--border); display:grid; grid-template-columns:1fr 420px; gap:20px; }
+.reservation-card .flight-details{ background:linear-gradient(180deg,#fbfdff,#ffffff); padding:18px; border-radius:10px; border:1px solid rgba(230,238,248,0.6); }
 
-.welcome-box p {
-    color: #9ca3af;
-    font-size: 1.1em;
-}
+/* Helpers */
+.divider{ margin:12px 0; border:none; border-top:1px solid var(--border); }
+.hidden{ display:none; }
+.label-small{ font-size:0.9em; color:var(--muted); }
+.form-actions{ display:flex; gap:12px; justify-content:flex-end; margin-top:12px; }
 
-/* Page Header */
-.page-header { margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; }
-.page-header h1 { color:#0f172a; font-size:1.8em; font-weight:700; }
-
-/* Filters Section */
-.filters-section {
-    background: linear-gradient(135deg, #1e293b 0%, #1a1f2e 100%);
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-    border: 1px solid rgba(96, 165, 250, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.filters-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    align-items: end;
-}
-
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.filter-group label {
-    color: #9ca3af;
-    font-size: 0.9em;
-    font-weight: 500;
-}
-
-.filter-group input,
-.filter-group select,
-select,
-input[type="text"],
-input[type="number"],
-textarea {
-    padding:10px 12px;
-    background:#fff;
-    border:1px solid #d1d5db;
-    border-radius:4px;
-    color:#0f172a;
-    width:100%;
-    font-size: 0.95em;
-    transition: all 0.3s ease;
-}
-
-.filter-group input:focus,
-.filter-group select:focus,
-select:focus {
-    outline:none;
-    box-shadow:0 0 0 3px rgba(11,75,255,0.08);
-    border-color:#0b4bff;
-}
-
-/* Buttons - sérieux */
-.btn { padding: 10px 18px; border: 1px solid transparent; border-radius: 6px; font-size:0.95em; font-weight:600; cursor:pointer; }
-.btn-primary { background-color: #0b4bff; color: #fff; border-color: #0b4bff; }
-.btn-primary:hover { background-color: #0839d6; }
-.btn-secondary { background-color: #f1f5f9; color:#0f172a; border-color:#e2e8f0; }
-
-/* Table Container - formel */
-.table-container { background: #ffffff; border-radius:6px; overflow:hidden; box-shadow:0 6px 18px rgba(15,23,42,0.06); border:1px solid #e6edf3; }
-
-table { width:100%; border-collapse:collapse; }
-thead { background:#f8fafc; }
-thead th { padding:14px 18px; text-align:left; color:#0b4bff; font-weight:700; font-size:0.85em; border-bottom:2px solid #eef2ff; }
-tbody td { padding:12px 18px; color:#111827; border-bottom:1px solid #eef2ff; }
-tbody tr:hover { background:#fcfdff; }
-
-/* status badge */
-.status-badge { padding:6px 10px; border-radius:4px; font-weight:700; font-size:0.8em; }
-
-/* Actions */
-.actions {
-    display: flex;
-    gap: 10px;
-}
-
-.action-btn {
-    padding: 8px 12px;
-    background-color: transparent;
-    border: 1px solid #374151;
-    border-radius: 6px;
-    color: #9ca3af;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.85em;
-}
-
-.action-btn:hover {
-    background-color: #374151;
-    color: #60a5fa;
-    border-color: #60a5fa;
-}
-
-/* Responsive */
-@media (max-width:768px) { body { flex-direction:column; } nav { width:100%; position:relative; height:auto; } .main-content { padding:16px; } }
+/* Responsive adjustments */
+@media (max-width:920px){ .reservation-card{ grid-template-columns:1fr; padding:16px; } .reservation-card .flight-details{ order:2; } .filter-panel{ position:fixed; left:0; right:0; width:100%; height:auto; border-radius:0; } }
