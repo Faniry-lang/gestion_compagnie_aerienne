@@ -1,11 +1,102 @@
-<nav>
-    <h1 style="margin-bottom: 10px;" >Flights</h1>
-    <ul>
-        <li><a href="aeroport"><i style="margin-right: 10px;" class="fi fi-rr-flag"></i> <span> Aeroports </span></a></li>
-        <li><a href="reservation"><i style="margin-right: 10px;" class="fi fi-rr-wallet"></i> <span> Reservations </span></a></li>
-        <li><a href="billet?action=list"><i style="margin-right: 10px;" class="fi fi-rr-money"></i> <span> Billets </span></a></li>
-        <li><a href="vol"><i style="margin-right: 10px;" class="fi fi-rr-plane"></i> <span> Vols </span></a></li>
-        <li><a href="itineraire"><i style="margin-right: 10px;" class="fi fi-rr-route"></i> <span> Itineraires </span></a></li>
-        <li><a href="avion"><i style="margin-right: 10px;" class="fi fi-rr-airplane-journey"></i> <span> Avions </span></a></li>
+<nav style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    color: #0f172a;
+    padding: 24px 18px;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    box-shadow: 4px 0 14px rgba(2,6,23,0.06);
+    z-index: 900;
+">
+
+    <style>
+        /* Ensure page content is shifted right to avoid being hidden under the fixed sidebar */
+        .main-content { margin-left: 260px; }
+        /* Small screens: sidebar becomes overlay and main-content margin removed */
+        @media (max-width: 900px) { .main-content { margin-left: 0; } nav { position: relative; width: 100%; height: auto; box-shadow: none; } }
+        /* Menu link hover style */
+        .sidebar-link { display:flex; align-items:center; padding:10px 12px; border-radius:8px; color:inherit; text-decoration:none; background: transparent; transition: background .12s ease, transform .08s ease; }
+        .sidebar-link:hover { background: rgba(2,6,23,0.03); transform: translateY(-1px); }
+        .sidebar-icon { margin-right:12px; }
+    </style>
+
+    <!-- Title -->
+    <h1 style="
+        margin: 0 0 4px 0;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #0f172a;
+    ">
+        Flight Booking
+    </h1>
+
+    <!-- Subtitle -->
+    <div style="
+        margin-bottom: 30px;
+        font-size: 12px;
+        color: #475569;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    ">
+        BACKOFFICE
+    </div>
+
+    <!-- Menu -->
+    <ul style="
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    ">
+
+        <li>
+            <a href="aeroport" class="sidebar-link">
+                <i class="fi fi-rr-flag sidebar-icon" style="color:#0284c7;"></i>
+                Aeroports
+            </a>
+        </li>
+
+        <li>
+            <a href="reservation" class="sidebar-link">
+                <i class="fi fi-rr-wallet sidebar-icon" style="color:#16a34a;"></i>
+                Reservations
+            </a>
+        </li>
+
+        <li>
+            <a href="billet?action=list" class="sidebar-link">
+                <i class="fi fi-rr-money sidebar-icon" style="color:#f59e0b;"></i>
+                Billets
+            </a>
+        </li>
+
+        <li>
+            <a href="vol" class="sidebar-link">
+                <i class="fi fi-rr-plane sidebar-icon" style="color:#3b82f6;"></i>
+                Vols
+            </a>
+        </li>
+
+        <li>
+            <a href="itineraire" class="sidebar-link">
+                <i class="fi fi-rr-route sidebar-icon" style="color:#f43f5e;"></i>
+                Itineraires
+            </a>
+        </li>
+
+        <li>
+            <a href="avion" class="sidebar-link">
+                <i class="fi fi-rr-airplane-journey sidebar-icon" style="color:#7c3aed;"></i>
+                Avions
+            </a>
+        </li>
     </ul>
 </nav>
+
+

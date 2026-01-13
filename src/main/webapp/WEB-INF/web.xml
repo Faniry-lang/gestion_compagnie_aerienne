@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Application de gestion de compagnie aérienne</display-name>
+  <display-name>Application de gestion de compagnie aerienne</display-name>
   <context-param>
     <param-name>resultsNb</param-name>
     <param-value>2</param-value>
@@ -34,6 +34,26 @@
     <servlet-class>gestion_compagnie_aerienne.servlet.BilletServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>AeroportServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.AeroportServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ReservationPassagerServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.ReservationPassagerServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AvionServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.AvionServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ItineraireServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.ItineraireServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>AccueilServlet</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -57,6 +77,26 @@
   <servlet-mapping>
     <servlet-name>BilletServlet</servlet-name>
     <url-pattern>/billet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AeroportServlet</servlet-name>
+    <url-pattern>/aeroport</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ReservationPassagerServlet</servlet-name>
+    <url-pattern>/reservation-passager</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AvionServlet</servlet-name>
+    <url-pattern>/avion</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ItineraireServlet</servlet-name>
+    <url-pattern>/itineraire</url-pattern>
   </servlet-mapping>
 
 </web-app>

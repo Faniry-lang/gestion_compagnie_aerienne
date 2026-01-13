@@ -1,12 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="gestion_compagnie_aerienne.entities.Vol" %>
-<%@ page import="gestion_compagnie_aerienne.entities.Aeroport" %>
+<%@ page import="gestion_compagnie_aerienne.entities.ReservationDetails" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Liste des vols</title>
+    <title>Liste des réservations</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/icons/css/all/all.css">
@@ -87,45 +86,55 @@
 <%@ include file="/sidebar.jsp" %>
 
 <%
-    List<Aeroport> aeroports = (List<Aeroport>) request.getAttribute("aeroports");
+    List<ReservationDetails> reservations = (List<ReservationDetails>) request.getAttribute("reservations");
 %>
 
 <div class="main-content">
 
     <div class="page-header">
-        <h1>Liste des vols</h1>
+        <h1>Liste des réservations</h1>
         <button class="filter-btn" onclick="openFilters()">
             <i class="fi fi-rr-filter"></i> Filtres
         </button>
     </div>
+
+    <form action="reservation" method="get" class="filter-row">
+        <div class="field">
+            <label>Référence</label>
+            <input type="text" name="reference" placeholder="Référence" value="<%= request.getParameter("reference") != null ? request.getParameter("reference") : "" %>" />
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn">Rechercher</button>
+            <a href="reservation" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;">Réinitialiser</a>
+        </div>
+    </form>
 
     <div class="table-container">
         <table>
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Numéro Vol</th>
-                <th>Aéroport Départ</th>
-                <th>Aéroport Arrivée</th>
+                <th>Référence</th>
+                <th>Date création</th>
+                <th>Nombre passagers</th>
+                <th>Montant total</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
             <%
-                List<Vol> vols = (List<Vol>) request.getAttribute("vols");
-                if (vols != null) {
-                    for (Vol vol : vols) {
-                        Aeroport depart = (Aeroport) vol.getForeignKeysCollection().get("id_aeroport_depart");
-                        Aeroport arrivee = (Aeroport) vol.getForeignKeysCollection().get("id_aeroport_arrivee");
+                if (reservations != null) {
+                    for (ReservationDetails r : reservations) {
             %>
             <tr>
-                <td><%= vol.getId() %></td>
-                <td><%= vol.getNumeroVol() %></td>
-                <td><%= depart != null ? depart.getNom() : "N/A" %></td>
-                <td><%= arrivee != null ? arrivee.getNom() : "N/A" %></td>
+                <td><%= r.getId() %></td>
+                <td><%= r.getReference() %></td>
+                <td><%= (r.getCreatedOn() != null ? r.getCreatedOn().toString() : "N/A") %></td>
+                <td><%= (r.getNbrPassagers() != null ? r.getNbrPassagers() : "N/A") %></td>
+                <td><%= (r.getMontantTotal() != null ? r.getMontantTotal() : "N/A") %></td>
                 <td>
-                    <a href="vol-details?idVol=<%= vol.getId() %>">Voir détails</a>
+                    <a href="reservation-passager?action=list&idReservation=<%= r.getId() %>">Voir détails</a>
                 </td>
             </tr>
             <%
@@ -148,22 +157,20 @@
         <button class="close-btn" onclick="closeFilters()">×</button>
     </div>
 
-    <form action="vol" method="get">
-        <label>Aéroport de départ</label>
-        <select name="idAeroportDepart">
-            <option value="">-- Sélectionner un aeroport --</option>
-            <% for (Aeroport aeroport : aeroports) { %>
-                <option value="<%= aeroport.getId() %>"><%= aeroport.getNom() %></option>
-            <% } %>
-        </select>
+    <form action="reservation" method="get">
+        <!-- reference moved above the table -->
+        <label>Montant total (min)</label>
+        <input type="number" step="0.01" name="montantMin" value="" />
 
-        <label>Aéroport d'arrivee</label>
-        <select name="idAeroportArrivee">
-            <option value="">-- Sélectionner un aeroport --</option>
-            <% for (Aeroport aeroport : aeroports) { %>
-            <option value="<%= aeroport.getId() %>"><%= aeroport.getNom() %></option>
-            <% } %>
-        </select>
+        <label>Montant total (max)</label>
+        <input type="number" step="0.01" name="montantMax" value="" />
+
+        <label>Nombre de passagers (min)</label>
+        <input type="number" name="nbrMin" value="" />
+
+        <label>Nombre de passagers (max)</label>
+        <input type="number" name="nbrMax" value="" />
+
         <button type="submit">Appliquer</button>
     </form>
 </div>
@@ -182,3 +189,4 @@
 
 </body>
 </html>
+

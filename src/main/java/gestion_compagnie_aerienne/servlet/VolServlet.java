@@ -48,7 +48,7 @@ public class VolServlet extends HttpServlet {
                 vol.mount();
             }
             req.setAttribute("vols", vols);
-            req.getRequestDispatcher("pages/vol/vol.jsp").forward(req, resp);
+            req.getRequestDispatcher("pages/vol/vol-list.jsp").forward(req, resp);
         } catch (Exception e) {
             req.setAttribute("error-message", e.getMessage());
             req.getRequestDispatcher("error.jsp").forward(req, resp);

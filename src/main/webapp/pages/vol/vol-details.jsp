@@ -14,7 +14,7 @@
 %>
 <html>
 <head>
-    <title>Détails des croisières du vol <%= vol.getNumeroVol() %> </title>
+    <title>Details des croiseres du vol <%= vol.getNumeroVol() %> </title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/icons/css/all/all.css">
 </head>
@@ -23,19 +23,19 @@
 
     <div class="main-content">
         <div class="page-header">
-            <h1>Détails des croisières du vol <%= vol.getNumeroVol() %></h1>
+            <h1>Details des croiseres du vol <%= vol.getNumeroVol() %></h1>
         </div>
 
         <div class="table-container">
     <table>
         <thead>
             <tr>
-                <th>ID Croisière</th>
+                <th>ID Croisiere</th>
                 <th>Avion</th>
-                <th>Date Départ</th>
-                <th>Date Arrivée</th>
-                <th>Capacité Totale</th>
-                <th>Places réservées</th>
+                <th>Date Depart</th>
+                <th>Date Arrivee</th>
+                <th>Capacite Totale</th>
+                <th>Places reservees</th>
                 <th>Places restantes</th>
                 <th>Actions</th>
             </tr>
@@ -70,7 +70,7 @@
                         <%= croisiere.getPlacesRestantes() %>
                     </td>
                     <td>
-                        <a href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>">Réserver</a>
+                        <a href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>">Reserver</a>
                     </td>
                 </tr>
             <%
