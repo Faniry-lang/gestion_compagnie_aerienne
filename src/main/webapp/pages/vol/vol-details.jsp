@@ -63,7 +63,9 @@
                     <td><%= croisiere.getCapaciteTotale() %></td>
                     <td><%= croisiere.getPlacesReservees() %></td>
                     <td><%= croisiere.getPlacesRestantes() %></td>
-                    <td><a href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>">Reserver</a></td>
+                    <td>
+                        <a class="btn btn-secondary" href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-ticket"></i> Reserver</a>
+                    </td>
                 </tr>
             <%
                     }

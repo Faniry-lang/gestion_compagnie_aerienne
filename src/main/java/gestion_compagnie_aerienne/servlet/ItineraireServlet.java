@@ -58,5 +58,43 @@ public class ItineraireServlet extends HttpServlet {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
-}
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String action = req.getParameter("action");
+            if(action == null) action = "create";
+            switch(action) {
+                case "create":
+                    String idDepStr = req.getParameter("idAeroportDepart");
+                    String idArrStr = req.getParameter("idAeroportArrivee");
+                    String distanceStr = req.getParameter("distanceKm");
+                    String dureeStr = req.getParameter("dureeMoyenneEstimee");
+
+                    if(idDepStr == null || idDepStr.isEmpty()) throw new Exception("Aeroport depart requis");
+                    if(idArrStr == null || idArrStr.isEmpty()) throw new Exception("Aeroport arrivee requis");
+                    if(distanceStr == null || distanceStr.isEmpty()) throw new Exception("Distance requise");
+
+                    Integer idDep = Integer.parseInt(idDepStr);
+                    Integer idArr = Integer.parseInt(idArrStr);
+                    Float distance = Float.parseFloat(distanceStr);
+                    Integer duree = (dureeStr != null && !dureeStr.isEmpty()) ? Integer.parseInt(dureeStr) : null;
+
+                    Itineraire it = new Itineraire();
+                    it.setIdAeroportDepart(idDep);
+                    it.setIdAeroportArrivee(idArr);
+                    it.setDistanceKm(distance);
+                    it.setDureeMoyenneEstimee(duree);
+                    it.save();
+
+                    resp.sendRedirect("itineraire");
+                    break;
+                default:
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Action inconnue");
+            }
+        } catch (Exception e) {
+            req.setAttribute("error-message", e.getMessage());
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
+    }
+}

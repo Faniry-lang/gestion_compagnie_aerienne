@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="assets/icons/css/all/all.css">
     <style>
         .page-header { display:flex; justify-content:space-between; align-items:center; }
+        /* Modal styles (centered overlay) */
+        .modal-overlay { position: fixed; inset:0; background: rgba(2,6,23,0.45); display:none; align-items:center; justify-content:center; z-index:1100; }
+        .modal-overlay.open { display:flex; }
+        .modal-card { background:var(--surface,#fff); border-radius:12px; padding:20px; width:520px; max-width:94%; box-shadow:0 12px 30px rgba(2,6,23,0.08); border:1px solid var(--border,#e6eef8); }
         .search-row { display:flex; gap:10px; align-items:flex-end; margin:12px 0; flex-wrap:wrap; }
         .search-row .field { display:flex; flex-direction:column; }
         .filter-btn { padding:8px 14px; }
@@ -28,7 +32,10 @@
     <div class="main-content">
         <div class="page-header">
             <h1>Liste des avions</h1>
-            <button class="filter-btn" onclick="openFilters()">Filtres</button>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <button class="btn" id="openCreateAvionBtn"><i class="fi fi-rr-plus"></i>Enregistrer</button>
+                <button class="filter-btn" onclick="openFilters()">Filtres</button>
+            </div>
         </div>
 
         <form action="avion" method="get" class="search-row">
@@ -42,7 +49,7 @@
             </div>
             <div style="display:flex; gap:8px; align-items:flex-end;">
                 <button class="btn" type="submit">Rechercher</button>
-                <a href="avion" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;">Réinitialiser</a>
+                <a href="avion" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;"><i class="fi fi-rr-rotate-left"></i> Réinitialiser</a>
             </div>
         </form>
 
@@ -62,12 +69,12 @@
                         List<Avion> avions = (List<Avion>) request.getAttribute("avions");
                         if(avions != null && !avions.isEmpty()) {
                             for(Avion a : avions) {
-                                a.mount();
+                                try { a.mount(); } catch(Exception ignored) {}
                     %>
                                 <tr>
                                     <td><%= a.getId() %></td>
                                     <td><%= a.getModele() != null ? a.getModele() : "" %></td>
-                                    <td><%= ((TypeAvion) a.getForeignKeysCollection().get("id_type_avion")).getLibelle() %></td>
+                                    <td><%= a.getForeignKeysCollection().get("id_type_avion") != null ? ((TypeAvion) a.getForeignKeysCollection().get("id_type_avion")).getLibelle() : "" %></td>
                                     <td><%= a.getNbrSiege() != null ? a.getNbrSiege() : "" %></td>
                                     <td><%= a.getConstructeur() != null ? a.getConstructeur() : "" %></td>
                                 </tr>
@@ -101,11 +108,44 @@
             </form>
         </div>
 
+
+        <div id="createAvionOverlay" class="modal-overlay" onclick="closeCreateAvion(event)">
+            <div class="modal-card" style="max-width:560px;" onclick="event.stopPropagation()">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                    <h3>Créer un avion</h3>
+                    <button class="close-btn" onclick="closeCreateAvion(event)">×</button>
+                </div>
+                <form action="avion" method="post">
+                    <input type="hidden" name="action" value="create" />
+                    <label>Type</label>
+                    <select name="idTypeAvion" required>
+                        <option value="">(Sélectionner)</option>
+                        <% if(types != null) { for(TypeAvion t : types) { %>
+                            <option value="<%= t.getId() %>"><%= t.getLibelle() %></option>
+                        <% } } %>
+                    </select>
+                    <label>Modele</label>
+                    <input type="text" name="modele" required />
+                    <label>Constructeur</label>
+                    <input type="text" name="constructeur" />
+                    <label>Nombre de sièges</label>
+                    <input type="number" name="nbrSiege" />
+
+                    <div class="form-actions" style="margin-top:12px;">
+                        <button class="btn" type="submit">Enregistrer</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeCreateAvion(event)">Annuler</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 
     <script>
         function openFilters(){ document.getElementById('filterPanel').classList.add('open'); document.getElementById('filterOverlay').classList.add('open'); }
         function closeFilters(){ document.getElementById('filterPanel').classList.remove('open'); document.getElementById('filterOverlay').classList.remove('open'); }
+        document.getElementById('openCreateAvionBtn').addEventListener('click', function(){ document.getElementById('createAvionOverlay').classList.add('open'); });
+        function closeCreateAvion(e){ e && e.stopPropagation(); document.getElementById('createAvionOverlay').classList.remove('open'); }
     </script>
 </body>
 </html>

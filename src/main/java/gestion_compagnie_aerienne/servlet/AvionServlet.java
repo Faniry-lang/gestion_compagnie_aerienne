@@ -59,5 +59,40 @@ public class AvionServlet extends HttpServlet {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
-}
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String action = req.getParameter("action");
+            if(action == null) action = "create";
+            switch(action) {
+                case "create":
+                    String idTypeStr = req.getParameter("idTypeAvion");
+                    String modele = req.getParameter("modele");
+                    String constructeur = req.getParameter("constructeur");
+                    String nbrSiegeStr = req.getParameter("nbrSiege");
+
+                    if(idTypeStr == null || idTypeStr.isEmpty()) throw new Exception("Type d'avion requis");
+                    if(modele == null || modele.isEmpty()) throw new Exception("Modele requis");
+
+                    Integer idType = Integer.parseInt(idTypeStr);
+                    Integer nbr = (nbrSiegeStr != null && !nbrSiegeStr.isEmpty()) ? Integer.parseInt(nbrSiegeStr) : null;
+
+                    Avion a = new Avion();
+                    a.setIdTypeAvion(idType);
+                    a.setModele(modele);
+                    a.setConstructeur(constructeur);
+                    a.setNbrSiege(nbr);
+                    a.save();
+
+                    resp.sendRedirect("avion");
+                    break;
+                default:
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Action inconnue");
+            }
+        } catch (Exception e) {
+            req.setAttribute("error-message", e.getMessage());
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
+    }
+}

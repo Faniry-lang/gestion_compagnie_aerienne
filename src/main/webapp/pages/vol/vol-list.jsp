@@ -20,7 +20,9 @@
         .close-btn { font-size: 24px; background: none; border: none; cursor: pointer; }
         .filter-panel form { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
         .filter-panel input, .filter-panel button { padding: 8px; }
-
+        table { width:100%; border-collapse:collapse; background:#fff; }
+        th, td { padding:10px 12px; border-bottom:1px solid #eef2ff; text-align:left; }
+        th { background:#f8fafc; color:#0f172a; }
 
         .modal-overlay { position: fixed; inset:0; background: rgba(2,6,23,0.45); display:none; align-items:center; justify-content:center; z-index:1100; }
         .modal-overlay.open { display:flex; }
@@ -29,6 +31,11 @@
         .modal-row{ display:flex; gap:10px; }
         .modal-row .col{ flex:1; display:flex; flex-direction:column; }
         @media (max-width:560px){ .modal-row{ flex-direction:column; } }
+
+        .modal-card input, .modal-card select, .modal-card textarea { width:100%; box-sizing:border-box; }
+
+        .page-header .filter-btn i,
+        .page-header #openCreateVolBtn i { font-size:18px; height:18px; line-height:18px; display:inline-block; vertical-align:middle; margin-right:8px; }
     </style>
 </head>
 <body>
@@ -42,7 +49,7 @@
     <div class="page-header">
         <h1>Liste des vols</h1>
         <div style="display:flex; gap:10px; align-items:center;">
-            <button class="btn" id="openCreateVolBtn">Enregistrer un vol</button>
+            <button class="btn" id="openCreateVolBtn"><i class="fi fi-rr-plus"></i>Enregistrer un vol</button>
             <button class="filter-btn" onclick="openFilters()">
                 <i class="fi fi-rr-filter"></i> Filtres
             </button>
@@ -74,7 +81,10 @@
                 <td><%= depart != null ? depart.getNom() : "N/A" %></td>
                 <td><%= arrivee != null ? arrivee.getNom() : "N/A" %></td>
                 <td>
-                    <a href="vol-details?idVol=<%= vol.getId() %>">Voir détails</a>
+                    <div class="table-actions">
+                        <a class="btn btn-secondary" href="vol-details?idVol=<%= vol.getId() %>"><i class="fi fi-rr-eye"></i>Voir details</a>
+                        <button type="button" class="btn btn-secondary" onclick="openCreateOccurrence(<%= vol.getId() %>)"><i class="fi fi-rr-plus"></i>Ajouter une occurrence</button>
+                    </div>
                 </td>
             </tr>
             <%
@@ -160,6 +170,48 @@
     </div>
 </div>
 
+
+<div id="createOccOverlay" class="modal-overlay" onclick="closeCreateOcc(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Ajouter une occurrence (VolAvion)</h3>
+            <button class="close-btn" onclick="closeCreateOcc(event)">×</button>
+        </div>
+        <form action="vol" method="post">
+            <input type="hidden" name="action" value="createVolAvion" />
+            <input type="hidden" name="idVol" id="occ_idVol" />
+
+            <div class="modal-row">
+                <div class="col">
+                    <label>Avion</label>
+                    <select name="idAvion" required>
+                        <option value="">(Sélectionner)</option>
+                        <% List<gestion_compagnie_aerienne.entities.Avion> avions = (List<gestion_compagnie_aerienne.entities.Avion>) request.getAttribute("avions"); if(avions != null) { for(gestion_compagnie_aerienne.entities.Avion a : avions) { %>
+                            <option value="<%= a.getId() %>"><%= a.getModele() != null ? a.getModele() : a.getId() %></option>
+                        <% } } %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-row" style="margin-top:10px;">
+                <div class="col">
+                    <label>Date depart</label>
+                    <input type="datetime-local" name="dateDepart" />
+                </div>
+                <div class="col">
+                    <label>Date arrivee</label>
+                    <input type="datetime-local" name="dateArrivee" />
+                </div>
+            </div>
+
+            <div class="form-actions" style="margin-top:14px;">
+                <button type="submit" class="btn">Enregistrer</button>
+                <button type="button" class="btn btn-secondary" onclick="closeCreateOcc(event)">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     function openFilters() { document.getElementById("filterPanel").classList.add("open"); document.getElementById("filterOverlay").classList.add("open"); }
     function closeFilters() { document.getElementById("filterPanel").classList.remove("open"); document.getElementById("filterOverlay").classList.remove("open"); }
@@ -172,6 +224,12 @@
         e && e.stopPropagation();
         document.getElementById('createVolOverlay').classList.remove('open');
     }
+
+    function openCreateOccurrence(volId) {
+        document.getElementById('occ_idVol').value = volId;
+        document.getElementById('createOccOverlay').classList.add('open');
+    }
+    function closeCreateOcc(e) { e && e.stopPropagation(); document.getElementById('createOccOverlay').classList.remove('open'); }
 </script>
 
 </body>

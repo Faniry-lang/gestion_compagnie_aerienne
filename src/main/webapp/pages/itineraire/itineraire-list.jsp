@@ -12,6 +12,10 @@
     <style>
         .page-header { display:flex; justify-content:space-between; align-items:center; }
         .filter-btn { padding:8px 14px; cursor:pointer; }
+
+        .modal-overlay { position: fixed; inset:0; background: rgba(2,6,23,0.45); display:none; align-items:center; justify-content:center; z-index:1100; }
+        .modal-overlay.open { display:flex; }
+        .modal-card { background:var(--surface,#fff); border-radius:12px; padding:20px; width:520px; max-width:94%; box-shadow:0 12px 30px rgba(2,6,23,0.08); border:1px solid var(--border,#e6eef8); }
         .filter-overlay { position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.5); z-index:999; display:none; }
         .filter-overlay.open { display:block; }
         .filter-panel { position: fixed; top:0; right:-380px; width:350px; height:100vh; background:#fff; z-index:1000; box-shadow:-2px 0 10px rgba(0,0,0,0.2); transition:right .3s ease; padding:20px; }
@@ -31,7 +35,10 @@
     <div class="main-content">
         <div class="page-header">
             <h1>Liste des itinéraires</h1>
-            <button class="filter-btn" onclick="openFilters()">Filtres</button>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <button class="btn" id="openCreateItinBtn"><i class="fi fi-rr-plus"></i>Enregistrer</button>
+                <button class="filter-btn" onclick="openFilters()">Filtres</button>
+            </div>
         </div>
 
         <form action="itineraire" method="get" class="search-row">
@@ -45,7 +52,7 @@
             </div>
             <div style="display:flex; gap:8px; align-items:flex-end;">
                 <button class="btn" type="submit">Rechercher</button>
-                <a href="itineraire" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;">Réinitialiser</a>
+                <a href="itineraire" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;"><i class="fi fi-rr-rotate-left"></i> Réinitialiser</a>
             </div>
         </form>
 
@@ -65,7 +72,7 @@
                         List<Itineraire> its = (List<Itineraire>) request.getAttribute("itineraires");
                         if(its != null && !its.isEmpty()) {
                             for(Itineraire it : its) {
-                                it.mount();
+                                try { it.mount(); } catch(Exception ignored) {}
                                 Aeroport dep = (Aeroport) it.getForeignKeysCollection().get("id_aeroport_depart");
                                 Aeroport arr = (Aeroport) it.getForeignKeysCollection().get("id_aeroport_arrivee");
                     %>
@@ -115,9 +122,50 @@
 
     </div>
 
+
+    <div id="createItinOverlay" class="modal-overlay" onclick="closeCreateItin(event)">
+        <div class="modal-card" style="max-width:600px;" onclick="event.stopPropagation()">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <h3>Créer un itinéraire</h3>
+                <button class="close-btn" onclick="closeCreateItin(event)">×</button>
+            </div>
+            <form action="itineraire" method="post">
+                <input type="hidden" name="action" value="create" />
+                <label>Aéroport départ</label>
+                <select id="idAeroportDepart_modal" name="idAeroportDepart" required>
+                    <option value="">(Sélectionner)</option>
+                    <% if(aeroports != null) { for(Aeroport a : aeroports) { %>
+                        <option value="<%= a.getId() %>"><%= a.getNom() != null ? a.getNom() : a.getId() %></option>
+                    <% } } %>
+                </select>
+
+                <label>Aéroport arrivée</label>
+                <select id="idAeroportArrivee_modal" name="idAeroportArrivee" required>
+                    <option value="">(Sélectionner)</option>
+                    <% if(aeroports != null) { for(Aeroport a : aeroports) { %>
+                        <option value="<%= a.getId() %>"><%= a.getNom() != null ? a.getNom() : a.getId() %></option>
+                    <% } } %>
+                </select>
+
+                <label>Distance (km)</label>
+                <input id="distanceKm_modal" type="number" step="0.1" name="distanceKm" required />
+
+                <label>Durée estimée (min)</label>
+                <input id="duree_modal" type="number" name="dureeMoyenneEstimee" />
+
+                <div class="form-actions" style="margin-top:12px;">
+                    <button class="btn" type="submit">Enregistrer</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateItin(event)">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         function openFilters(){ document.getElementById('filterPanel').classList.add('open'); document.getElementById('filterOverlay').classList.add('open'); }
         function closeFilters(){ document.getElementById('filterPanel').classList.remove('open'); document.getElementById('filterOverlay').classList.remove('open'); }
+        document.getElementById('openCreateItinBtn').addEventListener('click', function(){ document.getElementById('createItinOverlay').classList.add('open'); });
+        function closeCreateItin(e){ e && e.stopPropagation(); document.getElementById('createItinOverlay').classList.remove('open'); }
     </script>
 </body>
 </html>

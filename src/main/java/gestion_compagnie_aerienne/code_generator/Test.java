@@ -6,6 +6,8 @@ import legacy.query.QueryManager;
 
 import java.util.List;
 
+// classe pour tester la fonction mount de BaseEntity de Legacy orm
+
 public class Test {
     static void main(String[] args) throws Exception {
         List<VolDetails> volsDetails = VolDetails.findAll(VolDetails.class, QueryManager.get_instance());

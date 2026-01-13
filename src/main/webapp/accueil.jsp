@@ -33,7 +33,7 @@
         <div class="welcome-card">
             <div class="welcome-text">
                 <h1>Bienvenue dans l'espace d'administration</h1>
-                <p>Gérez facilement vols, reservations et billets depuis cette console. Utilisez les filtres pour trouver rapidement des informations et créer ou modifier des enregistrements en quelques clics.</p>
+                <p>Gerez facilement vols, reservations et billets depuis cette console. Utilisez les filtres pour trouver rapidement des informations et creer ou modifier des enregistrements en quelques clics.</p>
                 <div class="welcome-ctas">
                     <a href="vol" class="btn">Voir les vols</a>
                     <a href="reservation" class="btn btn-secondary">Voir les reservations</a>

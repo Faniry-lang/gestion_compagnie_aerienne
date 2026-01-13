@@ -108,7 +108,7 @@
         </div>
         <div class="actions">
             <button type="submit" class="btn">Rechercher</button>
-            <a href="reservation" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;">Réinitialiser</a>
+            <a href="reservation" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;"><i class="fi fi-rr-rotate-left"></i> Réinitialiser</a>
         </div>
     </form>
 
@@ -137,7 +137,7 @@
                 <td><%= (r.getNbrPassagers() != null ? r.getNbrPassagers() : "N/A") %></td>
                 <td><%= (r.getMontantTotal() != null ? r.getMontantTotal() : "N/A") %></td>
                 <td>
-                    <a href="reservation-passager?action=list&idReservation=<%= r.getId() %>">Voir détails</a>
+                    <a class="btn btn-secondary" href="reservation-passager?action=list&idReservation=<%= r.getId() %>"><i class="fi fi-rr-eye"></i> Voir détails</a>
                 </td>
             </tr>
             <%

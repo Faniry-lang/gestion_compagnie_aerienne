@@ -175,7 +175,7 @@
 
                 <div style="display:flex; gap:6px; align-items:flex-end;">
                     <button type="submit" class="btn">Appliquer</button>
-                    <a href="billet?action=list" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;">Réinitialiser</a>
+                    <a href="billet?action=list" class="btn btn-secondary" style="text-decoration:none; padding:6px 10px;"><i class="fi fi-rr-rotate-left"></i> Réinitialiser</a>
                 </div>
             </form>
         </div>

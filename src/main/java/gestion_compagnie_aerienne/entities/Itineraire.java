@@ -2,6 +2,7 @@ package gestion_compagnie_aerienne.entities;
 
 import legacy.annotations.Column;
 import legacy.annotations.Entity;
+import legacy.annotations.ForeignKey;
 import legacy.annotations.Id;
 import legacy.schema.BaseEntity;
 
@@ -17,9 +18,11 @@ public class Itineraire extends BaseEntity {
     private Long id;
 
     @Column(name = "id_aeroport_depart")
+    @ForeignKey(mappedBy = "aeroport", entity = Aeroport.class)
     private Integer idAeroportDepart;
 
     @Column(name = "id_aeroport_arrivee")
+    @ForeignKey(mappedBy = "aeroport", entity = Aeroport.class)
     private Integer idAeroportArrivee;
 
     @Column(name = "distance_km")

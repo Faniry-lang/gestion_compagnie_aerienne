@@ -54,5 +54,37 @@ public class AeroportServlet extends HttpServlet {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
-}
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String action = req.getParameter("action");
+            if(action == null) action = "create";
+            switch(action) {
+                case "create":
+                    String codeIata = req.getParameter("codeIata");
+                    String nom = req.getParameter("nom");
+                    String ville = req.getParameter("ville");
+                    String pays = req.getParameter("pays");
+
+                    if(codeIata == null || codeIata.isEmpty()) throw new Exception("Code IATA requis");
+                    if(nom == null || nom.isEmpty()) throw new Exception("Nom requis");
+
+                    Aeroport a = new Aeroport();
+                    a.setCodeIata(codeIata);
+                    a.setNom(nom);
+                    a.setVille(ville);
+                    a.setPays(pays);
+                    a.save();
+
+                    resp.sendRedirect("aeroport");
+                    break;
+                default:
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Action inconnue");
+            }
+        } catch (Exception e) {
+            req.setAttribute("error-message", e.getMessage());
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
+    }
+}
