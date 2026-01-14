@@ -4,6 +4,7 @@
 <%
     Integer idVolAvion = (Integer) request.getAttribute("idVolAvion");
     List<Passager> passagers = (List<Passager>) request.getAttribute("passagers");
+    List<Siege> siegesDisponibles = (List<Siege>) request.getAttribute("sieges");
     VolAvion volAvion = (VolAvion) request.getAttribute("volAvion");
     Vol vol = (Vol) request.getAttribute("vol");
     Avion avion = (Avion) request.getAttribute("avion");
@@ -56,6 +57,8 @@
             border:1px solid #eef2ff;
         }
 
+        .passager-row select.siege-select { width: 120px; }
+
         .passager-row select { flex:1; padding:8px 10px; border-radius:6px; border:1px solid #d1d5db; }
         .remove-btn {
             background:none; border:1px solid #f87171; color:#b91c1c; padding:6px 8px; border-radius:6px; cursor:pointer; font-weight:700;
@@ -66,6 +69,9 @@
         }
 
         .form-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:12px; }
+
+        /* small adjustment for siege select width inside a passager-row */
+        .passager-row select.siege-select { width: 120px; }
 
         /* mobile */
         @media (max-width:900px) {
@@ -98,7 +104,7 @@
                     <div id="passagers-container">
                         <label class="label-small" style="font-weight:700; color:#0f172a;">Passagers</label>
                         <div class="passager-row">
-                            <select name="idPassager">
+                            <select name="idPassager" aria-label="Passager">
                                 <% if (passagers != null) {
                                     for(Passager passager: passagers) { %>
                                         <option value="<%= passager.getId() %>"><%= passager.getNom() + " " + passager.getPrenom() %></option>
@@ -107,6 +113,19 @@
                                     <option value="">(Aucun passager disponible)</option>
                                 <% } %>
                             </select>
+
+                            <select name="idSiege" class="siege-select" aria-label="Siege">
+                                <% if (siegesDisponibles != null) {
+                                    for(Siege siege : siegesDisponibles) {
+                                        ClasseSiege classeSiege = (ClasseSiege) siege.getForeignKeysCollection().get("id_classe_siege");
+                                %>
+                                        <option value="<%= siege.getId() %>"><%= siege.getNumeroSiege() %>-<%= classeSiege.getLibelle() %></option>
+                                <%    }
+                                } else { %>
+                                    <option value="">(Aucun siege disponible)</option>
+                                <% } %>
+                            </select>
+
                             <button type="button" class="remove-btn" onclick="removeRow(this)">Supprimer</button>
                         </div>
                     </div>
@@ -139,19 +158,49 @@
             <% } %>
         `;
 
+        const siegesOptions = `
+            <%
+                if (siegesDisponibles != null) {
+                    for(Siege siege : siegesDisponibles) {
+                        ClasseSiege classeSiege = (ClasseSiege) siege.getForeignKeysCollection().get("id_classe_siege");
+            %>
+
+                <option value="<%= siege.getId() %>"><%= siege.getNumeroSiege() %>-<%= classeSiege.getLibelle() %></option>
+            <%
+                    }
+                } else {
+            %>
+                <option value="">(Aucun siege disponible)</option>
+            <%
+                }
+            %>
+        `;
+
         document.getElementById('add-passager-btn').addEventListener('click', function() {
             const container = document.getElementById('passagers-container');
             const div = document.createElement('div');
             div.className = 'passager-row';
-            const select = document.createElement('select');
-            select.name = 'idPassager';
-            select.innerHTML = passagersOptions;
+
+            const selectPassager = document.createElement('select');
+            selectPassager.name = 'idPassager';
+            selectPassager.setAttribute('aria-label', 'Passager');
+            selectPassager.innerHTML = passagersOptions;
+            selectPassager.style.flex = '1';
+
+            const selectSiege = document.createElement('select');
+            selectSiege.name = 'idSiege';
+            selectSiege.className = 'siege-select';
+            selectSiege.setAttribute('aria-label', 'Siege');
+            selectSiege.innerHTML = siegesOptions;
+
             const removeBtn = document.createElement('button');
             removeBtn.type = 'button';
             removeBtn.className = 'remove-btn';
             removeBtn.textContent = 'Supprimer';
             removeBtn.onclick = function() { removeRow(removeBtn); };
-            div.appendChild(select);
+
+            div.appendChild(selectPassager);
+            div.appendChild(selectSiege);
             div.appendChild(removeBtn);
             container.appendChild(div);
         });

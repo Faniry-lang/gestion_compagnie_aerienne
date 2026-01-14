@@ -32,6 +32,14 @@ CREATE OR REPLACE VIEW reservation_details AS
    JOIN reservation_passager rp ON rp.id_reservation = r.id
    GROUP BY r.id, r.reference, r.created_on;
 
-SELECT * FROM siege WHERE id_avion = 1 AND id NOT IN (
-    SELECT id_siege FROM reservation_passager WHERE id_vol_avion = 1
-    );
+
+SELECT *,
+       CASE
+           WHEN
+               id NOT IN (
+                   SELECT id_siege FROM reservation_passager WHERE id_vol_avion = 1
+               )
+           THEN TRUE
+           ELSE FALSE
+       END AS est_disponible
+FROM siege WHERE id_avion = 1;

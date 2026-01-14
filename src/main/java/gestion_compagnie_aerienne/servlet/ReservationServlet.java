@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ReservationServlet extends HttpServlet {
     @Override
@@ -35,6 +36,14 @@ public class ReservationServlet extends HttpServlet {
                     Avion avion = Avion.findById(volAvion.getIdAvion(), Avion.class, QueryManager.get_instance());
 
                     List<Passager> passagers = Passager.findAll(Passager.class, QueryManager.get_instance());
+                    Map<Siege, Boolean> siegesDisponibles = volAvion.getSiegesDisponibles();
+                    if(siegesDisponibles == null) {
+                        throw new Exception("Plus aucun siege disponible pour le vol N°"+vol.getNumeroVol());
+                    }
+                    for(Siege siege : siegesDisponibles.keySet()) {
+                        siege.mount();
+                    }
+                    req.setAttribute("sieges", siegesDisponibles);
                     req.setAttribute("passagers", passagers);
                     req.setAttribute("idVolAvion", idVolAvion);
                     req.setAttribute("volAvion", volAvion);
@@ -99,6 +108,7 @@ public class ReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String[] idPassagers = req.getParameterValues("idPassager");
+            String[] idSieges = req.getParameterValues("idSiege");
             String idVolAvionStr = req.getParameter("idVolAvion");
             String prixStr = req.getParameter("prix");
 
@@ -114,13 +124,6 @@ public class ReservationServlet extends HttpServlet {
                 throw new Exception("VolAvion introuvable pour l'id " + idVolAvion);
             }
 
-            List<Siege> siegesDisponibles = volAvion.getSiegesDisponibles();
-            if(siegesDisponibles == null) siegesDisponibles = new ArrayList<>();
-
-            if(idPassagers.length > siegesDisponibles.size()) {
-                throw new Exception("Pas assez de sièges disponibles pour le nombre de passagers sélectionnés");
-            }
-
             Reservation reservation = new Reservation();
             reservation.setReference("REF-" + System.currentTimeMillis());
             reservation.setCreatedOn(LocalDateTime.now());
@@ -130,17 +133,13 @@ public class ReservationServlet extends HttpServlet {
             List<ReservationPassager> created = new ArrayList<>();
             for(String idPassagerStr : idPassagers) {
                 Integer idPassager = Integer.parseInt(idPassagerStr);
+                Integer idSiege = Integer.parseInt(idSieges[seatIndex]);
+                seatIndex++;
 
                 ReservationPassager rp = new ReservationPassager();
                 rp.setIdReservation(reservation.getId().intValue());
                 rp.setIdPassager(idPassager);
-                if(seatIndex < siegesDisponibles.size()) {
-                    Siege assigned = siegesDisponibles.get(seatIndex);
-                    rp.setIdSiege(assigned.getId().intValue());
-                    seatIndex++;
-                } else {
-                    throw new Exception("Pas assez de sièges disponibles pour le passager ID " + idPassager);
-                }
+                rp.setIdSiege(idSiege);
 
                 rp.setIdVol(volAvion.getIdVol());
                 rp.setIdVolAvion(volAvion.getId().intValue());

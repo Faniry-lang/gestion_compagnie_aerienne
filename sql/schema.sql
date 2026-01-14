@@ -148,19 +148,10 @@ CREATE TABLE taxe_aeroport (
     montant DOUBLE PRECISION
 );
 
-CREATE TABLE tarif_classe (
-    id SERIAL PRIMARY KEY,
-    id_type_avion INT REFERENCES type_avion(id),
-    id_itineraire INT REFERENCES itineraire(id),
+CREATE TABLE tarif_vol (
+    id SERIAL PRIMARY KEY ,
+    id_vol INT NOT NULL REFERENCES vol(id),
     id_classe_siege INT REFERENCES classe_siege(id),
-    id_forfait_bagage INT REFERENCES forfait_bagage(id),
-    montant DOUBLE PRECISION,
-    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE montant_tarif_classe (
-    id SERIAL PRIMARY KEY,
-    id_tarif_classe INT NOT NULL REFERENCES tarif_classe(id),
     montant DOUBLE PRECISION,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -215,4 +206,3 @@ CREATE TABLE historique_statut_billet (
     id_statut_billet INT NOT NULL REFERENCES statut_billet(id),
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-

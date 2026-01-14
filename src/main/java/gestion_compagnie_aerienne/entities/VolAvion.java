@@ -5,11 +5,13 @@ import legacy.annotations.Entity;
 import legacy.annotations.ForeignKey;
 import legacy.annotations.Id;
 import legacy.query.QueryManager;
+import legacy.query.RawObject;
 import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity(tableName = "vol_avion")
 public class VolAvion extends BaseEntity {
@@ -86,18 +88,35 @@ public class VolAvion extends BaseEntity {
         this.createdOn = createdOn;
     }
 
-    public List<Siege> getSiegesDisponibles() {
-
-        String sql = "SELECT * FROM siege WHERE id_avion = ? AND id NOT IN (\n" +
-                "    SELECT id_siege FROM reservation_passager WHERE id_vol_avion = ?\n" +
-                "    )";
-        try {
-            List<Siege> siegeDisponibles = fetch(Siege.class, QueryManager.get_instance(), sql, this.getIdAvion(), this.getId());
-            return siegeDisponibles;
-        } catch (Exception e){
-            e.printStackTrace();
-            return null;
+    public Map<Siege, Boolean> getSiegesDisponibles() throws Exception {
+        String sql = """
+                SELECT *,
+                       CASE
+                           WHEN
+                               id NOT IN (
+                                   SELECT id_siege FROM reservation_passager WHERE id_vol_avion = ?
+                               )
+                           THEN TRUE
+                           ELSE FALSE
+                       END AS est_disponible
+                FROM siege WHERE id_avion = ?
+                """;
+        List<RawObject> rawObjects = this.getQueryManager().executeSelect(sql, this.id, this.idAvion);
+        Map<Siege, Boolean> siegesDisponibles = new java.util.HashMap<>();
+        for(RawObject ro : rawObjects) {
+            Long id = (Long) ro.getData().get("id");
+            Integer idAvion = (Integer) ro.getData().get("id_avion");
+            String numeroSiege = (String) ro.getData().get("numero_siege");
+            Integer idClasseSiege = (Integer) ro.getData().get("id_classe_siege");
+            Boolean estDisponible = (Boolean) ro.getData().get("est_disponible");
+            Siege siege = new Siege();
+            siege.setId(id);
+            siege.setIdAvion(idAvion);
+            siege.setNumeroSiege(numeroSiege);
+            siege.setIdClasseSiege(idClasseSiege);
+            siegesDisponibles.put(siege, estDisponible);
         }
+        return siegesDisponibles;
     }
 
 }
