@@ -13,34 +13,16 @@ import legacy.query.Filter;
 import legacy.query.QueryManager;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static gestion_compagnie_aerienne.servlet.TarifVolServlet.getLocalDateTime;
 
 public class VolServlet extends HttpServlet {
 
     private LocalDateTime parseToDateTime(String s, boolean startOfDay) {
-        if (s == null || s.isEmpty()) return null;
-
-        try {
-            return LocalDateTime.parse(s, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        } catch (DateTimeParseException ex) {
-            try {
-                DateTimeFormatter withoutSeconds = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-                return LocalDateTime.parse(s, withoutSeconds);
-            } catch (DateTimeParseException ex2) {
-                try {
-                    LocalDate d = LocalDate.parse(s);
-                    return startOfDay ? d.atStartOfDay() : d.atTime(LocalTime.MAX);
-                } catch (Exception ex3) {
-                    return null;
-                }
-            }
-        }
+        return getLocalDateTime(s, startOfDay);
     }
 
     @Override
@@ -76,9 +58,6 @@ public class VolServlet extends HttpServlet {
 
             req.setAttribute("aeroports", aeroports);
             req.setAttribute("avions", avions);
-            for(Vol vol : vols) {
-                vol.mount();
-            }
             req.setAttribute("vols", vols);
             req.getRequestDispatcher("pages/vol/vol-list.jsp").forward(req, resp);
         } catch (Exception e) {

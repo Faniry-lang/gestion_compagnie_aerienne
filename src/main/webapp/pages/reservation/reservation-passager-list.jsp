@@ -49,12 +49,11 @@
                         List<ReservationPassager> rps = (List<ReservationPassager>) request.getAttribute("reservationPassagers");
                         if(rps != null && !rps.isEmpty()) {
                             for(ReservationPassager rp : rps) {
-                                try { rp.mount(); } catch(Exception ignored) {}
-                                Reservation res = (Reservation) rp.getForeignKeysCollection().get("id_reservation");
-                                Passager pass = (Passager) rp.getForeignKeysCollection().get("id_passager");
-                                Vol vol = (Vol) rp.getForeignKeysCollection().get("id_vol");
-                                VolAvion va = (VolAvion) rp.getForeignKeysCollection().get("id_vol_avion");
-                                Siege s = (Siege) rp.getForeignKeysCollection().get("id_siege");
+                                Reservation res =  rp.getForeignKey("id_reservation");
+                                Passager pass =  rp.getForeignKey("id_passager");
+                                Vol vol = rp.getForeignKey("id_vol");
+                                VolAvion va = rp.getForeignKey("id_vol_avion");
+                                Siege s =  rp.getForeignKey("id_siege");
                     %>
                                 <tr>
                                     <td><%= rp.getId() %></td>

@@ -23,9 +23,6 @@ public class HistoriqueStatutReservation extends BaseEntity {
     @Column(name = "id_statut_reservation")
     private Integer idStatutReservation;
 
-    @Column(name = "prix_total")
-    private Float prixTotal;
-
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
@@ -51,14 +48,6 @@ public class HistoriqueStatutReservation extends BaseEntity {
 
     public void setIdStatutReservation(Integer idStatutReservation) {
         this.idStatutReservation = idStatutReservation;
-    }
-
-    public Float getPrixTotal() {
-        return prixTotal;
-    }
-
-    public void setPrixTotal(Float prixTotal) {
-        this.prixTotal = prixTotal;
     }
 
     public LocalDateTime getCreatedOn() {

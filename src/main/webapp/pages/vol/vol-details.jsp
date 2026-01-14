@@ -53,7 +53,7 @@
                 List<VolDetails> croisieres = (List<VolDetails>) request.getAttribute("volDetails");
                 if (croisieres != null) {
                     for(VolDetails croisiere: croisieres) {
-                        Avion avion = (Avion) croisiere.getForeignKeysCollection().get("id_avion");
+                        Avion avion = croisiere.getForeignKey("id_avion");
             %>
                 <tr>
                     <td><%= croisiere.getIdVolAvion() %></td>

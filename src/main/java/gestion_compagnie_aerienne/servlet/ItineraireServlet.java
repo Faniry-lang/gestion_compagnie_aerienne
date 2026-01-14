@@ -42,10 +42,6 @@ public class ItineraireServlet extends HttpServlet {
                     itineraires = Itineraire.filter(Itineraire.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
                 }
 
-                for (Itineraire it : itineraires) {
-                    try { it.mount(); } catch (Exception ignored) {}
-                }
-
                 List<Aeroport> aeroports = Aeroport.findAll(Aeroport.class, QueryManager.get_instance());
                 req.setAttribute("itineraires", itineraires);
                 req.setAttribute("aeroports", aeroports);

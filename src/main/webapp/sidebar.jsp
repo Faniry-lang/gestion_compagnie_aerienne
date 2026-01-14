@@ -79,6 +79,13 @@
         </li>
 
         <li>
+            <a href="tarif-vol?action=list" class="sidebar-link">
+                <i class="fi fi-rr-budget-alt sidebar-icon" style="color:#ef4444;"></i>
+                Tarifs Vol
+            </a>
+        </li>
+
+        <li>
             <a href="itineraire" class="sidebar-link">
                 <i class="fi fi-rr-route sidebar-icon" style="color:#f43f5e;"></i>
                 Itineraires

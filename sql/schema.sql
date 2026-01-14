@@ -64,6 +64,11 @@ CREATE TABLE statut_vol (
     libelle VARCHAR(30) UNIQUE NOT NULL
 );
 
+CREATE TABLE statut_vol_avion (
+  id SERIAL PRIMARY KEY,
+  libelle VARCHAR(30) UNIQUE NOT NULL
+);
+
 CREATE TABLE vol (
     id SERIAL PRIMARY KEY,
     numero_vol VARCHAR(10),
@@ -95,6 +100,13 @@ CREATE TABLE historique_statut_vol (
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE historique_statut_vol_avion (
+   id SERIAL PRIMARY KEY,
+   id_vol_avion INT NOT NULL REFERENCES vol_avion(id),
+   id_statut_vol INT NOT NULL REFERENCES statut_vol(id),
+   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE passager (
     id SERIAL PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
@@ -121,7 +133,6 @@ CREATE TABLE historique_statut_reservation (
     id SERIAL PRIMARY KEY,
     id_reservation INT NOT NULL REFERENCES reservation(id),
     id_statut_reservation INT NOT NULL REFERENCES statut_reservation(id),
-    prix_total DOUBLE PRECISION,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
@@ -148,19 +159,10 @@ CREATE TABLE taxe_aeroport (
     montant DOUBLE PRECISION
 );
 
-CREATE TABLE tarif_classe (
-    id SERIAL PRIMARY KEY,
-    id_type_avion INT REFERENCES type_avion(id),
-    id_itineraire INT REFERENCES itineraire(id),
+CREATE TABLE tarif_vol (
+    id SERIAL PRIMARY KEY ,
+    id_vol INT NOT NULL REFERENCES vol(id),
     id_classe_siege INT REFERENCES classe_siege(id),
-    id_forfait_bagage INT REFERENCES forfait_bagage(id),
-    montant DOUBLE PRECISION,
-    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE montant_tarif_classe (
-    id SERIAL PRIMARY KEY,
-    id_tarif_classe INT NOT NULL REFERENCES tarif_classe(id),
     montant DOUBLE PRECISION,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -215,4 +217,61 @@ CREATE TABLE historique_statut_billet (
     id_statut_billet INT NOT NULL REFERENCES statut_billet(id),
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO statut_reservation (libelle) VALUES
+('Creee'),
+('Confirmee'),
+('Annulee'),
+('Payee');
+
+INSERT INTO statut_avion (libelle) VALUES
+('En service'),
+('En maintenance'),
+('Retire du service');
+
+INSERT INTO statut_vol (libelle) VALUES
+('Cree'),
+('Annule');
+
+INSERT INTO statut_vol_avion (libelle) VALUES
+('Programme'),
+('En cours'),
+('Termine'),
+('Annule');
+
+INSERT INTO classe_siege (libelle) VALUES ('Economique'), ('Premium Eco'), ('Affaires'), ('Premiere');
+
+CREATE OR REPLACE VIEW vol_details AS
+SELECT
+    v.id as id_vol,
+    v.numero_vol,
+    v.id_aeroport_depart,
+    v.id_aeroport_arrivee,
+    v.created_on as date_vol,
+    va.id as id_vol_avion,
+    va.date_depart,
+    va.date_arrivee,
+    va.created_on as date_vol_avion,
+    a.id as id_avion,
+    a.modele as modele_avion,
+    a.nbr_siege as capacite_totale,
+    COALESCE(vr.places_reservees, 0) as places_reservees,
+    a.nbr_siege - COALESCE(vr.places_reservees, 0) as places_restantes
+FROM vol_avion va
+         JOIN vol v ON v.id = va.id_vol
+         JOIN avion a ON a.id = va.id_avion
+         LEFT JOIN (
+    SELECT
+        id_vol_avion,
+        COUNT(*) as places_reservees
+    FROM billet
+    GROUP BY id_vol_avion
+) as vr ON vr.id_vol_avion = va.id
+ORDER BY va.created_on DESC;
+
+CREATE OR REPLACE VIEW reservation_details AS
+SELECT r.id, r.reference, r.created_on, COUNT(rp.id) AS nbr_passagers, SUM(rp.prix) AS montant_total
+FROM reservation r
+         JOIN reservation_passager rp ON rp.id_reservation = r.id
+GROUP BY r.id, r.reference, r.created_on;
 

@@ -69,12 +69,11 @@
                         List<Avion> avions = (List<Avion>) request.getAttribute("avions");
                         if(avions != null && !avions.isEmpty()) {
                             for(Avion a : avions) {
-                                try { a.mount(); } catch(Exception ignored) {}
                     %>
                                 <tr>
                                     <td><%= a.getId() %></td>
                                     <td><%= a.getModele() != null ? a.getModele() : "" %></td>
-                                    <td><%= a.getForeignKeysCollection().get("id_type_avion") != null ? ((TypeAvion) a.getForeignKeysCollection().get("id_type_avion")).getLibelle() : "" %></td>
+                                    <td><%= a.getForeignKey("id_type_avion") != null ? ((TypeAvion) a.getForeignKey("id_type_avion")).getLibelle() : "" %></td>
                                     <td><%= a.getNbrSiege() != null ? a.getNbrSiege() : "" %></td>
                                     <td><%= a.getConstructeur() != null ? a.getConstructeur() : "" %></td>
                                 </tr>

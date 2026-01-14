@@ -26,10 +26,6 @@ public class ReservationPassagerServlet extends HttpServlet {
                 } else {
                     reservationPassagers = ReservationPassager.findAll(ReservationPassager.class, QueryManager.get_instance());
                 }
-
-                for (ReservationPassager rp : reservationPassagers) {
-                    try { rp.mount(); } catch (Exception ignored) {}
-                }
                 req.setAttribute("reservationPassagers", reservationPassagers);
                 req.getRequestDispatcher("pages/reservation/reservation-passager-list.jsp").forward(req, resp);
             } else {
