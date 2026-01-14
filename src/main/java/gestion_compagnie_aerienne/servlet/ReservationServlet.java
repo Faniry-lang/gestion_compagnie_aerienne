@@ -40,9 +40,7 @@ public class ReservationServlet extends HttpServlet {
                     if(siegesDisponibles == null) {
                         throw new Exception("Plus aucun siege disponible pour le vol N°"+vol.getNumeroVol());
                     }
-                    for(Siege siege : siegesDisponibles.keySet()) {
-                        siege.mount();
-                    }
+
                     req.setAttribute("sieges", siegesDisponibles);
                     req.setAttribute("passagers", passagers);
                     req.setAttribute("idVolAvion", idVolAvion);

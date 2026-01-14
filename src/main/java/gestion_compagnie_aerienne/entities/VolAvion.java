@@ -104,7 +104,7 @@ public class VolAvion extends BaseEntity {
         List<RawObject> rawObjects = this.getQueryManager().executeSelect(sql, this.id, this.idAvion);
         Map<Siege, Boolean> siegesDisponibles = new java.util.HashMap<>();
         for(RawObject ro : rawObjects) {
-            Long id = (Long) ro.getData().get("id");
+            Long id = ((Integer) ro.getData().get("id")).longValue();
             Integer idAvion = (Integer) ro.getData().get("id_avion");
             String numeroSiege = (String) ro.getData().get("numero_siege");
             Integer idClasseSiege = (Integer) ro.getData().get("id_classe_siege");
@@ -118,5 +118,4 @@ public class VolAvion extends BaseEntity {
         }
         return siegesDisponibles;
     }
-
 }

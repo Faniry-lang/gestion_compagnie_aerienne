@@ -1,10 +1,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="gestion_compagnie_aerienne.entities.*" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Integer idVolAvion = (Integer) request.getAttribute("idVolAvion");
     List<Passager> passagers = (List<Passager>) request.getAttribute("passagers");
-    List<Siege> siegesDisponibles = (List<Siege>) request.getAttribute("sieges");
+    Map<Siege, Boolean> siegesDisponibles = (Map<Siege, Boolean>) request.getAttribute("sieges");
     VolAvion volAvion = (VolAvion) request.getAttribute("volAvion");
     Vol vol = (Vol) request.getAttribute("vol");
     Avion avion = (Avion) request.getAttribute("avion");
@@ -78,143 +79,36 @@
             .reservation-card { grid-template-columns: 1fr; padding:16px; }
             .reservation-card .flight-details { order:2; }
         }
+
+        .seat-box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .seat-box {
+            border-radius: ;
+        }
+
     </style>
 </head>
 <body>
     <%@ include file="/sidebar.jsp" %>
     <div class="main-content">
 
-        <div class="reservation-card">
-
-            <div>
-                <div class="flight-details">
-                    <h3>Détails du vol</h3>
-                    <p><strong>Numéro du vol:</strong> <%= (vol != null ? vol.getNumeroVol() : "N/A") %></p>
-                    <p><strong>Modèle de l'avion:</strong> <%= (avion != null ? avion.getModele() : "N/A") %></p>
-                    <p><strong>Date de départ:</strong> <%= (volAvion != null && volAvion.getDateDepart() != null ? volAvion.getDateDepart().toString() : "N/A") %></p>
-                    <p><strong>Date d'arrivée:</strong> <%= (volAvion != null && volAvion.getDateArrivee() != null ? volAvion.getDateArrivee().toString() : "N/A") %></p>
-                    <hr class="divider" />
-                    <p class="label-small">Sélectionnez un ou plusieurs passagers et confirmez la réservation.</p>
-                </div>
+        <div class="seat-box-container">
+            <%
+                for(Map.Entry<Siege, Boolean> entry : siegesDisponibles.entrySet())
+                {
+            %>
+            <div class="seat-box">
             </div>
-
-            <div>
-                <form class="reservation-form" action="reservation" method="post">
-
-                    <div id="passagers-container">
-                        <label class="label-small" style="font-weight:700; color:#0f172a;">Passagers</label>
-                        <div class="passager-row">
-                            <select name="idPassager" aria-label="Passager">
-                                <% if (passagers != null) {
-                                    for(Passager passager: passagers) { %>
-                                        <option value="<%= passager.getId() %>"><%= passager.getNom() + " " + passager.getPrenom() %></option>
-                                <%  }
-                                } else { %>
-                                    <option value="">(Aucun passager disponible)</option>
-                                <% } %>
-                            </select>
-
-                            <select name="idSiege" class="siege-select" aria-label="Siege">
-                                <% if (siegesDisponibles != null) {
-                                    for(Siege siege : siegesDisponibles) {
-                                        ClasseSiege classeSiege = (ClasseSiege) siege.getForeignKeysCollection().get("id_classe_siege");
-                                %>
-                                        <option value="<%= siege.getId() %>"><%= siege.getNumeroSiege() %>-<%= classeSiege.getLibelle() %></option>
-                                <%    }
-                                } else { %>
-                                    <option value="">(Aucun siege disponible)</option>
-                                <% } %>
-                            </select>
-
-                            <button type="button" class="remove-btn" onclick="removeRow(this)">Supprimer</button>
-                        </div>
-                    </div>
-
-                    <button type="button" id="add-passager-btn" class="btn btn-secondary add-passager">Ajouter un passager</button>
-
-                    <div class="form-actions">
-                        <input type="hidden" name="prix" value="900000"/>
-                        <input type="hidden" name="idVolAvion" value="<%= idVolAvion %>"/>
-                        <button type="submit" class="btn btn-primary">Réserver</button>
-                        <a href="accueil" class="btn btn-secondary">Annuler</a>
-                    </div>
-
-                </form>
-            </div>
-
+            <%
+            }
+            %>
         </div>
 
     </div>
-
-    <script>
-        // Template for a passager select row (re-used innerHTML generation)
-        const passagersOptions = `
-            <% if (passagers != null) {
-                for(Passager passager: passagers) { %>
-                    <option value="<%= passager.getId() %>"><%= passager.getNom() + " " + passager.getPrenom() %></option>
-            <%  }
-            } else { %>
-                <option value="">(Aucun passager disponible)</option>
-            <% } %>
-        `;
-
-        const siegesOptions = `
-            <%
-                if (siegesDisponibles != null) {
-                    for(Siege siege : siegesDisponibles) {
-                        ClasseSiege classeSiege = (ClasseSiege) siege.getForeignKeysCollection().get("id_classe_siege");
-            %>
-
-                <option value="<%= siege.getId() %>"><%= siege.getNumeroSiege() %>-<%= classeSiege.getLibelle() %></option>
-            <%
-                    }
-                } else {
-            %>
-                <option value="">(Aucun siege disponible)</option>
-            <%
-                }
-            %>
-        `;
-
-        document.getElementById('add-passager-btn').addEventListener('click', function() {
-            const container = document.getElementById('passagers-container');
-            const div = document.createElement('div');
-            div.className = 'passager-row';
-
-            const selectPassager = document.createElement('select');
-            selectPassager.name = 'idPassager';
-            selectPassager.setAttribute('aria-label', 'Passager');
-            selectPassager.innerHTML = passagersOptions;
-            selectPassager.style.flex = '1';
-
-            const selectSiege = document.createElement('select');
-            selectSiege.name = 'idSiege';
-            selectSiege.className = 'siege-select';
-            selectSiege.setAttribute('aria-label', 'Siege');
-            selectSiege.innerHTML = siegesOptions;
-
-            const removeBtn = document.createElement('button');
-            removeBtn.type = 'button';
-            removeBtn.className = 'remove-btn';
-            removeBtn.textContent = 'Supprimer';
-            removeBtn.onclick = function() { removeRow(removeBtn); };
-
-            div.appendChild(selectPassager);
-            div.appendChild(selectSiege);
-            div.appendChild(removeBtn);
-            container.appendChild(div);
-        });
-
-        function removeRow(btn) {
-            const row = btn.parentNode;
-            const container = document.getElementById('passagers-container');
-            if (container.children.length > 1) {
-                container.removeChild(row);
-            } else {
-                const sel = row.querySelector('select');
-                if (sel) sel.selectedIndex = 0;
-            }
-        }
-    </script>
 </body>
 </html>
