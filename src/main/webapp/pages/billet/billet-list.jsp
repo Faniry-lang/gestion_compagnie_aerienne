@@ -196,13 +196,13 @@
                 <tbody>
                     <% if (billets != null) {
                         for (Billet b : billets) {
-                            Passager passager = ((Passager) b.getForeignKeysCollection().get("id_passager"));
-                            Vol vol = ((Vol) b.getForeignKeysCollection().get("id_vol"));
-                            VolAvion volAvion = ((VolAvion) b.getForeignKeysCollection().get("id_vol_avion"));
-                            if(volAvion != null) volAvion.mount();
-                            Avion avion = (volAvion != null) ? (Avion) volAvion.getForeignKeysCollection().get("id_avion") : null;
-                            Siege siege = (Siege) b.getForeignKeysCollection().get("id_siege");
-                            ClasseSiege classeSiege = (ClasseSiege) b.getForeignKeysCollection().get("id_classe_siege");
+                            Passager passager =  b.getForeignKey("id_passager");
+                            Vol vol =  b.getForeignKey("id_vol");
+                            VolAvion volAvion =  b.getForeignKey("id_vol_avion");
+
+                            Avion avion = (volAvion != null) ? volAvion.getForeignKey("id_avion") : null;
+                            Siege siege =  b.getForeignKey("id_siege");
+                            ClasseSiege classeSiege =  b.getForeignKey("id_classe_siege");
                     %>
                             <tr>
                                 <td><%= b.getId() %></td>

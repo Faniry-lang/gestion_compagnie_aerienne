@@ -4,9 +4,11 @@ import legacy.annotations.Column;
 import legacy.annotations.Entity;
 import legacy.annotations.ForeignKey;
 import legacy.annotations.Id;
+import legacy.query.QueryManager;
 import legacy.schema.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(tableName = "tarif_vol")
 public class TarifVol extends BaseEntity {
@@ -18,12 +20,12 @@ public class TarifVol extends BaseEntity {
     @Column
     private Long id;
 
-    @Id
     @Column(name = "id_vol")
     @ForeignKey(mappedBy = "vol", entity = Vol.class)
     private Integer idVol;
 
     @Column(name = "id_classe_siege")
+    @ForeignKey(mappedBy = "classe_siege", entity = ClasseSiege.class)
     private Integer idClasseSiege;
 
     @Column
@@ -70,5 +72,17 @@ public class TarifVol extends BaseEntity {
 
     public void setIdVol(Integer idVol) {
         this.idVol = idVol;
+    }
+
+    public static TarifVol getTarifVol(Integer idVol, Integer idClasseSiege, LocalDateTime date) throws Exception {
+        String sql = "SELECT *\n" +
+                "    FROM tarif_vol WHERE id_vol = ? AND id_classe_siege = ? OR id_classe_siege IS NULL\n" +
+                "                   AND created_on <= ?\n" +
+                "ORDER BY created_on DESC LIMIT 1";
+        List<TarifVol> tarifVolList = TarifVol.fetch(TarifVol.class, QueryManager.get_instance(), sql, idVol, idClasseSiege, date);
+        if (tarifVolList.isEmpty()) {
+            return null;
+        }
+        return tarifVolList.getFirst();
     }
 }

@@ -48,9 +48,6 @@ public class BilletServlet extends HttpServlet {
                     // fonction filter bogosy
                     List<Billet> billets = Billet.filter(Billet.class, QueryManager.get_instance(), filters);
 
-                    for(Billet billet: billets) {
-                        billet.mount();
-                    }
                     req.setAttribute("billets", billets);
                     req.getRequestDispatcher("pages/billet/billet-list.jsp").forward(req, resp);
                     break;

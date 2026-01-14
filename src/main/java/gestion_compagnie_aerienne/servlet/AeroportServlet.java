@@ -43,10 +43,6 @@ public class AeroportServlet extends HttpServlet {
                 aeroports = Aeroport.filter(Aeroport.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
             }
 
-            for(Aeroport a : aeroports) {
-                a.mount();
-            }
-
             req.setAttribute("aeroports", aeroports);
             req.getRequestDispatcher("pages/aeroport/aeroport-list.jsp").forward(req, resp);
         } catch (Exception e) {

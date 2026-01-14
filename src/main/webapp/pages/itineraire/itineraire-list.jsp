@@ -72,9 +72,8 @@
                         List<Itineraire> its = (List<Itineraire>) request.getAttribute("itineraires");
                         if(its != null && !its.isEmpty()) {
                             for(Itineraire it : its) {
-                                try { it.mount(); } catch(Exception ignored) {}
-                                Aeroport dep = (Aeroport) it.getForeignKeysCollection().get("id_aeroport_depart");
-                                Aeroport arr = (Aeroport) it.getForeignKeysCollection().get("id_aeroport_arrivee");
+                                Aeroport dep =  it.getForeignKey("id_aeroport_depart");
+                                Aeroport arr =  it.getForeignKey("id_aeroport_arrivee");
                     %>
                                 <tr>
                                     <td><%= it.getId() %></td>

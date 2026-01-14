@@ -72,8 +72,8 @@
                 List<Vol> vols = (List<Vol>) request.getAttribute("vols");
                 if (vols != null) {
                     for (Vol vol : vols) {
-                        Aeroport depart = (Aeroport) vol.getForeignKeysCollection().get("id_aeroport_depart");
-                        Aeroport arrivee = (Aeroport) vol.getForeignKeysCollection().get("id_aeroport_arrivee");
+                        Aeroport depart = vol.getForeignKey("id_aeroport_depart");
+                        Aeroport arrivee = vol.getForeignKey("id_aeroport_arrivee");
             %>
             <tr>
                 <td><%= vol.getId() %></td>

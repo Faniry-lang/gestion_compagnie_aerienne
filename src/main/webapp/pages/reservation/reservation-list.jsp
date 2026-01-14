@@ -138,6 +138,14 @@
                 <td><%= (r.getMontantTotal() != null ? r.getMontantTotal() : "N/A") %></td>
                 <td>
                     <a class="btn btn-secondary" href="reservation-passager?action=list&idReservation=<%= r.getId() %>"><i class="fi fi-rr-eye"></i> Voir détails</a>
+                    <form action="reservation" method="POST" style="display:inline;">
+                        <input type="hidden" name="action" value="pay">
+                        <input type="hidden" name="idReservation" value="<%= r.getId() %>">
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="fi fi-rr-credit-card"></i> Payer
+                        </button>
+                    </form>
                 </td>
             </tr>
             <%

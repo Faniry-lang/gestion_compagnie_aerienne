@@ -82,10 +82,6 @@ public class VolDetailsServlet extends HttpServlet {
 
             List<VolDetails> filtered = VolDetails.filter(VolDetails.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
 
-            for (VolDetails vd : filtered) {
-                try { vd.mount(); } catch (Exception ignored) {}
-            }
-
             List<Avion> avions = Avion.findAll(Avion.class, QueryManager.get_instance());
 
             req.setAttribute("vol", vol);

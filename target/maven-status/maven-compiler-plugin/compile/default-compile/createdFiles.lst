@@ -1,4 +1,5 @@
 gestion_compagnie_aerienne\entities\HistoriqueStatutReservation.class
+gestion_compagnie_aerienne\servlet\TarifVolServlet.class
 gestion_compagnie_aerienne\code_generator\EntityCodeGenerator.class
 gestion_compagnie_aerienne\servlet\AeroportServlet.class
 gestion_compagnie_aerienne\entities\ForfaitBagage.class
