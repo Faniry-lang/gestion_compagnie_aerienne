@@ -32,6 +32,7 @@
         <div class="page-header">
             <h1>Details des croiseres du vol <%= vol.getNumeroVol() %></h1>
             <button class="filter-btn" onclick="openFilters()"><i class="fi fi-rr-filter"></i> Filtres</button>
+
         </div>
 
         <div class="table-container">
@@ -64,6 +65,7 @@
                     <td><%= croisiere.getPlacesReservees() %></td>
                     <td><%= croisiere.getPlacesRestantes() %></td>
                     <td>
+                        <a class="btn btn-secondary" href="vol-details?action=revenu-max&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-money"></i> Voir revenu max</a>
                         <a class="btn btn-secondary" href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-ticket"></i> Reserver</a>
                     </td>
                 </tr>

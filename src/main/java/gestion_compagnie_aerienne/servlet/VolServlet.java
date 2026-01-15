@@ -4,6 +4,7 @@ import gestion_compagnie_aerienne.entities.Aeroport;
 import gestion_compagnie_aerienne.entities.Vol;
 import gestion_compagnie_aerienne.entities.Avion;
 import gestion_compagnie_aerienne.entities.VolAvion;
+import gestion_compagnie_aerienne.utils.DateParser;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,12 +18,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static gestion_compagnie_aerienne.servlet.TarifVolServlet.getLocalDateTime;
-
 public class VolServlet extends HttpServlet {
 
     private LocalDateTime parseToDateTime(String s, boolean startOfDay) {
-        return getLocalDateTime(s, startOfDay);
+        return DateParser.getLocalDateTime(s, startOfDay);
     }
 
     @Override

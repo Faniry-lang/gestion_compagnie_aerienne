@@ -275,3 +275,11 @@ FROM reservation r
          JOIN reservation_passager rp ON rp.id_reservation = r.id
 GROUP BY r.id, r.reference, r.created_on;
 
+CREATE OR REPLACE VIEW v_avion_siege AS
+SELECT
+    a.id AS id_avion, a.modele AS avion_modele, COUNT(*) as nbr_siege, cs.id AS id_classe_siege, cs.libelle as classe_siege_libelle
+FROM avion a JOIN siege s
+                  ON a.id = s.id_avion
+             JOIN classe_siege cs
+                  ON s.id_classe_siege = cs.id
+GROUP BY a.id, a.modele, cs.id, cs.libelle;

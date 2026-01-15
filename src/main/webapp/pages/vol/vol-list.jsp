@@ -82,7 +82,7 @@
                 <td><%= arrivee != null ? arrivee.getNom() : "N/A" %></td>
                 <td>
                     <div class="table-actions">
-                        <a class="btn btn-secondary" href="vol-details?idVol=<%= vol.getId() %>"><i class="fi fi-rr-eye"></i>Voir details</a>
+                        <a class="btn btn-secondary" href="vol-details?action=list&idVol=<%= vol.getId() %>"><i class="fi fi-rr-eye"></i>Voir details</a>
                         <button type="button" class="btn btn-secondary" onclick="openCreateOccurrence(<%= vol.getId() %>)"><i class="fi fi-rr-plus"></i>Ajouter une occurrence</button>
                     </div>
                 </td>
