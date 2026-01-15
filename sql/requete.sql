@@ -13,3 +13,4 @@ SELECT *
     FROM tarif_vol WHERE id_vol = ? AND id_classe_siege = ? OR id_classe_siege IS NULL
                    AND created_on <= ?
 ORDER BY created_on DESC LIMIT 1;
+
