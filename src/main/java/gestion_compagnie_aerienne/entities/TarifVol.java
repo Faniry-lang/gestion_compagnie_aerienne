@@ -85,4 +85,38 @@ public class TarifVol extends BaseEntity {
         }
         return tarifVolList.getFirst();
     }
+
+    public static Float getMontantTarif(TarifVol tarifVol, TrancheAge trancheAge, LocalDateTime date) throws Exception {
+        if (tarifVol == null) {
+            throw new IllegalArgumentException("TarifVol ne peut pas être null");
+        }
+        if (trancheAge == null) {
+            return tarifVol.getMontant();
+        }
+        RemiseAgeTarif remise = RemiseAgeTarif.getRemise(
+                tarifVol.getIdVol(),
+                tarifVol.getIdClasseSiege(),
+                trancheAge.getId().intValue(),
+                date
+        );
+        System.out.println("[DEBUG AVION] TarifVol.getMontantTarif: [idVol] : "+tarifVol.getIdVol()+" [idClasseSiege]: "+tarifVol.getIdClasseSiege()+" [idTrancheAge] : "+trancheAge.getId()+" [created_on]: "+tarifVol.getCreatedOn());
+        if (remise == null) {
+            return tarifVol.getMontant();
+        }
+
+        Float montantRef = tarifVol.getMontant();
+        if(remise.getIdTrancheAgeRef() != null) {
+            TrancheAge trancheAgeRef = TrancheAge.findById(remise.getIdTrancheAgeRef(), TrancheAge.class, QueryManager.get_instance());
+            if(trancheAgeRef != null) {
+                montantRef = getMontantTarif(tarifVol, trancheAgeRef, date);
+            }
+        }
+
+        System.out.println("[DEBUG estEnPourcentage]: "+remise.getEstEnPourcentage());
+        if (remise.getEstEnPourcentage()) {
+            return montantRef * remise.getMontantPourcentage() / 100;
+        } else {
+            return remise.getMontantComplet();
+        }
+    }
 }

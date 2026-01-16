@@ -14,3 +14,6 @@ SELECT *
                    AND created_on <= ?
 ORDER BY created_on DESC LIMIT 1;
 
+
+INSERT INTO remise_age_tarif (id_vol, id_classe_siege, id_tranche_age, montant_complet, est_en_pourcentage, created_on)
+   VALUES (1, 3, 3, 900000, 'F', CURRENT_TIMESTAMP);

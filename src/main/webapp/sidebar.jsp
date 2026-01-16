@@ -98,6 +98,20 @@
                 Avions
             </a>
         </li>
+
+        <li>
+            <a href="tranche-age?action=list" class="sidebar-link">
+                <i class="fi fi-rr-users-alt sidebar-icon" style="color:#8b5cf6;"></i>
+                Tranches d'âge
+            </a>
+        </li>
+
+        <li>
+            <a href="remise-age?action=list" class="sidebar-link">
+                <i class="fi fi-rr-percentage sidebar-icon" style="color:#ec4899;"></i>
+                Remises par âge
+            </a>
+        </li>
     </ul>
 </nav>
 

@@ -66,6 +66,7 @@
                     <td><%= croisiere.getPlacesRestantes() %></td>
                     <td>
                         <a class="btn btn-secondary" href="vol-details?action=revenu-max&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-money"></i> Voir revenu max</a>
+                        <a class="btn btn-secondary" href="vol-details?action=ca&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-chart-line"></i> Voir CA</a>
                         <a class="btn btn-secondary" href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-ticket"></i> Reserver</a>
                     </td>
                 </tr>

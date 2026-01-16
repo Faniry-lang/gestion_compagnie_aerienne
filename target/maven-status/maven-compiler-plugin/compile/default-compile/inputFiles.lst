@@ -1,5 +1,4 @@
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\code_generator\EntityCodeGenerator.java
-D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\code_generator\TemplateGenerator.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\code_generator\Test.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Aeroport.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Avion.java
@@ -16,6 +15,7 @@ D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compag
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Itineraire.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\LimiteBagage.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Passager.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\RemiseAgeTarif.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Reservation.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\ReservationDetails.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\ReservationPassager.java
@@ -26,6 +26,7 @@ D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compag
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\StatutVol.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\TarifVol.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\TaxeAeroport.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\TrancheAge.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\TypeAvion.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\V_AvionSiege.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Vol.java
@@ -36,9 +37,11 @@ D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compag
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\AvionServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\BilletServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\ItineraireServlet.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\RemiseAgeTarifServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\ReservationPassagerServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\ReservationServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\TarifVolServlet.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\TrancheAgeServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\VolDetailsServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\VolServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\utils\DateParser.java

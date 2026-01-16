@@ -118,4 +118,18 @@ public class VolAvion extends BaseEntity {
         }
         return siegesDisponibles;
     }
+
+    public Float getChiffreAffaire(LocalDateTime date) throws Exception {
+        String sql = """
+                SELECT SUM(b.prix) AS CA FROM vol_avion va JOIN billet b ON b.id_vol_avion = va.id
+                JOIN reservation_passager rp ON rp.id = b.id_reservation_passager
+                WHERE va.id = ?
+                """;
+        List<RawObject> rawObjects = QueryManager.get_instance().executeSelect(sql, this.getId());
+        if(rawObjects.isEmpty()) {
+            return 0f;
+        }
+        Double ca = ((Double) rawObjects.getFirst().getData().get("ca"));
+        return Float.parseFloat(ca.toString());
+    }
 }

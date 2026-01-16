@@ -117,6 +117,8 @@ CREATE TABLE passager (
     email VARCHAR(150),
     telephone VARCHAR(30)
 );
+INSERT INTO passager (nom, prenom, date_naissance, nationalite, numero_passeport, email, telephone) VALUES
+                        ('bebe', 'bebe', '2025-04-02', 'francais', 'EF001', 'bebemail.com', '03278456');
 
 CREATE TABLE statut_reservation (
     id SERIAL PRIMARY KEY,
@@ -283,3 +285,25 @@ FROM avion a JOIN siege s
              JOIN classe_siege cs
                   ON s.id_classe_siege = cs.id
 GROUP BY a.id, a.modele, cs.id, cs.libelle;
+
+CREATE TABLE tranche_age (
+    id SERIAL PRIMARY KEY ,
+    age_min INT,
+    age_max INT,
+    libelle VARCHAR(20)
+);
+
+CREATE TABLE remise_age_tarif (
+    id SERIAL PRIMARY KEY,
+    id_vol INT NOT NULL REFERENCES  vol(id),
+    id_classe_siege INT NOT NULL REFERENCES classe_siege(id),
+    id_tranche_age INT NOT NULL REFERENCES tranche_age(id),
+    montant_pourcentage DOUBLE PRECISION,
+    montant_complet DOUBLE PRECISION,
+    est_en_pourcentage BOOLEAN,
+    id_tranche_age_ref INT REFERENCES tranche_age(id),
+    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE remise_age_tarif ADD COLUMN id_tranche_age_ref INT REFERENCES tranche_age(id);
+ALTER TABLE remise_age_tarif ALTER COLUMN id_classe_siege DROP NOT NULL;

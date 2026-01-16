@@ -1,3 +1,5 @@
+gestion_compagnie_aerienne\entities\RemiseAgeTarif.class
+gestion_compagnie_aerienne\entities\TrancheAge.class
 gestion_compagnie_aerienne\servlet\TarifVolServlet.class
 gestion_compagnie_aerienne\entities\Itineraire.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutAvion.class
@@ -7,7 +9,6 @@ gestion_compagnie_aerienne\entities\ReservationPassager.class
 gestion_compagnie_aerienne\entities\Aeroport.class
 gestion_compagnie_aerienne\servlet\VolDetailsServlet.class
 gestion_compagnie_aerienne\servlet\BilletServlet.class
-gestion_compagnie_aerienne\code_generator\TemplateGenerator.class
 gestion_compagnie_aerienne\entities\Avion.class
 gestion_compagnie_aerienne\entities\BagagePassager.class
 gestion_compagnie_aerienne\entities\V_AvionSiege.class
@@ -19,7 +20,7 @@ gestion_compagnie_aerienne\entities\StatutReservation.class
 gestion_compagnie_aerienne\entities\StatutVol.class
 gestion_compagnie_aerienne\servlet\VolServlet.class
 gestion_compagnie_aerienne\code_generator\Test.class
-gestion_compagnie_aerienne\code_generator\TemplateGenerator$ColumnBlocks.class
+gestion_compagnie_aerienne\servlet\RemiseAgeTarifServlet.class
 gestion_compagnie_aerienne\entities\Siege.class
 gestion_compagnie_aerienne\servlet\ReservationPassagerServlet.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutReservation.class
@@ -35,10 +36,10 @@ gestion_compagnie_aerienne\entities\VolDetails.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutVol.class
 gestion_compagnie_aerienne\servlet\ReservationServlet.class
 gestion_compagnie_aerienne\entities\TarifVol.class
+gestion_compagnie_aerienne\servlet\TrancheAgeServlet.class
 gestion_compagnie_aerienne\entities\VolAvion.class
 gestion_compagnie_aerienne\entities\Escale.class
 gestion_compagnie_aerienne\entities\ReservationDetails.class
-gestion_compagnie_aerienne\code_generator\TemplateGenerator$JspCrudGenerator.class
 gestion_compagnie_aerienne\entities\Billet.class
 gestion_compagnie_aerienne\servlet\ItineraireServlet.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutBillet.class
