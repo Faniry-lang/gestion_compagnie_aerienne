@@ -1,6 +1,7 @@
 package gestion_compagnie_aerienne.servlet;
 
 import gestion_compagnie_aerienne.entities.*;
+import gestion_compagnie_aerienne.utils.DateParser;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -156,6 +157,10 @@ public class ReservationServlet extends HttpServlet {
         String[] idPassagers = req.getParameterValues("idPassager");
         String[] idSieges = req.getParameterValues("idSiege");
         String idVolAvionStr = req.getParameter("idVolAvion");
+        String dateReservationStr = req.getParameter("dateReservation");
+        LocalDateTime dateReservation =
+                (dateReservationStr != null && !dateReservationStr.isEmpty())
+                        ? DateParser.getLocalDateTime(dateReservationStr, false) : LocalDateTime.now() ;
 
         if(idPassagers == null || idPassagers.length == 0) {
             throw new Exception("Aucun passager sélectionné");
@@ -170,7 +175,7 @@ public class ReservationServlet extends HttpServlet {
 
         Reservation reservation = new Reservation();
         reservation.setReference("REF-" + System.currentTimeMillis());
-        reservation.setCreatedOn(LocalDateTime.now());
+        reservation.setCreatedOn(dateReservation);
         Reservation savedReservation = (Reservation)  reservation.save();
 
         List<StatutReservation> statutReservation = StatutReservation.findBy("libelle", "Creee",
@@ -188,7 +193,6 @@ public class ReservationServlet extends HttpServlet {
         hsr.save();
 
         int seatIndex = 0;
-        List<ReservationPassager> created = new ArrayList<>();
         for(String idPassagerStr : idPassagers) {
             Integer idPassager = Integer.parseInt(idPassagerStr);
             Integer idSiege = Integer.parseInt(idSieges[seatIndex]);
@@ -202,18 +206,19 @@ public class ReservationServlet extends HttpServlet {
             rp.setIdVol(volAvion.getIdVol());
             rp.setIdVolAvion(volAvion.getId().intValue());
 
-            // trouver le tarif pour le siege (classe) et assigner le prix
+            Passager passager = rp.getForeignKey("id_passager");
+            TrancheAge trancheAge = passager.getTrancheAge(dateReservation.toLocalDate());
+
             Siege s = Siege.findById(idSiege.longValue(), Siege.class, QueryManager.get_instance());
             Float montant = 0f;
             if(s != null && s.getIdClasseSiege() != null) {
                 TarifVol t = TarifVol.getTarifVol(volAvion.getIdVol(), s.getIdClasseSiege(), volAvion.getDateDepart());
-                if(t != null && t.getMontant() != null) montant = t.getMontant();
+                montant = TarifVol.getMontantTarif(t, trancheAge, dateReservation);
             }
             rp.setPrix(montant);
             rp.setCreatedOn(LocalDateTime.now());
 
-            rp = (ReservationPassager) rp.save();
-            created.add(rp);
+            rp.save();
         }
 
         resp.sendRedirect("reservation?action=list");

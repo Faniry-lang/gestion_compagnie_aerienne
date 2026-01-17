@@ -14,10 +14,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class VolDetailsServlet extends HttpServlet {
 
@@ -35,6 +32,9 @@ public class VolDetailsServlet extends HttpServlet {
                     break;
                 case "revenu-max":
                     processRevenuMax(req, resp);
+                    break;
+                case "ca":
+                    processChiffreAffaire(req, resp);
                     break;
                 default:
                     req.setAttribute("error-message", "Aucune action définie");
@@ -134,7 +134,6 @@ public class VolDetailsServlet extends HttpServlet {
         List<V_AvionSiege> avionSiege = V_AvionSiege.filter(V_AvionSiege.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
                 // V_AvionSiege.findBy("id_avion", volAvion.getIdAvion(), V_AvionSiege.class, QueryManager.get_instance());
 
-
         Float revenuMax = 0f;
 
         for(V_AvionSiege as : avionSiege) {
@@ -158,5 +157,28 @@ public class VolDetailsServlet extends HttpServlet {
         req.setAttribute("classeSieges", classeSieges);
 
         req.getRequestDispatcher("pages/vol/vol-details-revenu.jsp").forward(req, resp);
+    }
+
+    private void processChiffreAffaire(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String dateStr = req.getParameter("date");
+        String idVolAvionStr = req.getParameter("idVolAvion");
+        Integer idVolAvion = null;
+
+        if(idVolAvionStr == null || idVolAvionStr.isEmpty()) {
+            throw new Exception("L'id du vol_avion est requis pour voir les chiffres d'affaires");
+        }
+
+        idVolAvion = Integer.parseInt(idVolAvionStr);
+
+        LocalDateTime date = (dateStr != null && !dateStr.isEmpty()) ? DateParser.getLocalDateTime(dateStr, false) : LocalDateTime.now();
+
+        VolAvion volAvion = VolAvion.findById(idVolAvion, VolAvion.class, QueryManager.get_instance());
+        Float chiffreAffare = volAvion.getChiffreAffaire(date);
+
+        req.setAttribute("volAvion", volAvion);
+        req.setAttribute("chiffreAffaire", chiffreAffare);
+        req.setAttribute("date", date);
+
+        req.getRequestDispatcher("pages/vol/vol-avion-ca.jsp").forward(req, resp);
     }
 }

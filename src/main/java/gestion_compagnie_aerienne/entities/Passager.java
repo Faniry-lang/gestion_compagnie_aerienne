@@ -102,4 +102,9 @@ public class Passager extends BaseEntity {
         this.telephone = telephone;
     }
 
+    public TrancheAge getTrancheAge(LocalDate dateDuJour) throws Exception {
+        Integer ageActuel = dateDuJour.getYear() - this.getDateNaissance().getYear();
+        return TrancheAge.getTrancheAge(ageActuel);
+    }
+
 }

@@ -59,6 +59,16 @@
     <servlet-class>gestion_compagnie_aerienne.servlet.TarifVolServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>RemiseAgeTarifServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.RemiseAgeTarifServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>TrancheAgeServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.TrancheAgeServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>AccueilServlet</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -107,6 +117,16 @@
   <servlet-mapping>
     <servlet-name>TarifVolServlet</servlet-name>
     <url-pattern>/tarif-vol</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>TrancheAgeServlet</servlet-name>
+    <url-pattern>/tranche-age</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RemiseAgeTarifServlet</servlet-name>
+    <url-pattern>/remise-age</url-pattern>
   </servlet-mapping>
 
 </web-app>
