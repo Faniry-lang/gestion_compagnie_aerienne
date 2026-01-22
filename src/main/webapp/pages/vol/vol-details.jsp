@@ -24,6 +24,33 @@
     table { width:100%; border-collapse:collapse; background:#fff; }
     th, td { padding:10px 12px; border-bottom:1px solid #eef2ff; text-align:left; }
     th { background:#f8fafc; color:#0f172a; }
+    .drop-down-btn {
+        display: inline-block;
+        gap: 20px;
+        height: auto;
+        text-align: left;
+        padding: 10px;
+    }
+    .btn-action {
+        margin-bottom: 10px;
+    }
+
+    .btn-links {
+        display: none;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .btn-links a {
+        text-decoration: none;
+        color: #0f172a;
+        padding: 8px 5px 8px 5px;
+        border-radius: 10px;
+    }
+
+    .btn-links a:hover {
+        background-color: #f3f4f6;
+    }
 </style>
 <body>
     <%@ include file="/sidebar.jsp" %>
@@ -67,7 +94,15 @@
                     <td>
                         <a class="btn btn-secondary" href="vol-details?action=revenu-max&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-money"></i> Voir revenu max</a>
                         <a class="btn btn-secondary" href="vol-details?action=ca&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-chart-line"></i> Voir CA</a>
-                        <a class="btn btn-secondary" href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>"><i class="fi fi-rr-ticket"></i> Reserver</a>
+                        <button class="drop-down-btn btn btn-secondary" onclick="showDropDownLinks()">
+                            <span class="btn-action">
+                                <i class="fi fi-rr-ticket"></i><span>Reserver</span>
+                            </span >
+                            <span class="btn-links">
+                                <a href="reservation?action=form&idVolAvion=<%= croisiere.getIdVolAvion() %>">Par siege</a>
+                                <a href="reservation?action=reservation-rapide&idVolAvion=<%= croisiere.getIdVolAvion() %>">Reservation rapide</a>
+                            </span>
+                        </button>
                     </td>
                 </tr>
             <%
@@ -131,6 +166,16 @@
 <script>
     function openFilters() { document.getElementById("filterPanel").classList.add("open"); document.getElementById("filterOverlay").classList.add("open"); }
     function closeFilters(){ document.getElementById("filterPanel").classList.remove("open"); document.getElementById("filterOverlay").classList.remove("open"); }
+    function showDropDownLinks() {
+        const button = event.currentTarget;
+        const links = button.querySelector(".btn-links");
+
+        if (links.style.display === "flex") {
+            links.style.display = "none";
+        } else {
+            links.style.display = "flex";
+        }
+    }
 </script>
 
 </body>

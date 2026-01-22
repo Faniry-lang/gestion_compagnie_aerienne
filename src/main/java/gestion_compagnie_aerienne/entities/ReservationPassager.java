@@ -44,6 +44,13 @@ public class ReservationPassager extends BaseEntity {
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
+    @Column(name = "id_tranche_age")
+    @ForeignKey(mappedBy = "tranche_age", entity = TrancheAge.class)
+    private Integer idTrancheAge;
+
+    @Column(name = "nom_passager")
+    private String nomPassager;
+
     public Long getId() {
         return id;
     }
@@ -108,4 +115,19 @@ public class ReservationPassager extends BaseEntity {
         this.createdOn = createdOn;
     }
 
+    public Integer getIdTrancheAge() {
+        return idTrancheAge;
+    }
+
+    public void setIdTrancheAge(Integer idTrancheAge) {
+        this.idTrancheAge = idTrancheAge;
+    }
+
+    public String getNomPassager() {
+        return nomPassager;
+    }
+
+    public void setNomPassager(String nomPassager) {
+        this.nomPassager = nomPassager;
+    }
 }

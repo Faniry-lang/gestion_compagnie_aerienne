@@ -11,6 +11,7 @@ import legacy.query.Comparator;
 import legacy.query.Filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,87 +27,15 @@ public class ReservationServlet extends HttpServlet {
         }
         try {
             switch (action) {
+                // par siege ty
                 case "form":
-                    String idVolAvionStr = req.getParameter("idVolAvion");
-                    Integer idVolAvion = Integer.parseInt(idVolAvionStr);
-                    VolAvion volAvion = VolAvion.findById(idVolAvion, VolAvion.class, QueryManager.get_instance());
-                    if(volAvion == null) {
-                        throw new Exception("Aucun vol avion trouvé pour l'ID "+idVolAvion);
-                    }
-
-                    Vol vol = Vol.findById(volAvion.getIdVol(), Vol.class, QueryManager.get_instance());
-                    Avion avion = Avion.findById(volAvion.getIdAvion(), Avion.class, QueryManager.get_instance());
-
-                    List<Passager> passagers = Passager.findAll(Passager.class, QueryManager.get_instance());
-                    Map<Siege, Boolean> siegesDisponibles = volAvion.getSiegesDisponibles();
-                    if(siegesDisponibles == null) {
-                        throw new Exception("Plus aucun siege disponible pour le vol N°"+vol.getNumeroVol());
-                    }
-
-                    Map<Long, Float> tarifsMap = new HashMap<>();
-                    for(Map.Entry<Siege, Boolean> entry : siegesDisponibles.entrySet()) {
-                        Siege siege = entry.getKey();
-                        Boolean available = entry.getValue();
-                        if(available != null && available) {
-                            ClasseSiege classeSiege = siege.getForeignKey("id_classe_siege");
-                            if(classeSiege != null) {
-                                Long classeId = classeSiege.getId();
-                                if(!tarifsMap.containsKey(classeId)) {
-                                    TarifVol t = TarifVol.getTarifVol(vol.getId().intValue(), classeId.intValue(), volAvion.getDateDepart());
-                                    if(t != null && t.getMontant() != null) tarifsMap.put(classeId, t.getMontant());
-                                    else tarifsMap.put(classeId, 0f);
-                                }
-                            }
-                        }
-                    }
-
-                    req.setAttribute("sieges", siegesDisponibles);
-                    req.setAttribute("passagers", passagers);
-                    req.setAttribute("idVolAvion", idVolAvion);
-                    req.setAttribute("volAvion", volAvion);
-                    req.setAttribute("vol", vol);
-                    req.setAttribute("avion", avion);
-                    req.setAttribute("tarifsMap", tarifsMap);
-                    req.getRequestDispatcher("pages/reservation/reservation-form.jsp").forward(req, resp);
+                    processForm(req, resp);
+                    break;
+                case "reservation-rapide":
+                    processReservationRapide(req, resp);
                     break;
                 case "list":
-                    String montantMinStr = req.getParameter("montantMin");
-                    String montantMaxStr = req.getParameter("montantMax");
-                    String nbrMinStr = req.getParameter("nbrMin");
-                    String nbrMaxStr = req.getParameter("nbrMax");
-                    String reference = req.getParameter("reference");
-
-                    Float montantMin = (montantMinStr != null && !montantMinStr.isEmpty()) ? Float.parseFloat(montantMinStr) : null;
-                    Float montantMax = (montantMaxStr != null && !montantMaxStr.isEmpty()) ? Float.parseFloat(montantMaxStr) : null;
-                    Integer nbrMin = (nbrMinStr != null && !nbrMinStr.isEmpty()) ? Integer.parseInt(nbrMinStr) : null;
-                    Integer nbrMax = (nbrMaxStr != null && !nbrMaxStr.isEmpty()) ? Integer.parseInt(nbrMaxStr) : null;
-
-                    List<Filter> filters = new ArrayList<>();
-                    if(montantMin != null) {
-                        filters.add(new Filter("montant_total", Comparator.GREATER_THAN_OR_EQUALS, montantMin));
-                    }
-                    if(montantMax != null) {
-                        filters.add(new Filter("montant_total", Comparator.LESS_THAN_OR_EQUALS, montantMax));
-                    }
-                    if(nbrMin != null) {
-                        filters.add(new Filter("nbr_passagers", Comparator.GREATER_THAN_OR_EQUALS, nbrMin));
-                    }
-                    if(nbrMax != null) {
-                        filters.add(new Filter("nbr_passagers", Comparator.LESS_THAN_OR_EQUALS, nbrMax));
-                    }
-                    if(reference != null && !reference.isEmpty()) {
-                        filters.add(new Filter("reference", Comparator.ILIKE, "%" + reference + "%"));
-                    }
-
-                    List<ReservationDetails> reservations;
-                    if(filters.isEmpty()) {
-                        reservations = ReservationDetails.findAll(ReservationDetails.class, QueryManager.get_instance());
-                    } else {
-                        reservations = ReservationDetails.filter(ReservationDetails.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
-                    }
-
-                    req.setAttribute("reservations", reservations);
-                    req.getRequestDispatcher("pages/reservation/reservation-list.jsp").forward(req, resp);
+                    processList(req, resp);
                     break;
                 default:
                     resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Action inconnue");
@@ -129,6 +58,10 @@ public class ReservationServlet extends HttpServlet {
                 case "create":
                     createReservation(req, resp);
                     break;
+                case "reservation-rapide":
+                    // createReservationRapide(req, resp);
+                    debug(req, resp);
+                    break;
                 case "pay":
                     payReservation(req, resp);
                     break;
@@ -141,6 +74,114 @@ public class ReservationServlet extends HttpServlet {
             req.setAttribute("error-message", e.getMessage());
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
+    }
+
+    public void processReservationRapide(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String idVolAvionStr = req.getParameter("idVolAvion");
+        Integer idVolAvion = Integer.parseInt(idVolAvionStr);
+        VolAvion volAvion = VolAvion.findById(idVolAvion, VolAvion.class, QueryManager.get_instance());
+        if(volAvion == null) {
+            throw new Exception("Aucun vol avion trouvé pour l'ID "+idVolAvion);
+        }
+        Vol vol = Vol.findById(volAvion.getIdVol(), Vol.class, QueryManager.get_instance());
+        Avion avion = Avion.findById(volAvion.getIdAvion(), Avion.class, QueryManager.get_instance());
+
+        List<ClasseSiege> classesSiege = ClasseSiege.findAll(ClasseSiege.class, QueryManager.get_instance());
+        List<Passager> passagers = Passager.findAll(Passager.class, QueryManager.get_instance());
+        List<TrancheAge> trancheAges = TrancheAge.findAll(TrancheAge.class, QueryManager.get_instance());
+
+        req.setAttribute("passagers", passagers);
+        req.setAttribute("classesSiege", classesSiege);
+        req.setAttribute("trancheAges", trancheAges);
+        req.setAttribute("idVolAvion", idVolAvion);
+        req.setAttribute("volAvion", volAvion);
+        req.setAttribute("vol", vol);
+        req.setAttribute("avion", avion);
+        req.getRequestDispatcher("pages/reservation/reservation-rapide-form.jsp").forward(req, resp);
+    }
+
+    public void processForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String idVolAvionStr = req.getParameter("idVolAvion");
+        Integer idVolAvion = Integer.parseInt(idVolAvionStr);
+        VolAvion volAvion = VolAvion.findById(idVolAvion, VolAvion.class, QueryManager.get_instance());
+        if(volAvion == null) {
+            throw new Exception("Aucun vol avion trouvé pour l'ID "+idVolAvion);
+        }
+
+        Vol vol = Vol.findById(volAvion.getIdVol(), Vol.class, QueryManager.get_instance());
+        Avion avion = Avion.findById(volAvion.getIdAvion(), Avion.class, QueryManager.get_instance());
+
+        List<Passager> passagers = Passager.findAll(Passager.class, QueryManager.get_instance());
+        Map<Siege, Boolean> siegesDisponibles = volAvion.getSiegesDisponibles();
+        if(siegesDisponibles == null) {
+            throw new Exception("Plus aucun siege disponible pour le vol N°"+vol.getNumeroVol());
+        }
+
+        Map<Long, Float> tarifsMap = new HashMap<>();
+        for(Map.Entry<Siege, Boolean> entry : siegesDisponibles.entrySet()) {
+            Siege siege = entry.getKey();
+            Boolean available = entry.getValue();
+            if(available != null && available) {
+                ClasseSiege classeSiege = siege.getForeignKey("id_classe_siege");
+                if(classeSiege != null) {
+                    Long classeId = classeSiege.getId();
+                    if(!tarifsMap.containsKey(classeId)) {
+                        TarifVol t = TarifVol.getTarifVol(vol.getId().intValue(), classeId.intValue(), volAvion.getDateDepart());
+                        if(t != null && t.getMontant() != null) tarifsMap.put(classeId, t.getMontant());
+                        else tarifsMap.put(classeId, 0f);
+                    }
+                }
+            }
+        }
+
+        req.setAttribute("sieges", siegesDisponibles);
+        req.setAttribute("passagers", passagers);
+        req.setAttribute("idVolAvion", idVolAvion);
+        req.setAttribute("volAvion", volAvion);
+        req.setAttribute("vol", vol);
+        req.setAttribute("avion", avion);
+        req.setAttribute("tarifsMap", tarifsMap);
+        req.getRequestDispatcher("pages/reservation/reservation-form.jsp").forward(req, resp);
+    }
+
+    public void processList(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String montantMinStr = req.getParameter("montantMin");
+        String montantMaxStr = req.getParameter("montantMax");
+        String nbrMinStr = req.getParameter("nbrMin");
+        String nbrMaxStr = req.getParameter("nbrMax");
+        String reference = req.getParameter("reference");
+
+        Float montantMin = (montantMinStr != null && !montantMinStr.isEmpty()) ? Float.parseFloat(montantMinStr) : null;
+        Float montantMax = (montantMaxStr != null && !montantMaxStr.isEmpty()) ? Float.parseFloat(montantMaxStr) : null;
+        Integer nbrMin = (nbrMinStr != null && !nbrMinStr.isEmpty()) ? Integer.parseInt(nbrMinStr) : null;
+        Integer nbrMax = (nbrMaxStr != null && !nbrMaxStr.isEmpty()) ? Integer.parseInt(nbrMaxStr) : null;
+
+        List<Filter> filters = new ArrayList<>();
+        if(montantMin != null) {
+            filters.add(new Filter("montant_total", Comparator.GREATER_THAN_OR_EQUALS, montantMin));
+        }
+        if(montantMax != null) {
+            filters.add(new Filter("montant_total", Comparator.LESS_THAN_OR_EQUALS, montantMax));
+        }
+        if(nbrMin != null) {
+            filters.add(new Filter("nbr_passagers", Comparator.GREATER_THAN_OR_EQUALS, nbrMin));
+        }
+        if(nbrMax != null) {
+            filters.add(new Filter("nbr_passagers", Comparator.LESS_THAN_OR_EQUALS, nbrMax));
+        }
+        if(reference != null && !reference.isEmpty()) {
+            filters.add(new Filter("reference", Comparator.ILIKE, "%" + reference + "%"));
+        }
+
+        List<ReservationDetails> reservations;
+        if(filters.isEmpty()) {
+            reservations = ReservationDetails.findAll(ReservationDetails.class, QueryManager.get_instance());
+        } else {
+            reservations = ReservationDetails.filter(ReservationDetails.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
+        }
+
+        req.setAttribute("reservations", reservations);
+        req.getRequestDispatcher("pages/reservation/reservation-list.jsp").forward(req, resp);
     }
 
     private Integer getClasseSiegeIdForSiege(Integer idSiege) {
@@ -209,6 +250,13 @@ public class ReservationServlet extends HttpServlet {
             Passager passager = rp.getForeignKey("id_passager");
             TrancheAge trancheAge = passager.getTrancheAge(dateReservation.toLocalDate());
 
+            if(passager == null) {
+                throw new Exception("Passager introuvable pour l'id " + idPassager);
+            }
+
+            rp.setNomPassager(passager.getNom());
+            rp.setIdTrancheAge(trancheAge.getId().intValue());
+
             Siege s = Siege.findById(idSiege.longValue(), Siege.class, QueryManager.get_instance());
             Float montant = 0f;
             if(s != null && s.getIdClasseSiege() != null) {
@@ -254,6 +302,8 @@ public class ReservationServlet extends HttpServlet {
                 billet.setPrix(rp.getPrix());
                 billet.setIdClasseSiege(rp.getIdSiege() != null ? getClasseSiegeIdForSiege(rp.getIdSiege()) : null);
                 billet.setIdReservationPassager(rp.getId().intValue());
+                billet.setNomPassager(rp.getNomPassager());
+                billet.setIdTrancheAge(rp.getIdTrancheAge());
                 billet.save();
         }
         HistoriqueStatutReservation hsr = new HistoriqueStatutReservation();
@@ -263,5 +313,51 @@ public class ReservationServlet extends HttpServlet {
         hsr.save();
 
         resp.sendRedirect("billet?action=list&idReservation="+reservation.getId());
+    }
+
+    public void createReservationRapide(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String idVolAvionStr = req.getParameter("idVolAvion");
+        if(idVolAvionStr.isEmpty() || idVolAvionStr == null) {
+            throw new Exception("Aucun id_vol_avion envoyé dans la requête");
+        }
+        Integer idVolAvion = null;
+        try {
+            idVolAvion = Integer.parseInt(idVolAvionStr);
+        } catch (Exception e) {
+            throw new Exception("Erreur lors du parsing de l'id_vol_avion '"+idVolAvionStr+"' en Integer, details: "+e.getMessage());
+        }
+
+        String idPassagerStr = req.getParameter("idPassager");
+        if(idPassagerStr.isEmpty() || idPassagerStr == null) {
+            throw new Exception("Le client de la réservation ne peut pas être vide");
+        }
+        Integer idPassager = null;
+        try {
+            idPassager = Integer.parseInt(idPassagerStr);
+        } catch (Exception e) {
+            throw new Exception("Erreur lors du parsing de l'id_passager '"+idPassagerStr+"' en Integer, details: "+e.getMessage());
+        }
+
+        String reference = req.getParameter("reference");
+
+        Reservation r = new Reservation();
+        r.setIdPassager(idPassager);
+        r.setReference(reference);
+        r.setCreatedOn(LocalDateTime.now());
+
+
+    }
+
+    public void debug(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Map<String, String[]> params = req.getParameterMap();
+        resp.setContentType("text/plain");
+        PrintWriter writer = resp.getWriter();
+        for(Map.Entry<String, String[]> entry : params.entrySet()) {
+            writer.write(entry.getKey()+" : { ");
+            for(String val : entry.getValue()) {
+                writer.write(val+", ");
+            }
+            writer.write(" }");
+        }
     }
 }

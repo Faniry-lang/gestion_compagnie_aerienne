@@ -307,3 +307,10 @@ CREATE TABLE remise_age_tarif (
 
 ALTER TABLE remise_age_tarif ADD COLUMN id_tranche_age_ref INT REFERENCES tranche_age(id);
 ALTER TABLE remise_age_tarif ALTER COLUMN id_classe_siege DROP NOT NULL;
+
+-- update 21/01/2026
+ALTER TABLE reservation ADD COLUMN id_passager INT REFERENCES passager(id);
+ALTER TABLE reservation_passager ADD COLUMN nom_passager VARCHAR(100);
+ALTER TABLE reservation_passager ADD COLUMN id_tranche_age INT REFERENCES tranche_age(id);
+ALTER TABLE billet ADD COLUMN nom_passager VARCHAR(100);
+ALTER TABLE billet ADD COLUMN id_tranche_age INT REFERENCES tranche_age(id);

@@ -26,6 +26,10 @@
 <body>
     <%@ include file="/sidebar.jsp" %>
     <div class="main-content">
+        <%
+            try
+            {
+        %>
         <div class="page-header">
             <h1>Passagers par reservation</h1>
             <button class="filter-btn" onclick="openFilters()">Filtres</button>
@@ -34,40 +38,40 @@
         <div class="table-container">
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>ID Reservation</th>
-                        <th>Passager</th>
-                        <th>Vol</th>
-                        <th>VolAvion</th>
-                        <th>Siège</th>
-                        <th>Prix</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>ID Reservation</th>
+                    <th>Passager</th>
+                    <th>Vol</th>
+                    <th>VolAvion</th>
+                    <th>Siège</th>
+                    <th>Prix</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <%
-                        List<ReservationPassager> rps = (List<ReservationPassager>) request.getAttribute("reservationPassagers");
-                        if(rps != null && !rps.isEmpty()) {
-                            for(ReservationPassager rp : rps) {
-                                Reservation res =  rp.getForeignKey("id_reservation");
-                                Passager pass =  rp.getForeignKey("id_passager");
-                                Vol vol = rp.getForeignKey("id_vol");
-                                VolAvion va = rp.getForeignKey("id_vol_avion");
-                                Siege s =  rp.getForeignKey("id_siege");
-                    %>
-                                <tr>
-                                    <td><%= rp.getId() %></td>
-                                    <td><%= res != null ? res.getReference() : rp.getIdReservation() %></td>
-                                    <td><%= pass != null ? pass.getNom() + " " + pass.getPrenom() : rp.getIdPassager() %></td>
-                                    <td><%= vol != null ? vol.getNumeroVol() : rp.getIdVol() %></td>
-                                    <td><%= va != null ? va.getId() : rp.getIdVolAvion() %></td>
-                                    <td><%= s != null ? s.getNumeroSiege() : rp.getIdSiege() %></td>
-                                    <td><%= rp.getPrix() %></td>
-                                </tr>
-                    <%      }
-                        } else { %>
-                            <tr><td colspan="7">Aucun passager trouvé</td></tr>
-                    <%  } %>
+                <%
+                    List<ReservationPassager> rps = (List<ReservationPassager>) request.getAttribute("reservationPassagers");
+                    if(rps != null && !rps.isEmpty()) {
+                        for(ReservationPassager rp : rps) {
+                            Reservation res =  rp.getForeignKey("id_reservation");
+                            Passager pass =  rp.getForeignKey("id_passager");
+                            Vol vol = rp.getForeignKey("id_vol");
+                            VolAvion va = rp.getForeignKey("id_vol_avion");
+                            Siege s =  rp.getForeignKey("id_siege");
+                %>
+                <tr>
+                    <td><%= rp.getId() %></td>
+                    <td><%= res != null ? res.getReference() : rp.getIdReservation() %></td>
+                    <td><%= pass != null ? pass.getNom() + " " + pass.getPrenom() : rp.getIdPassager() %></td>
+                    <td><%= vol != null ? vol.getNumeroVol() : rp.getIdVol() %></td>
+                    <td><%= va != null ? va.getId() : rp.getIdVolAvion() %></td>
+                    <td><%= s != null ? s.getNumeroSiege() : rp.getIdSiege() %></td>
+                    <td><%= rp.getPrix() %></td>
+                </tr>
+                <%      }
+                } else { %>
+                <tr><td colspan="7">Aucun passager trouvé</td></tr>
+                <%  } %>
                 </tbody>
             </table>
         </div>
@@ -85,7 +89,7 @@
                 <select name="idReservation">
                     <option value="">(Tous)</option>
                     <% List<Reservation> reservations = (List<Reservation>) request.getAttribute("reservations"); if(reservations != null) { for(Reservation r : reservations) { %>
-                        <option value="<%= r.getId() %>"><%= r.getReference() != null ? r.getReference() : r.getId() %></option>
+                    <option value="<%= r.getId() %>"><%= r.getReference() != null ? r.getReference() : r.getId() %></option>
                     <% } } %>
                 </select>
 
@@ -93,7 +97,7 @@
                 <select name="idPassager">
                     <option value="">(Tous)</option>
                     <% List<Passager> passagers = (List<Passager>) request.getAttribute("passagers"); if(passagers != null) { for(Passager p : passagers) { %>
-                        <option value="<%= p.getId() %>"><%= p.getNom() + " " + p.getPrenom() %></option>
+                    <option value="<%= p.getId() %>"><%= p.getNom() + " " + p.getPrenom() %></option>
                     <% } } %>
                 </select>
 
@@ -102,6 +106,13 @@
                 </div>
             </form>
         </div>
+        <%
+            } catch(Exception e)
+            {
+                request.setAttribute("error-message", e.getMessage());
+                request.getRequestDispatcher("/error.jsp").forward(request, response);
+            }
+        %>
 
     </div>
 
