@@ -19,7 +19,7 @@
     VolAvion volAvion = (VolAvion) request.getAttribute("volAvion");
     List<Passager> passagers = (List<Passager>) request.getAttribute("passagers");
     List<TrancheAge> trancheAges = (List<TrancheAge>) request.getAttribute("tranchesAges");
-    List<ClasseSiege> classeSieges = (List<ClasseSiege>) request.getAttribute("classe");
+    List<ClasseSiege> classeSieges = (List<ClasseSiege>) request.getAttribute("classesSiege");
 %>
 <div>
     <form action="reservation?action=reservation-rapide" method="post">
