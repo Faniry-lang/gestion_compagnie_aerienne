@@ -83,7 +83,7 @@ public class TarifVol extends BaseEntity {
         if (tarifVolList.isEmpty()) {
             return null;
         }
-        return tarifVolList.getFirst();
+        return tarifVolList.get(0);
     }
 
     public static Float getMontantTarif(TarifVol tarifVol, TrancheAge trancheAge, LocalDateTime date) throws Exception {

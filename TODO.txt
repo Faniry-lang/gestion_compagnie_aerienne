@@ -1,0 +1,3 @@
+- table societe (nom)
+- table cout_pub (montant)
+- table diffusion_pub (idSociete, mois, annee, nb_diffusion)

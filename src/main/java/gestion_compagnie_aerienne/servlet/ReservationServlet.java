@@ -188,7 +188,7 @@ public class ReservationServlet extends HttpServlet {
 
         HistoriqueStatutReservation hsr = new HistoriqueStatutReservation();
         hsr.setIdReservation(savedReservation.getId().intValue());
-        hsr.setIdStatutReservation(statutReservation.getFirst().getId().intValue());
+        hsr.setIdStatutReservation(statutReservation.get(0).getId().intValue());
         hsr.setCreatedOn(LocalDateTime.now());
         hsr.save();
 
@@ -258,7 +258,7 @@ public class ReservationServlet extends HttpServlet {
         }
         HistoriqueStatutReservation hsr = new HistoriqueStatutReservation();
         hsr.setIdReservation(reservation.getId().intValue());
-        hsr.setIdStatutReservation(sr.getFirst().getId().intValue());
+        hsr.setIdStatutReservation(sr.get(0).getId().intValue());
         hsr.setCreatedOn(LocalDateTime.now());
         hsr.save();
 

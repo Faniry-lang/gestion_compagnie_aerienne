@@ -117,8 +117,6 @@ CREATE TABLE passager (
     email VARCHAR(150),
     telephone VARCHAR(30)
 );
-INSERT INTO passager (nom, prenom, date_naissance, nationalite, numero_passeport, email, telephone) VALUES
-                        ('bebe', 'bebe', '2025-04-02', 'francais', 'EF001', 'bebemail.com', '03278456');
 
 CREATE TABLE statut_reservation (
     id SERIAL PRIMARY KEY,
@@ -220,29 +218,6 @@ CREATE TABLE historique_statut_billet (
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO statut_reservation (libelle) VALUES
-('Creee'),
-('Confirmee'),
-('Annulee'),
-('Payee');
-
-INSERT INTO statut_avion (libelle) VALUES
-('En service'),
-('En maintenance'),
-('Retire du service');
-
-INSERT INTO statut_vol (libelle) VALUES
-('Cree'),
-('Annule');
-
-INSERT INTO statut_vol_avion (libelle) VALUES
-('Programme'),
-('En cours'),
-('Termine'),
-('Annule');
-
-INSERT INTO classe_siege (libelle) VALUES ('Economique'), ('Premium Eco'), ('Affaires'), ('Premiere');
-
 CREATE OR REPLACE VIEW vol_details AS
 SELECT
     v.id as id_vol,
@@ -305,5 +280,23 @@ CREATE TABLE remise_age_tarif (
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-ALTER TABLE remise_age_tarif ADD COLUMN id_tranche_age_ref INT REFERENCES tranche_age(id);
+--ALTER TABLE remise_age_tarif ADD COLUMN id_tranche_age_ref INT REFERENCES tranche_age(id);
 ALTER TABLE remise_age_tarif ALTER COLUMN id_classe_siege DROP NOT NULL;
+
+CREATE TABLE societe(
+    id SERIAL PRIMARY KEY,
+    nom VARCHAR(50)
+);
+
+CREATE TABLE cout_pub(
+    id SERIAL PRIMARY KEY,
+    montant DOUBLE PRECISION
+);
+
+CREATE TABLE diffusion_pub(
+    id SERIAL PRIMARY KEY,
+    id_societe INT REFERENCES societe(id),
+    mois INT,
+    annee INT,
+    nbr_diffusion INT
+);

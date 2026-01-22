@@ -69,6 +69,16 @@
     <servlet-class>gestion_compagnie_aerienne.servlet.TrancheAgeServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>DiffusionPubServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.DiffusionPubServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>PayementPubServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.PayementPubServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>AccueilServlet</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -127,6 +137,16 @@
   <servlet-mapping>
     <servlet-name>RemiseAgeTarifServlet</servlet-name>
     <url-pattern>/remise-age</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>DiffusionPubServlet</servlet-name>
+    <url-pattern>/diffusion-pub</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>PayementPubServlet</servlet-name>
+    <url-pattern>/payement-pub</url-pattern>
   </servlet-mapping>
 
 </web-app>
