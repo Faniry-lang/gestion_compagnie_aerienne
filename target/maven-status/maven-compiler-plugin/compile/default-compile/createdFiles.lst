@@ -1,6 +1,8 @@
 gestion_compagnie_aerienne\entities\RemiseAgeTarif.class
 gestion_compagnie_aerienne\entities\TrancheAge.class
+gestion_compagnie_aerienne\servlet\PayementPubServlet.class
 gestion_compagnie_aerienne\servlet\TarifVolServlet.class
+gestion_compagnie_aerienne\entities\PayementPub.class
 gestion_compagnie_aerienne\entities\Itineraire.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutAvion.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutReservationPassager.class
@@ -19,10 +21,13 @@ gestion_compagnie_aerienne\entities\TypeAvion.class
 gestion_compagnie_aerienne\entities\StatutReservation.class
 gestion_compagnie_aerienne\entities\StatutVol.class
 gestion_compagnie_aerienne\servlet\VolServlet.class
+gestion_compagnie_aerienne\servlet\DiffusionPubServlet.class
 gestion_compagnie_aerienne\code_generator\Test.class
+gestion_compagnie_aerienne\entities\CoutPub.class
 gestion_compagnie_aerienne\servlet\RemiseAgeTarifServlet.class
 gestion_compagnie_aerienne\entities\Siege.class
 gestion_compagnie_aerienne\servlet\ReservationPassagerServlet.class
+gestion_compagnie_aerienne\entities\Societe.class
 gestion_compagnie_aerienne\entities\HistoriqueStatutReservation.class
 gestion_compagnie_aerienne\code_generator\EntityCodeGenerator.class
 gestion_compagnie_aerienne\servlet\AeroportServlet.class
@@ -37,8 +42,10 @@ gestion_compagnie_aerienne\entities\HistoriqueStatutVol.class
 gestion_compagnie_aerienne\servlet\ReservationServlet.class
 gestion_compagnie_aerienne\entities\TarifVol.class
 gestion_compagnie_aerienne\servlet\TrancheAgeServlet.class
+gestion_compagnie_aerienne\entities\CAGlobalParVolAvion.class
 gestion_compagnie_aerienne\entities\VolAvion.class
 gestion_compagnie_aerienne\entities\Escale.class
+gestion_compagnie_aerienne\entities\DiffusionPub.class
 gestion_compagnie_aerienne\entities\ReservationDetails.class
 gestion_compagnie_aerienne\entities\Billet.class
 gestion_compagnie_aerienne\servlet\ItineraireServlet.class

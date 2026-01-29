@@ -11,7 +11,7 @@ import java.util.List;
 public class Test {
     static void main(String[] args) throws Exception {
         List<VolDetails> volsDetails = VolDetails.findAll(VolDetails.class, QueryManager.get_instance());
-        Aeroport depTest = (Aeroport) volsDetails.getFirst().getForeignKey("id_aeroport_depart");
+        Aeroport depTest = (Aeroport) volsDetails.get(0).getForeignKey("id_aeroport_depart");
         System.out.println(depTest.getNom());
     }
 }

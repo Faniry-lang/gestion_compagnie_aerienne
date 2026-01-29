@@ -166,3 +166,22 @@ INSERT INTO historique_statut_billet (id_billet, id_statut_billet)
 VALUES
     (1, 1),
     (2, 1);
+
+INSERT INTO passager (nom, prenom, date_naissance, nationalite, numero_passeport, email, telephone) VALUES
+                        ('bebe', 'bebe', '2025-04-02', 'francais', 'EF001', 'bebemail.com', '03278456');
+
+INSERT INTO societe(nom) VALUES ('Vaniala') , ('Lewis');
+INSERT INTO cout_pub(montant) VALUES (400000);
+INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion) VALUES (1, 12, 2025, 20), (2, 12, 2025, 10);
+
+INSERT INTO payement_pub(id_societe, montant, date) VALUES (1, 1000000, '2025-12-15 10:00');
+
+
+-- Donnees pour test servlet payement pub
+
+INSERT INTO payement_pub(id_societe, montant, date) VALUES (1, 2000000, '2025-12-15 10:00');
+
+INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) VALUES (1, 1, 2026, 1, 1);
+INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) VALUES (1, 1, 2026, 1, 2);
+INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) VALUES (2, 1, 2026, 1, 2);
+INSERT INTO payement_pub(id_societe, montant, date) VALUES (1, 400000, '2026-01-23 14:00');

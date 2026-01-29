@@ -36,6 +36,9 @@ public class VolDetailsServlet extends HttpServlet {
                 case "ca":
                     processChiffreAffaire(req, resp);
                     break;
+                case "ca-vols":
+                    processCATousVols(req, resp);
+                    break;
                 default:
                     req.setAttribute("error-message", "Aucune action définie");
                     req.getRequestDispatcher("error.jsp").forward(req, resp);
@@ -180,5 +183,114 @@ public class VolDetailsServlet extends HttpServlet {
         req.setAttribute("date", date);
 
         req.getRequestDispatcher("pages/vol/vol-avion-ca.jsp").forward(req, resp);
+    }
+
+    private void processCATousVols(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String dateStr = req.getParameter("date");
+        LocalDateTime date = (dateStr != null && !dateStr.isEmpty()) ? DateParser.getLocalDateTime(dateStr, false) : LocalDateTime.now();
+
+        List<VolAvion> volAvions = VolAvion.findAll(VolAvion.class, QueryManager.get_instance());
+        List<CAGlobalParVolAvion> caGlobalList = new ArrayList<>();
+        Double coutPub = CoutPub.getLast();
+        Map<Integer, Double> societyRatioMap = new HashMap<>();
+
+        for (VolAvion va : volAvions) {
+            CAGlobalParVolAvion dto = new CAGlobalParVolAvion();
+            dto.setIdVolAvion(va.getId());
+            
+            try {
+                Vol vol = (Vol) va.getForeignKey("id_vol");
+                if (vol != null) {
+                    dto.setNumeroVol(vol.getNumeroVol());
+                    Aeroport dep = (Aeroport) vol.getForeignKey("id_aeroport_depart");
+                    Aeroport arr = (Aeroport) vol.getForeignKey("id_aeroport_arrivee");
+                    dto.setAeroportDepart(dep != null ? dep.getNom() : "-");
+                    dto.setAeroportArrivee(arr != null ? arr.getNom() : "-");
+                } else {
+                    dto.setNumeroVol("-");
+                    dto.setAeroportDepart("-");
+                    dto.setAeroportArrivee("-");
+                }
+
+                Avion avion = (Avion) va.getForeignKey("id_avion");
+                dto.setModeleAvion(avion != null ? (avion.getModele() != null ? avion.getModele() : "Avion " + avion.getId()) : "-");
+            } catch (Exception e) {
+                dto.setNumeroVol("Err");
+                dto.setAeroportDepart("-");
+                dto.setAeroportArrivee("-");
+                dto.setModeleAvion("-");
+            }
+            
+            dto.setDateDepart(va.getDateDepart());
+            
+            // alaina ny CA billet
+            dto.setCaBillet(va.getChiffreAffaire(date));
+            
+            // alaina aloha ny diffusion anah pub hoan'io vol io
+            List<Filter> filtersVA = new ArrayList<>();
+            filtersVA.add(new Filter("id_vol_avion", Comparator.EQUALS, va.getId()));
+            if (date != null) {
+                filtersVA.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
+                filtersVA.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
+            }
+            List<DiffusionPub> diffusionsVol = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), filtersVA.toArray(new Filter[0]));
+
+            double totalCaPubVol = 0.0;
+            double totalPayeParVol = 0.0;
+            
+            
+            Set<Integer> societeAyantDiffusePubDansVol = new HashSet<>();
+            for(DiffusionPub dp : diffusionsVol) societeAyantDiffusePubDansVol.add(dp.getIdSociete());
+
+            for (Integer idSociete : societeAyantDiffusePubDansVol) {
+                if (!societyRatioMap.containsKey(idSociete)) {
+                    // calculer facture hoanle societe (globalement)
+                    List<Filter> globalFilters = new ArrayList<>();
+                    globalFilters.add(new Filter("id_societe", Comparator.EQUALS, idSociete));
+                    if (date != null) {
+                        globalFilters.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
+                        globalFilters.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
+                    }
+                    List<DiffusionPub> globalDiffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), globalFilters.toArray(new Filter[0]));
+
+                    double factureGlobal = 0.0;
+                    for (DiffusionPub gdp : globalDiffusions) {
+                        factureGlobal += gdp.getNbrDiffusion() * coutPub;
+                    }
+
+
+                    Double paiementGlobal = PayementPub.getCA(idSociete, date);
+
+
+                    double ratio = (factureGlobal > 0) ? (paiementGlobal / factureGlobal) : 0.0;
+                    societyRatioMap.put(idSociete, ratio);
+                }
+                
+                double ratio = societyRatioMap.get(idSociete);
+
+
+                double revenuVolSociete = 0.0;
+                for (DiffusionPub dpf : diffusionsVol) {
+                    if (dpf.getIdSociete().equals(idSociete)) {
+                        revenuVolSociete += dpf.getNbrDiffusion() * coutPub;
+                    }
+                }
+
+                double sommePayeParSociete = revenuVolSociete * ratio;
+                totalCaPubVol += revenuVolSociete;
+                totalPayeParVol += sommePayeParSociete;
+            }
+
+            dto.setCaPub((float) totalCaPubVol);
+            dto.setTotalPaye((float) totalPayeParVol);
+            dto.setResteAPayer((float) (totalCaPubVol - totalPayeParVol));
+
+            caGlobalList.add(dto);
+        }
+
+        req.setAttribute("caGlobalList", caGlobalList);
+        req.setAttribute("date", date);
+
+        req.getRequestDispatcher("pages/vol/tous-vols-ca.jsp").forward(req, resp);
     }
 }

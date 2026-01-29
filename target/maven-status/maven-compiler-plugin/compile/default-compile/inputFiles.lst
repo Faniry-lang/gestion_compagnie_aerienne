@@ -4,7 +4,10 @@ D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compag
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Avion.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\BagagePassager.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Billet.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\CAGlobalParVolAvion.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\ClasseSiege.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\CoutPub.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\DiffusionPub.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Escale.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\ForfaitBagage.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\HistoriqueStatutAvion.java
@@ -15,11 +18,13 @@ D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compag
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Itineraire.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\LimiteBagage.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Passager.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\PayementPub.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\RemiseAgeTarif.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Reservation.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\ReservationDetails.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\ReservationPassager.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Siege.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\Societe.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\StatutAvion.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\StatutBillet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\entities\StatutReservation.java
@@ -36,7 +41,9 @@ D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compag
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\AeroportServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\AvionServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\BilletServlet.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\DiffusionPubServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\ItineraireServlet.java
+D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\PayementPubServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\RemiseAgeTarifServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\ReservationPassagerServlet.java
 D:\itu\gestion_de_projet\gestion_compagnie_aerienne\src\main\java\gestion_compagnie_aerienne\servlet\ReservationServlet.java
