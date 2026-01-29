@@ -11,6 +11,6 @@ public class EntityCodeGenerator {
         String outputFolderPath = "src/main/java";
         String packageName = "gestion_compagnie_aerienne.entities";
 
-        EntityGenerator.generateEntity("vente_produit", "TABLE", outputFolderPath, packageName);
+        EntityGenerator.generateEntity("stock_produit", "TABLE", outputFolderPath, packageName);
     }
 }

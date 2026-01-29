@@ -13,12 +13,42 @@
 ">
 
     <style>
-        .main-content { margin-left: 260px; }
+        .main-content {
+            margin-left: 260px;
+        }
 
-        @media (max-width: 900px) { .main-content { margin-left: 0; } nav { position: relative; width: 100%; height: auto; box-shadow: none; } }
-        .sidebar-link { display:flex; align-items:center; padding:10px 12px; border-radius:8px; color:inherit; text-decoration:none; background: transparent; transition: background .12s ease, transform .08s ease; }
-        .sidebar-link:hover { background: rgba(2,6,23,0.03); transform: translateY(-1px); }
-        .sidebar-icon { margin-right:12px; }
+        @media (max-width: 900px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            nav {
+                position: relative;
+                width: 100%;
+                height: auto;
+                box-shadow: none;
+            }
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: inherit;
+            text-decoration: none;
+            background: transparent;
+            transition: background .12s ease, transform .08s ease;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(2, 6, 23, 0.03);
+            transform: translateY(-1px);
+        }
+
+        .sidebar-icon {
+            margin-right: 12px;
+        }
     </style>
 
     <h1 style="
@@ -113,20 +143,26 @@
             </a>
         </li>
 
-<%--        <li>--%>
-<%--            <a href="diffusion-pub" class="sidebar-link">--%>
-<%--                <i class="fi fi-rr-bullhorn sidebar-icon" style="color:#f97316;"></i>--%>
-<%--                Diffusion Pub--%>
-<%--            </a>--%>
-<%--        </li>--%>
+        <li>
+            <a href="ca-global" class="sidebar-link">
+                <i class="fi fi-rr-stats sidebar-icon" style="color:#059669;"></i>
+                Chiffre d'affaire Global
+            </a>
+        </li>
 
-<%--        <li>--%>
-<%--            <a href="payement-pub" class="sidebar-link">--%>
-<%--                <i class="fi fi-rr-money-bill-wave sidebar-icon" style="color:#10b981;"></i>--%>
-<%--                Reste à Payer Pub--%>
-<%--            </a>--%>
-<%--        </li>--%>
+        <%-- <li>--%>
+            <%-- <a href="diffusion-pub" class="sidebar-link">--%>
+                <%-- <i class="fi fi-rr-bullhorn sidebar-icon" style="color:#f97316;"></i>--%>
+                    <%-- Diffusion Pub--%>
+                        <%-- </a>--%>
+                            <%-- </li>--%>
+
+                                <%-- <li>--%>
+                                    <%-- <a href="payement-pub" class="sidebar-link">--%>
+                                        <%-- <i class="fi fi-rr-money-bill-wave sidebar-icon"
+                                            style="color:#10b981;"></i>--%>
+                                            <%-- Reste à Payer Pub--%>
+                                                <%-- </a>--%>
+                                                    <%-- </li>--%>
     </ul>
 </nav>
-
-

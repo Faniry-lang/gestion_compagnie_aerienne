@@ -244,25 +244,7 @@ public class VolDetailsServlet extends HttpServlet {
 
             for (Integer idSociete : societeAyantDiffusePubDansVol) {
                 if (!societyRatioMap.containsKey(idSociete)) {
-                    // calculer facture hoanle societe (globalement)
-                    List<Filter> globalFilters = new ArrayList<>();
-                    globalFilters.add(new Filter("id_societe", Comparator.EQUALS, idSociete));
-                    if (date != null) {
-                        globalFilters.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
-                        globalFilters.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
-                    }
-                    List<DiffusionPub> globalDiffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), globalFilters.toArray(new Filter[0]));
-
-                    double factureGlobal = 0.0;
-                    for (DiffusionPub gdp : globalDiffusions) {
-                        factureGlobal += gdp.getNbrDiffusion() * coutPub;
-                    }
-
-
-                    Double paiementGlobal = PayementPub.getCA(idSociete, date);
-
-
-                    double ratio = (factureGlobal > 0) ? (paiementGlobal / factureGlobal) : 0.0;
+                    double ratio = PayementPub.calculateRatio(idSociete, date, coutPub);
                     societyRatioMap.put(idSociete, ratio);
                 }
                 
@@ -280,6 +262,18 @@ public class VolDetailsServlet extends HttpServlet {
                 totalCaPubVol += revenuVolSociete;
                 totalPayeParVol += sommePayeParSociete;
             }
+
+            // 5. CA Produit Extra
+            double caExtraFlight = 0.0;
+            List<Filter> vipFilters = new ArrayList<>();
+            vipFilters.add(new Filter("id_vol_avion", Comparator.EQUALS, va.getId()));
+            List<VenteProduit> ventes = VenteProduit.filter(VenteProduit.class, QueryManager.get_instance(), vipFilters.toArray(new Filter[0]));
+            for (VenteProduit vp : ventes) {
+                 if(vp.getQte() != null && vp.getPrixUnitaireDuJour() != null) {
+                    caExtraFlight += vp.getQte() * vp.getPrixUnitaireDuJour();
+                }
+            }
+            dto.setCaProduitExtra((float) caExtraFlight);
 
             dto.setCaPub((float) totalCaPubVol);
             dto.setTotalPaye((float) totalPayeParVol);

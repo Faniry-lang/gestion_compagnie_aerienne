@@ -185,3 +185,10 @@ INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) 
 INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) VALUES (1, 1, 2026, 1, 2);
 INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) VALUES (2, 1, 2026, 1, 2);
 INSERT INTO payement_pub(id_societe, montant, date) VALUES (1, 400000, '2026-01-23 14:00');
+
+-- update 29/01/26
+INSERT INTO produit_extra (descr) VALUES ('Tablette de chocolat');
+INSERT INTO prix_vente_produit (id_produit_extra, montant, date_mis_a_jour) VALUES
+((SELECT id FROM produit_extra WHERE descr = 'Tablette de chocolat'), 5000, CURRENT_TIMESTAMP);
+INSERT INTO vente_produit (id_produit_extra, qte, prix_unitaire_du_jour, date_vente) VALUES
+ ((SELECT id FROM produit_extra WHERE descr = 'Tablette de chocolat'), 1, 5000, CURRENT_TIMESTAMP);

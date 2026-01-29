@@ -304,7 +304,7 @@ CREATE TABLE diffusion_pub(
 
 ALTER TABLE diffusion_pub ADD COLUMN id_vol_avion INT REFERENCES vol_avion(id);
 
-CREATE TABLE payment_pub (
+CREATE TABLE payement_pub (
     id SERIAL PRIMARY KEY,
     id_societe INT REFERENCES societe(id),
     montant DOUBLE PRECISION,
@@ -315,6 +315,13 @@ CREATE TABLE payment_pub (
 CREATE TABLE produit_extra (
     id SERIAL PRIMARY KEY ,
     descr TEXT
+);
+
+CREATE TABLE stock_produit (
+    id SERIAL PRIMARY KEY ,
+    id_produit_extra INT REFERENCES produit_extra(id),
+    qte INT,
+    date_stock TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE prix_vente_produit (

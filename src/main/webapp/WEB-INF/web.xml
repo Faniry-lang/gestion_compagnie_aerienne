@@ -149,4 +149,14 @@
     <url-pattern>/payement-pub</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>CAGlobalServlet</servlet-name>
+    <servlet-class>gestion_compagnie_aerienne.servlet.CAGlobalServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CAGlobalServlet</servlet-name>
+    <url-pattern>/ca-global</url-pattern>
+  </servlet-mapping>
+
 </web-app>

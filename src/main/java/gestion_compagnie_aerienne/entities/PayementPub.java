@@ -146,4 +146,23 @@ public class PayementPub extends BaseEntity {
 
         return caPaye;
     }
+    public static Double calculateRatio(Integer idSociete, LocalDateTime date, Double coutPub) throws Exception {
+        List<Filter> globalFilters = new ArrayList<>();
+        globalFilters.add(new Filter("id_societe", Comparator.EQUALS, idSociete));
+        if (date != null) {
+            globalFilters.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
+            globalFilters.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
+        }
+        List<DiffusionPub> globalDiffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), globalFilters.toArray(new Filter[0]));
+
+        double globalFacture = 0.0;
+        for (DiffusionPub gdp : globalDiffusions) {
+            globalFacture += gdp.getNbrDiffusion() * coutPub;
+        }
+
+        Double paiementGlobal = PayementPub.getCA(idSociete, date);
+
+        return (globalFacture > 0) ? (paiementGlobal / globalFacture) : 0.0;
+    }
+
 }

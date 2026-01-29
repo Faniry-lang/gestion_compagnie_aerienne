@@ -13,6 +13,7 @@ public class CAGlobalParVolAvion {
     private Float caPub;
     private Float totalPaye;
     private Float resteAPayer;
+    private Float caProduitExtra;
 
     public CAGlobalParVolAvion() {
     }
@@ -97,7 +98,15 @@ public class CAGlobalParVolAvion {
         this.resteAPayer = resteAPayer;
     }
 
+    public Float getCaProduitExtra() {
+        return caProduitExtra;
+    }
+
+    public void setCaProduitExtra(Float caProduitExtra) {
+        this.caProduitExtra = caProduitExtra;
+    }
+
     public Float getTotal() {
-        return (caBillet != null ? caBillet : 0) + (caPub != null ? caPub : 0);
+        return (caBillet != null ? caBillet : 0) + (caPub != null ? caPub : 0) + (caProduitExtra != null ? caProduitExtra : 0);
     }
 }
