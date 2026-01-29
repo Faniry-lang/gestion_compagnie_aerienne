@@ -71,6 +71,7 @@ public class PayementPub extends BaseEntity {
         if (idSociete != null) {
             filters.add(new Filter("id_societe", Comparator.EQUALS, idSociete));
         }
+
         if (date != null) {
             filters.add(new Filter("date", Comparator.GREATER_THAN_OR_EQUALS, LocalDateTime.of(date.getYear(), date.getMonth(), 1, 0, 0)));
             //filters.add(new Filter("date", Comparator.LESS_THAN, LocalDateTime.of(date.getYear(), date.getMonth().plus(1), 1, 0, 0)));
@@ -87,12 +88,17 @@ public class PayementPub extends BaseEntity {
         return ca;
     }
 
-    public static Double getResteAPayer(Integer idSociete, LocalDateTime date) throws Exception {
+    public static Double getResteAPayer(Integer idSociete, LocalDateTime date, Integer idVolAvion) throws Exception {
         // Calculer le CA attendu : nbr_diffusion * cout_pub pour le mois/annee
         List<Filter> filters = new ArrayList<>();
         if (idSociete != null) {
             filters.add(new Filter("id_societe", Comparator.EQUALS, idSociete));
         }
+
+        if (idVolAvion != null) {
+            filters.add(new Filter("id_vol_avion", Comparator.EQUALS, idVolAvion));
+        }
+
         if (date != null) {
             filters.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
             filters.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
@@ -112,5 +118,32 @@ public class PayementPub extends BaseEntity {
         Double caPaye = getCA(idSociete, date);
 
         return caAttendu - caPaye;
+    }
+
+    public static Double getTotalPayerParVol(LocalDateTime date, Integer idVolAvion) throws Exception {
+        // Calculer le CA attendu : nbr_diffusion * cout_pub pour le mois/annee
+        List<Filter> filters = new ArrayList<>();
+
+        if (idVolAvion != null) {
+            filters.add(new Filter("id_vol_avion", Comparator.EQUALS, idVolAvion));
+        }
+
+        if (date != null) {
+            filters.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
+            filters.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
+        }
+
+        List<DiffusionPub> diffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
+
+        // CA payé
+        Double caPaye = 0.0;
+
+        if (diffusions != null) {
+            for (DiffusionPub dp : diffusions) {
+                caPaye += getCA(dp.getIdSociete(), date);
+            }
+        }
+
+        return caPaye;
     }
 }

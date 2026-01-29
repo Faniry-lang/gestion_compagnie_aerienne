@@ -180,3 +180,8 @@ INSERT INTO payement_pub(id_societe, montant, date) VALUES (1, 1000000, '2025-12
 -- Donnees pour test servlet payement pub
 
 INSERT INTO payement_pub(id_societe, montant, date) VALUES (1, 2000000, '2025-12-15 10:00');
+
+INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) VALUES (1, 1, 2026, 1, 1);
+INSERT INTO diffusion_pub(id_societe, mois, annee, nbr_diffusion, id_vol_avion) VALUES (1, 1, 2026, 1, 2);
+
+INSERT INTO payement_pub(id_societe, montant, date) VALUES (1, 400000, '2026-01-23 14:00');

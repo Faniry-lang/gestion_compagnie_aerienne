@@ -130,6 +130,6 @@ public class VolAvion extends BaseEntity {
             return 0f;
         }
         Double ca = ((Double) rawObjects.get(0).getData().get("ca"));
-        return Float.parseFloat(ca.toString());
+        return ca != null ? Float.parseFloat(ca.toString()) : 0f;
     }
 }

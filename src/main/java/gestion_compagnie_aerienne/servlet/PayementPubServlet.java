@@ -30,7 +30,7 @@ public class PayementPubServlet extends HttpServlet {
                 date = LocalDateTime.of(annee, mois, 1, 0, 0);
             }
 
-            Double reste = PayementPub.getResteAPayer(idSociete, date);
+            Double reste = PayementPub.getResteAPayer(idSociete, date, null);
 
             List<Societe> societes = Societe.findAll(Societe.class, QueryManager.get_instance());
 

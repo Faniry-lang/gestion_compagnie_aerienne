@@ -50,6 +50,7 @@
         <h1>Liste des vols</h1>
         <div style="display:flex; gap:10px; align-items:center;">
             <button class="btn" id="openCreateVolBtn"><i class="fi fi-rr-plus"></i>Enregistrer un vol</button>
+            <a class="btn" href="vol-details?action=ca-vols"><i class="fi fi-rr-chart-line"></i>Voir CA</a>
             <button class="filter-btn" onclick="openFilters()">
                 <i class="fi fi-rr-filter"></i> Filtres
             </button>

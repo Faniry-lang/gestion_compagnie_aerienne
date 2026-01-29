@@ -36,6 +36,9 @@ public class VolDetailsServlet extends HttpServlet {
                 case "ca":
                     processChiffreAffaire(req, resp);
                     break;
+                case "ca-vols":
+                    processCATousVols(req, resp);
+                    break;
                 default:
                     req.setAttribute("error-message", "Aucune action définie");
                     req.getRequestDispatcher("error.jsp").forward(req, resp);
@@ -180,5 +183,65 @@ public class VolDetailsServlet extends HttpServlet {
         req.setAttribute("date", date);
 
         req.getRequestDispatcher("pages/vol/vol-avion-ca.jsp").forward(req, resp);
+    }
+
+    private void processCATousVols(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String dateStr = req.getParameter("date");
+        LocalDateTime date = (dateStr != null && !dateStr.isEmpty()) ? DateParser.getLocalDateTime(dateStr, false) : LocalDateTime.now();
+        List<VolAvion> volAvions = VolAvion.findAll(VolAvion.class, QueryManager.get_instance());
+        Map<Long, Float> caBilletParVolAvion = new HashMap<>();
+        Map<Long, Float> caPubParVolAvion = new HashMap<>();
+        Map<Long, Float> caTotalParVolAvion = new HashMap<>();
+        Map<Long, Float> totalPayerParVolAvion = new HashMap<>();
+        Map<Long, Float> caAttenduMap = new HashMap<>();
+        List<VolDetails> volDetailsList = new ArrayList<>();
+
+        for (VolAvion va : volAvions) {
+            Float caBillet = va.getChiffreAffaire(date);
+            Float caPub = DiffusionPub.getRevenuPub(null, date.getMonthValue(), date.getYear(), va.getId().intValue()).floatValue();
+            Float caAttendu = 0f;
+
+            List<Filter> filtersA = new ArrayList<>();
+
+            if (date != null) {
+                filtersA.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
+                filtersA.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
+            }
+
+            List<DiffusionPub> diffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), filtersA.toArray(new Filter[0]));
+            for(DiffusionPub dp : diffusions) {
+                caAttendu += DiffusionPub.getRevenuPub(dp.getIdSociete(), date.getMonthValue(), date.getYear(), va.getId().intValue()).floatValue();
+            }
+            caAttenduMap.put(va.getId(), caAttendu);
+
+            Float totalPayer = PayementPub.getTotalPayerParVol(date, va.getId().intValue()).floatValue();
+
+            caBilletParVolAvion.put(va.getId(), caBillet);
+            caPubParVolAvion.put(va.getId(), caPub);
+            caTotalParVolAvion.put(va.getId(), caBillet + caPub);
+            totalPayerParVolAvion.put(va.getId(), totalPayer);
+
+            try {
+                List<Filter> filters = new ArrayList<>();
+                filters.add(new Filter("id_vol_avion", Comparator.EQUALS, va.getId()));
+                List<VolDetails> vds = VolDetails.filter(VolDetails.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
+                if (vds != null && !vds.isEmpty()) {
+                    volDetailsList.add(vds.get(0));
+                }
+            } catch (Exception ex) {
+                // ignore
+            }
+        }
+
+        req.setAttribute("caPubParVolAvion", caPubParVolAvion);
+        req.setAttribute("caBilletParVolAvion", caBilletParVolAvion);
+        req.setAttribute("caTotalParVolAvion", caTotalParVolAvion);
+        req.setAttribute("volAvions", volAvions);
+        req.setAttribute("volDetailsList", volDetailsList);
+        req.setAttribute("totalPayerParVolAvion", totalPayerParVolAvion);
+        req.setAttribute("caAttenduParVolAvion", caAttenduMap);
+        req.setAttribute("date", date);
+
+        req.getRequestDispatcher("pages/vol/tous-vols-ca.jsp").forward(req, resp);
     }
 }

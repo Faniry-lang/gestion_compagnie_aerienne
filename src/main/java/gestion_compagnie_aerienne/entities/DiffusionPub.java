@@ -25,6 +25,10 @@ public class DiffusionPub extends BaseEntity {
     @ForeignKey(mappedBy = "societe", entity = Societe.class)
     private Integer idSociete;
 
+    @Column(name = "id_vol_avion")
+    @ForeignKey(mappedBy = "vol_avion", entity = VolAvion.class)
+    private Integer idVolAvion;
+
     @Column
     private Integer mois;
 
@@ -74,25 +78,42 @@ public class DiffusionPub extends BaseEntity {
         this.nbrDiffusion = nbrDiffusion;
     }
 
-    public Double getCA(Integer idSociete, Integer mois, Integer annee) throws Exception {
+    public Integer getIdVolAvion() {
+        return idVolAvion;
+    }
+
+    public void setIdVolAvion(Integer idVolAvion) {
+        this.idVolAvion = idVolAvion;
+    }
+
+    public static Double getRevenuPub(Integer idSociete, Integer mois, Integer annee, Integer id_vol_avion) throws Exception {
         List<Filter> filters = new ArrayList<>();
 
-        if(idSociete != null) {
-            filters.add(new Filter("id_societe" , Comparator.EQUALS, idSociete));
+        if (idSociete != null) {
+            filters.add(new Filter("id_societe", Comparator.EQUALS, idSociete));
         }
-        if(mois != null && annee != null) {
-            filters.add(new Filter("mois" , Comparator.EQUALS, mois));
-            filters.add(new Filter("annee" , Comparator.EQUALS, annee));
+
+        if (mois != null) {
+            filters.add(new Filter("mois", Comparator.EQUALS, mois));
         }
+
+        if (annee != null) {
+            filters.add(new Filter("annee", Comparator.EQUALS, annee));
+        }
+
+        if (id_vol_avion != null) {
+            filters.add(new Filter("id_vol_avion", Comparator.EQUALS, id_vol_avion));
+        }
+
         List<DiffusionPub> diffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
+
+        Double totalRevenu = 0.0;
         Double coutPub = CoutPub.getLast();
-        Double ca = 0.0;
-        
-        if(diffusions != null) {
-            for(DiffusionPub dp : diffusions) {
-                ca += dp.getNbrDiffusion() * coutPub;
-            }
+
+        for (DiffusionPub diffusion : diffusions) {
+            totalRevenu += diffusion.getNbrDiffusion() * coutPub;
         }
-        return ca;
+
+        return totalRevenu;
     }
 }

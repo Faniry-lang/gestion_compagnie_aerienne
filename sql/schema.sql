@@ -298,5 +298,8 @@ CREATE TABLE diffusion_pub(
     id_societe INT REFERENCES societe(id),
     mois INT,
     annee INT,
-    nbr_diffusion INT
+    nbr_diffusion INT,
+    id_vol_avion INT REFERENCES vol_avion(id)
 );
+
+ALTER TABLE diffusion_pub ADD COLUMN id_vol_avion INT REFERENCES vol_avion(id);
