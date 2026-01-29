@@ -188,58 +188,107 @@ public class VolDetailsServlet extends HttpServlet {
     private void processCATousVols(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String dateStr = req.getParameter("date");
         LocalDateTime date = (dateStr != null && !dateStr.isEmpty()) ? DateParser.getLocalDateTime(dateStr, false) : LocalDateTime.now();
+
         List<VolAvion> volAvions = VolAvion.findAll(VolAvion.class, QueryManager.get_instance());
-        Map<Long, Float> caBilletParVolAvion = new HashMap<>();
-        Map<Long, Float> caPubParVolAvion = new HashMap<>();
-        Map<Long, Float> caTotalParVolAvion = new HashMap<>();
-        Map<Long, Float> totalPayerParVolAvion = new HashMap<>();
-        Map<Long, Float> caAttenduMap = new HashMap<>();
-        List<VolDetails> volDetailsList = new ArrayList<>();
+        List<CAGlobalParVolAvion> caGlobalList = new ArrayList<>();
+        Double coutPub = CoutPub.getLast();
+        Map<Integer, Double> societyRatioMap = new HashMap<>();
 
         for (VolAvion va : volAvions) {
-            Float caBillet = va.getChiffreAffaire(date);
-            Float caPub = DiffusionPub.getRevenuPub(null, date.getMonthValue(), date.getYear(), va.getId().intValue()).floatValue();
-            Float caAttendu = 0f;
-
-            List<Filter> filtersA = new ArrayList<>();
-
-            if (date != null) {
-                filtersA.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
-                filtersA.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
-            }
-
-            List<DiffusionPub> diffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), filtersA.toArray(new Filter[0]));
-            for(DiffusionPub dp : diffusions) {
-                caAttendu += DiffusionPub.getRevenuPub(dp.getIdSociete(), date.getMonthValue(), date.getYear(), va.getId().intValue()).floatValue();
-            }
-            caAttenduMap.put(va.getId(), caAttendu);
-
-            Float totalPayer = PayementPub.getTotalPayerParVol(date, va.getId().intValue()).floatValue();
-
-            caBilletParVolAvion.put(va.getId(), caBillet);
-            caPubParVolAvion.put(va.getId(), caPub);
-            caTotalParVolAvion.put(va.getId(), caBillet + caPub);
-            totalPayerParVolAvion.put(va.getId(), totalPayer);
-
+            CAGlobalParVolAvion dto = new CAGlobalParVolAvion();
+            dto.setIdVolAvion(va.getId());
+            
             try {
-                List<Filter> filters = new ArrayList<>();
-                filters.add(new Filter("id_vol_avion", Comparator.EQUALS, va.getId()));
-                List<VolDetails> vds = VolDetails.filter(VolDetails.class, QueryManager.get_instance(), filters.toArray(new Filter[0]));
-                if (vds != null && !vds.isEmpty()) {
-                    volDetailsList.add(vds.get(0));
+                Vol vol = (Vol) va.getForeignKey("id_vol");
+                if (vol != null) {
+                    dto.setNumeroVol(vol.getNumeroVol());
+                    Aeroport dep = (Aeroport) vol.getForeignKey("id_aeroport_depart");
+                    Aeroport arr = (Aeroport) vol.getForeignKey("id_aeroport_arrivee");
+                    dto.setAeroportDepart(dep != null ? dep.getNom() : "-");
+                    dto.setAeroportArrivee(arr != null ? arr.getNom() : "-");
+                } else {
+                    dto.setNumeroVol("-");
+                    dto.setAeroportDepart("-");
+                    dto.setAeroportArrivee("-");
                 }
-            } catch (Exception ex) {
-                // ignore
+
+                Avion avion = (Avion) va.getForeignKey("id_avion");
+                dto.setModeleAvion(avion != null ? (avion.getModele() != null ? avion.getModele() : "Avion " + avion.getId()) : "-");
+            } catch (Exception e) {
+                dto.setNumeroVol("Err");
+                dto.setAeroportDepart("-");
+                dto.setAeroportArrivee("-");
+                dto.setModeleAvion("-");
             }
+            
+            dto.setDateDepart(va.getDateDepart());
+            
+            // alaina ny CA billet
+            dto.setCaBillet(va.getChiffreAffaire(date));
+            
+            // alaina aloha ny diffusion anah pub hoan'io vol io
+            List<Filter> filtersVA = new ArrayList<>();
+            filtersVA.add(new Filter("id_vol_avion", Comparator.EQUALS, va.getId()));
+            if (date != null) {
+                filtersVA.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
+                filtersVA.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
+            }
+            List<DiffusionPub> diffusionsVol = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), filtersVA.toArray(new Filter[0]));
+
+            double totalCaPubVol = 0.0;
+            double totalPayeParVol = 0.0;
+            
+            
+            Set<Integer> societeAyantDiffusePubDansVol = new HashSet<>();
+            for(DiffusionPub dp : diffusionsVol) societeAyantDiffusePubDansVol.add(dp.getIdSociete());
+
+            for (Integer idSociete : societeAyantDiffusePubDansVol) {
+                if (!societyRatioMap.containsKey(idSociete)) {
+                    // calculer facture hoanle societe (globalement)
+                    List<Filter> globalFilters = new ArrayList<>();
+                    globalFilters.add(new Filter("id_societe", Comparator.EQUALS, idSociete));
+                    if (date != null) {
+                        globalFilters.add(new Filter("mois", Comparator.EQUALS, date.getMonthValue()));
+                        globalFilters.add(new Filter("annee", Comparator.EQUALS, date.getYear()));
+                    }
+                    List<DiffusionPub> globalDiffusions = DiffusionPub.filter(DiffusionPub.class, QueryManager.get_instance(), globalFilters.toArray(new Filter[0]));
+
+                    double factureGlobal = 0.0;
+                    for (DiffusionPub gdp : globalDiffusions) {
+                        factureGlobal += gdp.getNbrDiffusion() * coutPub;
+                    }
+
+
+                    Double paiementGlobal = PayementPub.getCA(idSociete, date);
+
+
+                    double ratio = (factureGlobal > 0) ? (paiementGlobal / factureGlobal) : 0.0;
+                    societyRatioMap.put(idSociete, ratio);
+                }
+                
+                double ratio = societyRatioMap.get(idSociete);
+
+
+                double revenuVolSociete = 0.0;
+                for (DiffusionPub dpf : diffusionsVol) {
+                    if (dpf.getIdSociete().equals(idSociete)) {
+                        revenuVolSociete += dpf.getNbrDiffusion() * coutPub;
+                    }
+                }
+
+                double sommePäyeParSociete = revenuVolSociete * ratio;
+                totalCaPubVol += revenuVolSociete;
+                totalPayeParVol += sommePäyeParSociete;
+            }
+
+            dto.setCaPub((float) totalCaPubVol);
+            dto.setTotalPaye((float) totalPayeParVol);
+            dto.setResteAPayer((float) (totalCaPubVol - totalPayeParVol));
+
+            caGlobalList.add(dto);
         }
 
-        req.setAttribute("caPubParVolAvion", caPubParVolAvion);
-        req.setAttribute("caBilletParVolAvion", caBilletParVolAvion);
-        req.setAttribute("caTotalParVolAvion", caTotalParVolAvion);
-        req.setAttribute("volAvions", volAvions);
-        req.setAttribute("volDetailsList", volDetailsList);
-        req.setAttribute("totalPayerParVolAvion", totalPayerParVolAvion);
-        req.setAttribute("caAttenduParVolAvion", caAttenduMap);
+        req.setAttribute("caGlobalList", caGlobalList);
         req.setAttribute("date", date);
 
         req.getRequestDispatcher("pages/vol/tous-vols-ca.jsp").forward(req, resp);

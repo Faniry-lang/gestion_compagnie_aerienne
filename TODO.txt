@@ -1,0 +1,34 @@
+la facture d'une societe est globale, pour toutes ses diffusions peu importe le vol
+    -ex: Vaniala a 3 diffusions dans trois vol distincts
+        -le prix d'une diffusion est de 400 000 Ariary
+on a besoin d'obtenir les informations suivantes:
+    -le revenu possible de chaque volAvion (CAPUB) c'est à dire pour chaque volAvion:
+        -on regarde les diffusions de pub et on fait * cout_pub pour obtenir un revenu max
+    -le total payer pour toutes les société pour chaque vol
+    -le reste à payer pour toutes les société pour chaque vol
+
+Calcul du reste à payer/total payé
+    -si Vaniala a payé globalement 200 000 Ariary pour toutes ses diffusions et que sa facture montre
+    qu'elle doit payé 800 000 Ariary c'est à dire qu'elle a fait 2 diffusions dans notre exemple (soit 2 * 400k Ariary et diffusé dans 2 vols différents ou un meme vol, les deux sont corrects)
+    alors pour chaque vol où Vaniala a fait des diffusions le total payé est de 25% pour chaque volAvion et on calcule le reste à payer et le total à payer a partir de ce pourcentage
+
+    -exempe: Vaniala a une facture de 800 000 Ariary car elle fait 2 diffusions dans vol 1 et vol 2
+            -dans vol 1 son CAPUB est de 400 000 car il a eu une diffusion de Vaniala, pareil dans vol 2
+            -Vaniala a payé 200 000 ce qui est 25 % de sa facture
+            -dans vol 1 et vol 2 le total payé est de 25% de 400 000 chacun
+
+A faire modifier VolDetailsServlet et la page tous-vol-ca.jsp pour suivre ce workflow, créer un DTO CAGlobalParVolAvion pour afficher les informations dans tous-ca-vol.jsp
+le DTO contiendra tous les champs du tableau.
+
+Proposition de refonte de la fonction pour retourner le CAGlobalParVolAvion d'un VolAvion:
+    -argument: idVolAvion, date
+    -d'abord cherchez touts les societes qui ont fait une diffusion dans ce VolAvion
+    -declarer les variables CAPub (le revenu max), le total payé et le reste a payer
+        -boucler et calculer ce que chaque société a déjà payé globalement et ce qu'elle doit globalement (la facture) (sum de diffusion * cout_pub pour la societe globalement)
+        -calculer le pourcentage
+        -calculer caAttendu (CApub ou revenu max) pour le vol en question pour cette societe en question (nbr diffusion durant ce volAvion pour cette societe * cout_pub)
+        -calculer le totalPaye et resteApayer en fonction du pourcentage et mettre dans des variables locales dans la boucle
+        -ajouter les valeurs des variabels locales aux variables en dehors de la boucle et continuez la boucle avec la prochaine société
+    -retourner l'objet CAGlobalParVolAvion
+    (on oubliera pas de calculer le CA des billets comme dans le code actuel qui est deja fonctionnel)
+faire une boucle pour tous vol avions et afficher une liste de CAGlobalParVolAvion dans tous-vol-ca.jsp

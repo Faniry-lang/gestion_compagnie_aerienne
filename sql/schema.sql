@@ -303,3 +303,10 @@ CREATE TABLE diffusion_pub(
 );
 
 ALTER TABLE diffusion_pub ADD COLUMN id_vol_avion INT REFERENCES vol_avion(id);
+
+CREATE TABLE payment_pub (
+    id SERIAL PRIMARY KEY,
+    id_societe INT REFERENCES societe(id),
+    montant DOUBLE PRECISION,
+    date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
