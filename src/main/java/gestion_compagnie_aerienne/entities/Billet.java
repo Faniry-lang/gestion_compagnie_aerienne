@@ -15,7 +15,7 @@ public class Billet extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_passager")
     @ForeignKey(mappedBy = "passager", entity = Passager.class)
@@ -44,11 +44,11 @@ public class Billet extends BaseEntity {
     @ForeignKey(mappedBy = "reservation_passager", entity = ReservationPassager.class)
     private Integer idReservationPassager;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

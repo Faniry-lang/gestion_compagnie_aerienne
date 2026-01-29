@@ -16,7 +16,7 @@ public class ReservationDetails extends BaseView {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column
     private String reference;
@@ -30,11 +30,11 @@ public class ReservationDetails extends BaseView {
     @Column(name = "montant_total")
     private Float montantTotal;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

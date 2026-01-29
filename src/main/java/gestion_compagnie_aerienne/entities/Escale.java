@@ -14,7 +14,7 @@ public class Escale extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_vol_avion")
     private Integer idVolAvion;
@@ -25,11 +25,11 @@ public class Escale extends BaseEntity {
     @Column(name = "id_itineraire")
     private Integer idItineraire;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

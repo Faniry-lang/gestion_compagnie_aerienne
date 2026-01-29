@@ -94,7 +94,7 @@ public class BilletServlet extends HttpServlet {
                     sql, idAvion);
             List<Integer> ids = new ArrayList<>();
             for(Billet b : billets) {
-                ids.add(b.getId().intValue());
+                ids.add(b.getId());
             }
             if(!ids.isEmpty()) {
                 filters.add(new Filter("id", Comparator.IN, ids));
@@ -112,7 +112,7 @@ public class BilletServlet extends HttpServlet {
             idReservation = Integer.parseInt(idReservationStr);
             List<Billet> Billets = Billet.fetch(Billet.class, QueryManager.get_instance(),
                     "SELECT * FROM reservation_passager WHERE id_reservation = ? ", idReservation);
-            List<Long> ids = new java.util.ArrayList<>();
+            List<Integer> ids = new java.util.ArrayList<>();
             for(Billet rp : Billets) {
                 ids.add(rp.getId());
             }

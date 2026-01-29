@@ -3,7 +3,7 @@ package gestion_compagnie_aerienne.entities;
 import java.time.LocalDateTime;
 
 public class CAGlobalParVolAvion {
-    private Long idVolAvion;
+    private Integer idVolAvion;
     private String numeroVol;
     private String aeroportDepart;
     private String aeroportArrivee;
@@ -17,11 +17,11 @@ public class CAGlobalParVolAvion {
     public CAGlobalParVolAvion() {
     }
 
-    public Long getIdVolAvion() {
+    public Integer getIdVolAvion() {
         return idVolAvion;
     }
 
-    public void setIdVolAvion(Long idVolAvion) {
+    public void setIdVolAvion(Integer idVolAvion) {
         this.idVolAvion = idVolAvion;
     }
 

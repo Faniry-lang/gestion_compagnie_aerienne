@@ -12,8 +12,8 @@
     Vol vol = (Vol) request.getAttribute("vol");
     Avion avion = (Avion) request.getAttribute("avion");
 
-    Map<Long, List<Siege>> siegesParClasse = new HashMap<>();
-    Map<Long, ClasseSiege> classesMap = new HashMap<>();
+    Map<Integer, List<Siege>> siegesParClasse = new HashMap<>();
+    Map<Integer, ClasseSiege> classesMap = new HashMap<>();
 
     if(siegesDisponibles != null) {
         for(Map.Entry<Siege, Boolean> entry : siegesDisponibles.entrySet()) {
@@ -22,7 +22,7 @@
             if(available != null && available) {
                 ClasseSiege classeSiege = siege.getForeignKey("id_classe_siege");
                 if(classeSiege != null) {
-                    Long classeId = classeSiege.getId();
+                    Integer classeId = classeSiege.getId();
                     if(!siegesParClasse.containsKey(classeId)) {
                         siegesParClasse.put(classeId, new ArrayList<Siege>());
                         classesMap.put(classeId, classeSiege);
@@ -489,8 +489,8 @@
                     <p>Aucun siège disponible pour ce vol.</p>
                 </div>
                 <% } else {
-                    for(Map.Entry<Long, List<Siege>> entry : siegesParClasse.entrySet()) {
-                        Long classeId = entry.getKey();
+                    for(Map.Entry<Integer, List<Siege>> entry : siegesParClasse.entrySet()) {
+                        Integer classeId = entry.getKey();
                         List<Siege> sieges = entry.getValue();
                         ClasseSiege classe = classesMap.get(classeId);
                 %>
@@ -506,7 +506,7 @@
                             <%= sieges.size() %> siège<%= sieges.size() > 1 ? "s" : "" %> disponible<%= sieges.size() > 1 ? "s" : "" %>
                         </div>
                         <div class="classe-price" style="margin-left:12px; font-weight:700; color:#0f172a;">
-                            <% Float priceForClasse = 0f; Map<Long, Float> tarifsMap = (Map<Long, Float>) request.getAttribute("tarifsMap"); if(tarifsMap != null && tarifsMap.containsKey(classeId)) { priceForClasse = tarifsMap.get(classeId); } %>
+                            <% Float priceForClasse = 0f; Map<Integer, Float> tarifsMap = (Map<Integer, Float>) request.getAttribute("tarifsMap"); if(tarifsMap != null && tarifsMap.containsKey(classeId)) { priceForClasse = tarifsMap.get(classeId); } %>
                             <span>Prix: </span><span class="price-value" data-price="<%= priceForClasse %>"><%= priceForClasse %> €</span>
                         </div>
                     </div>

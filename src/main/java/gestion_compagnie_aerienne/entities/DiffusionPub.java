@@ -19,7 +19,7 @@ public class DiffusionPub extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_societe")
     @ForeignKey(mappedBy = "societe", entity = Societe.class)
@@ -38,11 +38,11 @@ public class DiffusionPub extends BaseEntity {
     @Column(name = "nbr_diffusion")
     private Integer nbrDiffusion;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
