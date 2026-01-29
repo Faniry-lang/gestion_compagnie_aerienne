@@ -276,9 +276,9 @@ public class VolDetailsServlet extends HttpServlet {
                     }
                 }
 
-                double sommePäyeParSociete = revenuVolSociete * ratio;
+                double sommePayeParSociete = revenuVolSociete * ratio;
                 totalCaPubVol += revenuVolSociete;
-                totalPayeParVol += sommePäyeParSociete;
+                totalPayeParVol += sommePayeParSociete;
             }
 
             dto.setCaPub((float) totalCaPubVol);
