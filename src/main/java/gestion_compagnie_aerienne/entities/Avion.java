@@ -16,7 +16,7 @@ public class Avion extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_type_avion")
     @ForeignKey(mappedBy = "type_avion", entity = TypeAvion.class)
@@ -34,11 +34,11 @@ public class Avion extends BaseEntity {
     @Column(name = "date_mise_service")
     private LocalDate dateMiseService;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

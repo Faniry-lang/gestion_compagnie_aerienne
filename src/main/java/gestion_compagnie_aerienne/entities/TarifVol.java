@@ -18,7 +18,7 @@ public class TarifVol extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_vol")
     @ForeignKey(mappedBy = "vol", entity = Vol.class)
@@ -34,11 +34,11 @@ public class TarifVol extends BaseEntity {
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -96,7 +96,7 @@ public class TarifVol extends BaseEntity {
         RemiseAgeTarif remise = RemiseAgeTarif.getRemise(
                 tarifVol.getIdVol(),
                 tarifVol.getIdClasseSiege(),
-                trancheAge.getId().intValue(),
+                trancheAge.getId(),
                 date
         );
         System.out.println("[DEBUG AVION] TarifVol.getMontantTarif: [idVol] : "+tarifVol.getIdVol()+" [idClasseSiege]: "+tarifVol.getIdClasseSiege()+" [idTrancheAge] : "+trancheAge.getId()+" [created_on]: "+tarifVol.getCreatedOn());

@@ -113,19 +113,19 @@
             </a>
         </li>
 
-        <li>
-            <a href="diffusion-pub" class="sidebar-link">
-                <i class="fi fi-rr-bullhorn sidebar-icon" style="color:#f97316;"></i>
-                Diffusion Pub
-            </a>
-        </li>
+<%--        <li>--%>
+<%--            <a href="diffusion-pub" class="sidebar-link">--%>
+<%--                <i class="fi fi-rr-bullhorn sidebar-icon" style="color:#f97316;"></i>--%>
+<%--                Diffusion Pub--%>
+<%--            </a>--%>
+<%--        </li>--%>
 
-        <li>
-            <a href="payement-pub" class="sidebar-link">
-                <i class="fi fi-rr-money-bill-wave sidebar-icon" style="color:#10b981;"></i>
-                Reste à Payer Pub
-            </a>
-        </li>
+<%--        <li>--%>
+<%--            <a href="payement-pub" class="sidebar-link">--%>
+<%--                <i class="fi fi-rr-money-bill-wave sidebar-icon" style="color:#10b981;"></i>--%>
+<%--                Reste à Payer Pub--%>
+<%--            </a>--%>
+<%--        </li>--%>
     </ul>
 </nav>
 

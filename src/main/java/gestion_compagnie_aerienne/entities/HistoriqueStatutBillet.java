@@ -15,7 +15,7 @@ public class HistoriqueStatutBillet extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_billet")
     private Integer idBillet;
@@ -26,11 +26,11 @@ public class HistoriqueStatutBillet extends BaseEntity {
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

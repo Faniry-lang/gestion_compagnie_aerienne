@@ -14,7 +14,7 @@ public class LimiteBagage extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "volume_max")
     private Float volumeMax;
@@ -25,11 +25,11 @@ public class LimiteBagage extends BaseEntity {
     @Column(name = "pieces_max")
     private Integer piecesMax;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -15,7 +15,7 @@ public class Passager extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column
     private String nom;
@@ -38,11 +38,11 @@ public class Passager extends BaseEntity {
     @Column
     private String telephone;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

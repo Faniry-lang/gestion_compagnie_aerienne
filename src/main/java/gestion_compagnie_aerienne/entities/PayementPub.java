@@ -21,7 +21,7 @@ public class PayementPub extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_societe")
     @ForeignKey(mappedBy = "societe", entity = Societe.class)
@@ -33,11 +33,11 @@ public class PayementPub extends BaseEntity {
     @Column
     private LocalDateTime date;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

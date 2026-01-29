@@ -21,7 +21,7 @@ public class VolAvion extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_vol")
     @ForeignKey(mappedBy = "vol", entity = Vol.class)
@@ -40,11 +40,11 @@ public class VolAvion extends BaseEntity {
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -104,7 +104,7 @@ public class VolAvion extends BaseEntity {
         List<RawObject> rawObjects = this.getQueryManager().executeSelect(sql, this.id, this.idAvion);
         Map<Siege, Boolean> siegesDisponibles = new java.util.HashMap<>();
         for(RawObject ro : rawObjects) {
-            Long id = ((Integer) ro.getData().get("id")).longValue();
+            Integer id = ((Integer) ro.getData().get("id"));
             Integer idAvion = (Integer) ro.getData().get("id_avion");
             String numeroSiege = (String) ro.getData().get("numero_siege");
             Integer idClasseSiege = (Integer) ro.getData().get("id_classe_siege");

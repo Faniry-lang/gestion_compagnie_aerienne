@@ -43,16 +43,16 @@ public class ReservationServlet extends HttpServlet {
                         throw new Exception("Plus aucun siege disponible pour le vol N°"+vol.getNumeroVol());
                     }
 
-                    Map<Long, Float> tarifsMap = new HashMap<>();
+                    Map<Integer, Float> tarifsMap = new HashMap<>();
                     for(Map.Entry<Siege, Boolean> entry : siegesDisponibles.entrySet()) {
                         Siege siege = entry.getKey();
                         Boolean available = entry.getValue();
                         if(available != null && available) {
                             ClasseSiege classeSiege = siege.getForeignKey("id_classe_siege");
                             if(classeSiege != null) {
-                                Long classeId = classeSiege.getId();
+                                Integer classeId = classeSiege.getId();
                                 if(!tarifsMap.containsKey(classeId)) {
-                                    TarifVol t = TarifVol.getTarifVol(vol.getId().intValue(), classeId.intValue(), volAvion.getDateDepart());
+                                    TarifVol t = TarifVol.getTarifVol(vol.getId(), classeId, volAvion.getDateDepart());
                                     if(t != null && t.getMontant() != null) tarifsMap.put(classeId, t.getMontant());
                                     else tarifsMap.put(classeId, 0f);
                                 }
@@ -145,7 +145,7 @@ public class ReservationServlet extends HttpServlet {
 
     private Integer getClasseSiegeIdForSiege(Integer idSiege) {
         try {
-            Siege s = Siege.findById(idSiege.longValue(), Siege.class, QueryManager.get_instance());
+            Siege s = Siege.findById(idSiege, Siege.class, QueryManager.get_instance());
             if(s != null) return s.getIdClasseSiege();
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,8 +187,8 @@ public class ReservationServlet extends HttpServlet {
         }
 
         HistoriqueStatutReservation hsr = new HistoriqueStatutReservation();
-        hsr.setIdReservation(savedReservation.getId().intValue());
-        hsr.setIdStatutReservation(statutReservation.get(0).getId().intValue());
+        hsr.setIdReservation(savedReservation.getId());
+        hsr.setIdStatutReservation(statutReservation.get(0).getId());
         hsr.setCreatedOn(LocalDateTime.now());
         hsr.save();
 
@@ -199,17 +199,17 @@ public class ReservationServlet extends HttpServlet {
             seatIndex++;
 
             ReservationPassager rp = new ReservationPassager();
-            rp.setIdReservation(reservation.getId().intValue());
+            rp.setIdReservation(reservation.getId());
             rp.setIdPassager(idPassager);
             rp.setIdSiege(idSiege);
 
             rp.setIdVol(volAvion.getIdVol());
-            rp.setIdVolAvion(volAvion.getId().intValue());
+            rp.setIdVolAvion(volAvion.getId());
 
             Passager passager = rp.getForeignKey("id_passager");
             TrancheAge trancheAge = passager.getTrancheAge(dateReservation.toLocalDate());
 
-            Siege s = Siege.findById(idSiege.longValue(), Siege.class, QueryManager.get_instance());
+            Siege s = Siege.findById(idSiege, Siege.class, QueryManager.get_instance());
             Float montant = 0f;
             if(s != null && s.getIdClasseSiege() != null) {
                 TarifVol t = TarifVol.getTarifVol(volAvion.getIdVol(), s.getIdClasseSiege(), volAvion.getDateDepart());
@@ -235,7 +235,7 @@ public class ReservationServlet extends HttpServlet {
             throw new Exception("Aucune réservation trouvée pour l'id " + idReservationStr);
         }
 
-        List<ReservationPassager> rps = ReservationPassager.findBy("id_reservation", reservation.getId().intValue(),
+        List<ReservationPassager> rps = ReservationPassager.findBy("id_reservation", reservation.getId(),
                 ReservationPassager.class, QueryManager.get_instance());
 
         List<StatutReservation> sr = StatutReservation.findBy("libelle", "Payee",
@@ -253,12 +253,12 @@ public class ReservationServlet extends HttpServlet {
                 billet.setIdSiege(rp.getIdSiege());
                 billet.setPrix(rp.getPrix());
                 billet.setIdClasseSiege(rp.getIdSiege() != null ? getClasseSiegeIdForSiege(rp.getIdSiege()) : null);
-                billet.setIdReservationPassager(rp.getId().intValue());
+                billet.setIdReservationPassager(rp.getId());
                 billet.save();
         }
         HistoriqueStatutReservation hsr = new HistoriqueStatutReservation();
-        hsr.setIdReservation(reservation.getId().intValue());
-        hsr.setIdStatutReservation(sr.get(0).getId().intValue());
+        hsr.setIdReservation(reservation.getId());
+        hsr.setIdStatutReservation(sr.get(0).getId());
         hsr.setCreatedOn(LocalDateTime.now());
         hsr.save();
 

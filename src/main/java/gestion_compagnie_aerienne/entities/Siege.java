@@ -15,7 +15,7 @@ public class Siege extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_avion")
     @ForeignKey(mappedBy = "avion", entity = Avion.class)
@@ -28,11 +28,11 @@ public class Siege extends BaseEntity {
     @ForeignKey(mappedBy = "classe_siege", entity = ClasseSiege.class)
     private Integer idClasseSiege;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

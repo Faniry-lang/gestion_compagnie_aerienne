@@ -15,7 +15,7 @@ public class Itineraire extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_aeroport_depart")
     @ForeignKey(mappedBy = "aeroport", entity = Aeroport.class)
@@ -31,11 +31,11 @@ public class Itineraire extends BaseEntity {
     @Column(name = "duree_moyenne_estimee")
     private Integer dureeMoyenneEstimee;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

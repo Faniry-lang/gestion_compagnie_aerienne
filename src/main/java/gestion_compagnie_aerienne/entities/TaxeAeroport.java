@@ -14,7 +14,7 @@ public class TaxeAeroport extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "id_aeroport")
     private Integer idAeroport;
@@ -22,11 +22,11 @@ public class TaxeAeroport extends BaseEntity {
     @Column
     private Float montant;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

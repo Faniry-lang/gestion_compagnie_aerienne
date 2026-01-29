@@ -15,7 +15,7 @@ public class ForfaitBagage extends BaseEntity {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column(name = "nom_forfait")
     private String nomForfait;
@@ -35,11 +35,11 @@ public class ForfaitBagage extends BaseEntity {
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
