@@ -310,3 +310,25 @@ CREATE TABLE payment_pub (
     montant DOUBLE PRECISION,
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- update 29/01/26
+CREATE TABLE produit_extra (
+    id SERIAL PRIMARY KEY ,
+    descr TEXT
+);
+
+CREATE TABLE prix_vente_produit (
+    id SERIAL PRIMARY KEY,
+    id_produit_extra INT REFERENCES produit_extra(id),
+    montant DOUBLE PRECISION,
+    date_mis_a_jour TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE vente_produit (
+    id SERIAL PRIMARY KEY,
+    id_produit_extra INT REFERENCES produit_extra(id),
+    qte INT,
+    prix_unitaire_du_jour DOUBLE PRECISION,
+    id_vol_avion INT REFERENCES vol_avion(id),
+    date_vente TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
